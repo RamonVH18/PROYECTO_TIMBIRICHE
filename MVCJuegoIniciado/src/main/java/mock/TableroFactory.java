@@ -14,17 +14,18 @@ import vistas.TableroJuego;
 public class TableroFactory {
 
     public static TableroJuego crearTablero(TamañosTablero tamaño) {
-        int filas = 15;
-        int columnas = 15;
-        int distancia = 50;
+        Integer filas = tamaño.getColumnas();
+        Integer columnas = tamaño.getColumnas();
+        Integer distancia = tamaño.getDistanciaPuntos();
+        Integer tamañoPunto = tamaño.getTamañoPunto();
 
         Point[][] puntos = new Point[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                puntos[i][j] = new Point(j * distancia + 50, i * distancia + 50);
+                puntos[i][j] = new Point((j+1) * distancia, (i+1) * distancia);
             }
         }
 
-        return new TableroJuego(puntos);
+        return new TableroJuego(puntos, distancia, tamañoPunto);
     }
 }

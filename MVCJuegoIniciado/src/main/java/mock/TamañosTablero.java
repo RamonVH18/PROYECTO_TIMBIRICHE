@@ -9,16 +9,20 @@ package mock;
  * @author Ramon Valencia
  */
 public enum TamañosTablero {
-    PEQUEÑO(100,100),
-    MEDIANO(20, 20),
-    GRANDE(30, 30);
+    PEQUEÑO(10,10, 50, 20),
+    MEDIANO(20, 20, 40, 15),
+    GRANDE(30, 30, 30, 10);
     
-    private final int filas;
-    private final int columnas;
+    private final Integer filas;
+    private final Integer columnas;
+    private final Integer distanciaPuntos; 
+    private final Integer tamañoPunto;
 
-    TamañosTablero(int filas, int columnas) {
+    TamañosTablero(int filas, int columnas, int distanciaPuntos, int tamañoPunto) {
         this.filas = filas;
         this.columnas = columnas;
+        this.distanciaPuntos = distanciaPuntos;
+        this.tamañoPunto = tamañoPunto;
     }
 
     public int getFilas() {
@@ -27,5 +31,13 @@ public enum TamañosTablero {
 
     public int getColumnas() {
         return columnas;
+    }
+
+    public Integer getDistanciaPuntos() {
+        return distanciaPuntos;
+    }
+
+    public Integer getTamañoPunto() {
+        return tamañoPunto;
     }
 }

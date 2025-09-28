@@ -27,10 +27,12 @@ public class TableroJuego extends JPanel {
     List<Linea> lineas = new ArrayList<>();
     Integer largo;
     Integer ancho;
-    Integer distanciaPuntos = 50;
-    Integer tamañoPunto = 20;
+    Integer distanciaPuntos;
+    Integer tamañoPunto;
 
-    public TableroJuego(Point[][] matrizPuntos) {
+    public TableroJuego(Point[][] matrizPuntos, Integer distancia, Integer tamaño) {
+        distanciaPuntos = distancia;
+        tamañoPunto = tamaño;
         matriz = matrizPuntos;
         generarTablero();
         generarLineas();

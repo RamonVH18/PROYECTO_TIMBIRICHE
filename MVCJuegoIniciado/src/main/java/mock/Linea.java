@@ -30,8 +30,7 @@ public class Linea extends JComponent {
         this.puntoA = a;
         this.puntoB = b;
         this.orientacion = orientacion;
-        this.estado = EstadoLinea.LIBRE; // por defecto
-        agregarEventosMouse();
+        this.estado = EstadoLinea.LIBRE; 
     }
 
     @Override
@@ -50,24 +49,6 @@ public class Linea extends JComponent {
         }
         g2.setStroke(new BasicStroke(grosorLinea));
         g.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
-    }
-    
-    public void agregarEventosMouse() {
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (estado == EstadoLinea.LIBRE) {
-                    estado = EstadoLinea.OCUPADA; // cambiar estado
-                    repaint();
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                hover = false;
-                repaint();
-            }
-        });
     }
     
 }

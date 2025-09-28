@@ -22,7 +22,8 @@ public class PantallaDeJuego extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new FlowLayout());
-        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.PEQUEÑO);
+        
+        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
         add(tablero);
     }
 
