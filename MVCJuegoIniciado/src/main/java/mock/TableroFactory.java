@@ -14,7 +14,7 @@ import vistas.TableroJuego;
 public class TableroFactory {
 
     public static TableroJuego crearTablero(TamañosTablero tamaño) {
-        Integer filas = tamaño.getColumnas();
+        Integer filas = tamaño.getFilas();
         Integer columnas = tamaño.getColumnas();
         Integer distancia = tamaño.getDistanciaPuntos();
         Integer tamañoPunto = tamaño.getTamañoPunto();
@@ -28,4 +28,6 @@ public class TableroFactory {
 
         return new TableroJuego(puntos, distancia, tamañoPunto);
     }
+    
+    // hacer proporcional el tamaño del tablero a la pantalla
 }

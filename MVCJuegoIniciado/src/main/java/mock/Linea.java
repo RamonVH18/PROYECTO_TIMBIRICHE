@@ -24,7 +24,6 @@ public class Linea extends JComponent {
     public OrientacionLinea orientacion;
     public EstadoLinea estado;
     public Integer grosorLinea = 10;
-     private boolean hover = false;
 
     public Linea(Point a, Point b, OrientacionLinea orientacion) {
         this.puntoA = a;
@@ -33,6 +32,9 @@ public class Linea extends JComponent {
         this.estado = EstadoLinea.LIBRE; 
     }
 
+    //revisar el desacoplo del estado de la línea en el constructor
+    //setLibre, setOcupado, setSeleccionado
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
