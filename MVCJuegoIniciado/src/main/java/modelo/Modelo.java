@@ -25,6 +25,10 @@ public class Modelo implements IModeloLeible, IModeloModificable{
     private static Modelo instanciaModelo;
     IModeloJuego modeloJuego = ModeloJuego.getInstance();
     
+    private boolean mostrandoPantallaDeJuego;
+    private boolean mostrandoTablaJugadores;
+    private boolean mostrandoTableroJuego;
+    
     private List<JugadorVisual> listaJugadores = new ArrayList<>();
     
     List<IVista> vistas = new ArrayList<>();
