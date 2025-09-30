@@ -21,42 +21,45 @@ import interfaces.IVista;
  *
  * @author Ramon Valencia
  */
-public class Modelo implements IModeloLeible, IModeloModificable{
+public class Modelo implements IModeloLeible, IModeloModificable {
+
     private static Modelo instanciaModelo;
     IModeloJuego modeloJuego = ModeloJuego.getInstance();
-    
+
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
     private boolean mostrandoTableroJuego;
-    
-    private List<JugadorVisual> listaJugadores = new ArrayList<>();
-    
+
+    private static List<JugadorVisual> listaJugadores = new ArrayList<>();
+
     List<IVista> vistas = new ArrayList<>();
-    
-    private Modelo(){
+
+    private Modelo() {
+        listaJugadores.add(new JugadorVisual("Rodrigo", ""));
+        listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
-    
+
     public static Modelo getInstaciaModelo() {
         if (instanciaModelo == null) {
             instanciaModelo = new Modelo();
         }
         return instanciaModelo;
     }
-    
+
     public void añadirObserver(IVista v) {
         vistas.add(v);
     }
-    
+
     public void eliminarObserver(IVista v) {
         vistas.remove(v);
     }
-    
+
     public void notificarObservers() {
-        for(IVista v : vistas) {
+        for (IVista v : vistas) {
             v.actualizar();
         }
     }
-    
+
     @Override
     public JPanel obtenerTablero() {
         TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
@@ -65,8 +68,7 @@ public class Modelo implements IModeloLeible, IModeloModificable{
 
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-        listaJugadores.add(new JugadorVisual("Rodrigo", ""));
-        listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
+
         return listaJugadores;
     }
 

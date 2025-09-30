@@ -23,38 +23,41 @@ import interfaces.IVista;
  * @author Ramon Valencia
  */
 public class TablaJugadores extends JPanel implements IVista {
+
     IModeloLeible modelo = Modelo.getInstaciaModelo();
-    
-    Dimension DIM_TABLA = new Dimension(350, 50); 
+
+    Dimension DIM_TABLA = new Dimension(350, 200);
     Dimension DIM_FLD_JUGADOR = new Dimension();
     List<JugadorVisual> jugadoresActuales = new ArrayList<>();
     Integer MAX_JUGADORES = 4;
     String estadoJugadores = "Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES;
     JLabel titulo = new JLabel(estadoJugadores);
     JPanel panelJugadores = new JPanel();
-    
-    
+
     public TablaJugadores() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        modelo.añadirObserver(this);
+        crearTabla();
+    }
+
+    public void crearTabla() {
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        setSize(DIM_TABLA);
+        setPreferredSize(DIM_TABLA);
+        generarMarcosJugadores();
+
+    }
+
+    public void generarMarcosJugadores() {
+        
         
         titulo.setAlignmentX(CENTER_ALIGNMENT);
         titulo.setOpaque(true);
         add(Box.createVerticalGlue());
         add(titulo);
         add(Box.createVerticalGlue());
-        modelo.añadirObserver(this);
-        crearTabla();
-    }
-    
-    public void crearTabla(){
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-        setSize(DIM_TABLA);
-        setPreferredSize(DIM_TABLA);
-        generarMarcosJugadores();
-    
-    }
-    
-    public void generarMarcosJugadores(){
+        
         jugadoresActuales = modelo.obtenerJugadores();
         for (JugadorVisual j : jugadoresActuales) {
             JLabel labelNombre = new JLabel(j.getNombre());
@@ -63,12 +66,13 @@ public class TablaJugadores extends JPanel implements IVista {
         }
         titulo.setText("Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES);
     }
-    
+
     @Override
     public void actualizar() {
+        removeAll();
         generarMarcosJugadores();
         repaint();
         revalidate();
     }
-    
+
 }
