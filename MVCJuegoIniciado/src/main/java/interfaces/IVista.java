@@ -8,7 +8,7 @@ package interfaces;
  *
  * @author Ramon Valencia
  */
-public interface Vista {
+public interface IVista {
     
     public void actualizar();
 }

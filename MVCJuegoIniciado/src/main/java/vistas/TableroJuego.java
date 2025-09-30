@@ -4,7 +4,6 @@
  */
 package vistas;
 
-import interfaces.Vista;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,12 +14,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import objetosPresentacion.Linea;
 import objetosPresentacion.OrientacionLinea;
+import interfaces.IVista;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class TableroJuego extends JPanel implements Vista{
+public class TableroJuego extends JPanel implements IVista{
 
     Dimension dimensionTablero;
 

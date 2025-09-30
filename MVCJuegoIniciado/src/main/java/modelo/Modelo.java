@@ -7,7 +7,6 @@ package modelo;
 import interfaces.IModeloJuego;
 import interfaces.IModeloLeible;
 import interfaces.IModeloModificable;
-import interfaces.Vista;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import objetosPresentacion.JugadorVisual;
 import objetosPresentacion.TableroFactory;
 import objetosPresentacion.TamañosTablero;
 import vistas.TableroJuego;
+import interfaces.IVista;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Modelo implements IModeloLeible, IModeloModificable{
     
     private List<JugadorVisual> listaJugadores = new ArrayList<>();
     
-    List<Vista> vistas = new ArrayList<>();
+    List<IVista> vistas = new ArrayList<>();
     
     private Modelo(){
     }
@@ -39,16 +39,16 @@ public class Modelo implements IModeloLeible, IModeloModificable{
         return instanciaModelo;
     }
     
-    public void añadirObserver(Vista v) {
+    public void añadirObserver(IVista v) {
         vistas.add(v);
     }
     
-    public void eliminarObserver(Vista v) {
+    public void eliminarObserver(IVista v) {
         vistas.remove(v);
     }
     
     public void notificarObservers() {
-        for(Vista v : vistas) {
+        for(IVista v : vistas) {
             v.actualizar();
         }
     }

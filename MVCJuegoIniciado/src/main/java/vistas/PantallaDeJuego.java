@@ -7,17 +7,17 @@ package vistas;
 import controlador.Control;
 import interfaces.IControl;
 import interfaces.IModeloLeible;
-import interfaces.Vista;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import modelo.Modelo;
+import interfaces.IVista;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
+public class PantallaDeJuego extends javax.swing.JFrame implements IVista {
     private IModeloLeible modelo = Modelo.getInstaciaModelo();
     private IControl control = Control.getInstanciaControl();
     
@@ -61,6 +61,11 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +97,10 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
         // TODO add your handling code here:
         control.agregarJugador();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

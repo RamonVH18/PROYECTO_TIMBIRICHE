@@ -4,13 +4,13 @@
  */
 package vistas;
 
-import interfaces.Vista;
+import interfaces.IVista;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class MenuDeOpciones extends javax.swing.JFrame implements Vista{
+public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
 
     /**
      * Creates new form MenuDeOpciones

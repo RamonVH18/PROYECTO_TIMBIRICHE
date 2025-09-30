@@ -18,5 +18,5 @@ public interface IModeloLeible {
     
     public List<JugadorVisual> obtenerJugadores();
     
-    public void añadirObserver(Vista v);
+    public void añadirObserver(IVista v);
 }

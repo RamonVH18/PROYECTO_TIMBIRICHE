@@ -5,7 +5,6 @@
 package vistas;
 
 import interfaces.IModeloLeible;
-import interfaces.Vista;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -17,12 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import modelo.Modelo;
 import objetosPresentacion.JugadorVisual;
+import interfaces.IVista;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class TablaJugadores extends JPanel implements Vista {
+public class TablaJugadores extends JPanel implements IVista {
     IModeloLeible modelo = Modelo.getInstaciaModelo();
     
     Dimension DIM_TABLA = new Dimension(350, 50); 
