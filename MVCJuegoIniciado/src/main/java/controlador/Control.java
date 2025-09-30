@@ -4,10 +4,31 @@
  */
 package controlador;
 
+import interfaces.IControl;
+import interfaces.IModeloModificable;
+import modelo.Modelo;
+
 /**
  *
  * @author Ramon Valencia
  */
-public class Control {
+public class Control implements IControl{
+    private static Control instanciaControl;
+    private IModeloModificable modelo = Modelo.getInstaciaModelo(); 
+    
+    private Control() {
+    }
+    
+    public static Control getInstanciaControl() {
+        if (instanciaControl == null) {
+            instanciaControl = new Control();
+        }
+        return instanciaControl;
+    }
+
+    @Override
+    public void agregarJugador() {
+        modelo.agregarJugador();
+    }
     
 }

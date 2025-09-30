@@ -4,17 +4,23 @@
  */
 package vistas;
 
+import controlador.Control;
+import interfaces.IControl;
+import interfaces.IModeloLeible;
 import interfaces.Vista;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
-import objetosPresentacion.TableroFactory;
-import objetosPresentacion.TamañosTablero;
+import javax.swing.JPanel;
+import modelo.Modelo;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
+    private IModeloLeible modelo = Modelo.getInstaciaModelo();
+    private IControl control = Control.getInstanciaControl();
+    
     /**
      * Creates new form pantallaDeJuego
      */
@@ -26,9 +32,11 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
         
         
         //posible movida a un método disparado por el modelo
-        //TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
         TablaJugadores tabla = new TablaJugadores();
         add(tabla);
+        JPanel tablero = modelo.obtenerTablero();
+        add(tablero);
+        
     }
 
     /**
@@ -41,10 +49,18 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("jLabel1");
+
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,17 +70,28 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
                 .addGap(366, 366, 366)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(384, 384, 384))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(326, 326, 326))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addGap(116, 116, 116)
+                .addComponent(jButton1)
+                .addContainerGap(322, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        control.agregarJugador();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -108,6 +135,7 @@ public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 

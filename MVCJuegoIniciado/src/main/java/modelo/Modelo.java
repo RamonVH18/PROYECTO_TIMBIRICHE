@@ -22,11 +22,21 @@ import vistas.TableroJuego;
  * @author Ramon Valencia
  */
 public class Modelo implements IModeloLeible, IModeloModificable{
+    private static Modelo instanciaModelo;
     IModeloJuego modeloJuego = ModeloJuego.getInstance();
+    
+    private List<JugadorVisual> listaJugadores = new ArrayList<>();
+    
     List<Vista> vistas = new ArrayList<>();
     
-    public Modelo() {
-        
+    private Modelo(){
+    }
+    
+    public static Modelo getInstaciaModelo() {
+        if (instanciaModelo == null) {
+            instanciaModelo = new Modelo();
+        }
+        return instanciaModelo;
     }
     
     public void añadirObserver(Vista v) {
@@ -51,7 +61,15 @@ public class Modelo implements IModeloLeible, IModeloModificable{
 
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        listaJugadores.add(new JugadorVisual("Rodrigo", ""));
+        listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
+        return listaJugadores;
+    }
+
+    @Override
+    public void agregarJugador() {
+        listaJugadores.add(new JugadorVisual("Isaaquito", ""));
+        notificarObservers();
     }
 
 }

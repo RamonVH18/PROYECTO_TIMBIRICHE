@@ -8,7 +8,7 @@ package interfaces;
  *
  * @author Ramon Valencia
  */
-public interface IModeloModificable {
+public interface IControl {
     
     public void agregarJugador();
 }

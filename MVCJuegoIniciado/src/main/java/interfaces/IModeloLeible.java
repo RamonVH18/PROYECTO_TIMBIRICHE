@@ -17,4 +17,6 @@ public interface IModeloLeible {
     public JPanel obtenerTablero();
     
     public List<JugadorVisual> obtenerJugadores();
+    
+    public void añadirObserver(Vista v);
 }
