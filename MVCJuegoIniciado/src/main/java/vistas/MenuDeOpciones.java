@@ -4,11 +4,13 @@
  */
 package vistas;
 
+import interfaces.Vista;
+
 /**
  *
  * @author Ramon Valencia
  */
-public class MenuDeOpciones extends javax.swing.JFrame {
+public class MenuDeOpciones extends javax.swing.JFrame implements Vista{
 
     /**
      * Creates new form MenuDeOpciones
@@ -75,6 +77,11 @@ public class MenuDeOpciones extends javax.swing.JFrame {
                 new MenuDeOpciones().setVisible(true);
             }
         });
+    }
+
+    @Override
+    public void actualizar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

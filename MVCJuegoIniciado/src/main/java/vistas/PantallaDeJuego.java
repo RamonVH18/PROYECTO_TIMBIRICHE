@@ -4,16 +4,17 @@
  */
 package vistas;
 
+import interfaces.Vista;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
-import mock.TableroFactory;
-import mock.TamañosTablero;
+import objetosPresentacion.TableroFactory;
+import objetosPresentacion.TamañosTablero;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class PantallaDeJuego extends javax.swing.JFrame {
+public class PantallaDeJuego extends javax.swing.JFrame implements Vista {
     /**
      * Creates new form pantallaDeJuego
      */
@@ -23,9 +24,11 @@ public class PantallaDeJuego extends javax.swing.JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new FlowLayout());
         
+        
         //posible movida a un método disparado por el modelo
-        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
-        add(tablero);
+        //TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
+        TablaJugadores tabla = new TablaJugadores();
+        add(tabla);
     }
 
     /**
@@ -37,17 +40,27 @@ public class PantallaDeJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(366, 366, 366)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(384, 384, 384))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1)
+                .addContainerGap(461, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,6 +104,15 @@ public class PantallaDeJuego extends javax.swing.JFrame {
         });
     }
 
+    private void generarTablaJugadores() {
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actualizar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

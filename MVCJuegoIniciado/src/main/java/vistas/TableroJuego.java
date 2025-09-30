@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import interfaces.Vista;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import mock.Linea;
-import mock.OrientacionLinea;
+import objetosPresentacion.Linea;
+import objetosPresentacion.OrientacionLinea;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class TableroJuego extends JPanel {
+public class TableroJuego extends JPanel implements Vista{
 
     Dimension dimensionTablero;
 
@@ -89,6 +90,11 @@ public class TableroJuego extends JPanel {
                 lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL));
             }
         }
+    }
+
+    @Override
+    public void actualizar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
