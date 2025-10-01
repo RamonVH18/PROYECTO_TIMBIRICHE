@@ -15,6 +15,5 @@ public class Punto extends Point {
     public Punto(int x, int y) {
         super(x, y);
     }
-    
-    
+
 }

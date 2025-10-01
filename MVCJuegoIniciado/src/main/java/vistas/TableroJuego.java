@@ -40,6 +40,7 @@ public class TableroJuego extends JPanel implements IVista{
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
     }
 
+    // esto es lo que fija el tablero 
     private void generarTablero() {
         largo = (matriz.length * distanciaPuntos) + distanciaPuntos;
         ancho = (matriz[0].length * distanciaPuntos) + distanciaPuntos;

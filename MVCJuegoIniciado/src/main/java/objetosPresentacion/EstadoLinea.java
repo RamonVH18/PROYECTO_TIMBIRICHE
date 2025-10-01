@@ -9,7 +9,7 @@ package objetosPresentacion;
  * @author Ramon Valencia
  */
 public enum EstadoLinea {
-    
+
     LIBRE,
     SELECCIONADA,
     OCUPADA;

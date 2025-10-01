@@ -29,12 +29,11 @@ public class Linea extends JComponent {
         this.puntoA = a;
         this.puntoB = b;
         this.orientacion = orientacion;
-        this.estado = EstadoLinea.LIBRE; 
+        this.estado = EstadoLinea.LIBRE;
     }
 
     //revisar el desacoplo del estado de la línea en el constructor
     //setLibre, setOcupado, setSeleccionado
-    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -52,5 +51,5 @@ public class Linea extends JComponent {
         g2.setStroke(new BasicStroke(grosorLinea));
         g.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
     }
-    
+
 }

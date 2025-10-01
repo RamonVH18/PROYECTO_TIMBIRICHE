@@ -12,13 +12,14 @@ import modelo.Modelo;
  *
  * @author Ramon Valencia
  */
-public class Control implements IControl{
+public class Control implements IControl {
+
     private static Control instanciaControl;
-    private IModeloModificable modelo = Modelo.getInstaciaModelo(); 
-    
+    private IModeloModificable modelo = Modelo.getInstaciaModelo();
+
     private Control() {
     }
-    
+
     public static Control getInstanciaControl() {
         if (instanciaControl == null) {
             instanciaControl = new Control();
@@ -30,5 +31,5 @@ public class Control implements IControl{
     public void agregarJugador() {
         modelo.agregarJugador();
     }
-    
+
 }

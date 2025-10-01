@@ -9,6 +9,6 @@ package interfaces;
  * @author Ramon Valencia
  */
 public interface IControl {
-    
+
     public void agregarJugador();
 }

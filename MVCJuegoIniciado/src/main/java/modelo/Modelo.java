@@ -62,8 +62,6 @@ public class Modelo implements IModeloLeible, IModeloModificable {
             v.actualizar();
         }
     }
-    
-    
 
     @Override
     public JPanel obtenerTablero() {
@@ -82,17 +80,17 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         listaJugadores.add(new JugadorVisual("Isaaquito", ""));
         notificarObservers();
     }
-    
-    public void mostrarPantallaDeJuego(){
-      
+
+    public void mostrarPantallaDeJuego() {
+
     }
-    
-    public void mostrarTablaJugadores(){
-      
+
+    public void mostrarTablaJugadores() {
+
     }
-    
-    public void mostrarTableroJuego(){
-      
+
+    public void mostrarTableroJuego() {
+
     }
 
 }
