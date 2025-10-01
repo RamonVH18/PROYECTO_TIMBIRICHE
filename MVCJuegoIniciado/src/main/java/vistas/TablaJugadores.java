@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vistas;
 
 import interfaces.IModeloLeible;
@@ -23,38 +19,40 @@ import interfaces.IVista;
  * @author Ramon Valencia
  */
 public class TablaJugadores extends JPanel implements IVista {
+
     //Constantes
     private Integer MAX_JUGADORES = 4;
     private Dimension DIM_FLD_JUGADOR = new Dimension();
-    
+
     //Atributos de la clase
     private IModeloLeible modelo;
+    
     //TODO: Hacer esto responsivo
     private Dimension dimension_tabla = new Dimension(350, 200);
-    
-    private static List<JugadorVisual> jugadoresActuales  = new ArrayList<>();;
-    private String estadoJugadores = "Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES;
-    private JLabel titulo = new JLabel(estadoJugadores);
-    private JPanel panelJugadores = new JPanel();
-    
+
+    private static List<JugadorVisual> jugadoresActuales;
+    private JLabel titulo;
+  
+
     public TablaJugadores() {
         //Inicializar el modelo
         modelo = Modelo.getInstaciaModelo();
         modelo.añadirObserver(this);
-        
+
         //Definir disposicion
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         crearTabla();
     }
 
-    private void inicializar(){
-        
+    private void inicializar() {
+
     }
-    
+
     private void crearTabla() {
         //Inicializar lista de jugadores
-        jugadoresActuales  = new ArrayList<>();
-        
+        titulo = new JLabel();
+        jugadoresActuales = new ArrayList<>();
+
         //Diseño de la tabla de jugadores
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         setSize(dimension_tabla);
@@ -64,12 +62,13 @@ public class TablaJugadores extends JPanel implements IVista {
 
     private void generarMarcosJugadores() {
         //Título
+
         titulo.setAlignmentX(CENTER_ALIGNMENT);
         titulo.setOpaque(true);
         add(Box.createVerticalGlue());
         add(titulo);
         add(Box.createVerticalGlue());
-        
+
         //Generar la vista de los jugadores
         jugadoresActuales = modelo.obtenerJugadores();
         for (JugadorVisual j : jugadoresActuales) {
@@ -87,7 +86,5 @@ public class TablaJugadores extends JPanel implements IVista {
         repaint();
         revalidate();
     }
-    
-    
 
 }
