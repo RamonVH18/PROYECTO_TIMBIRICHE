@@ -19,7 +19,6 @@ import interfaces.IVista;
  * @author Ramon Valencia
  */
 public class TablaJugadores extends JPanel implements IVista {
-
     //Constantes
     private Integer MAX_JUGADORES = 4;
     private Dimension DIM_FLD_JUGADOR = new Dimension();
@@ -29,10 +28,8 @@ public class TablaJugadores extends JPanel implements IVista {
     
     //TODO: Hacer esto responsivo
     private Dimension dimension_tabla = new Dimension(350, 200);
-
     private static List<JugadorVisual> jugadoresActuales;
     private JLabel titulo;
-  
 
     public TablaJugadores() {
         //Inicializar el modelo
