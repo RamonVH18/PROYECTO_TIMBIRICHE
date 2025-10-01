@@ -23,41 +23,54 @@ import interfaces.IVista;
  * @author Ramon Valencia
  */
 public class TablaJugadores extends JPanel implements IVista {
-
-    IModeloLeible modelo = Modelo.getInstaciaModelo();
-
-    private Dimension DIM_TABLA = new Dimension(350, 200);
-    private Dimension DIM_FLD_JUGADOR = new Dimension();
-    private List<JugadorVisual> jugadoresActuales = new ArrayList<>();
+    //Constantes
     private Integer MAX_JUGADORES = 4;
+    private Dimension DIM_FLD_JUGADOR = new Dimension();
+    
+    //Atributos de la clase
+    private IModeloLeible modelo;
+    //TODO: Hacer esto responsivo
+    private Dimension dimension_tabla = new Dimension(350, 200);
+    
+    private static List<JugadorVisual> jugadoresActuales  = new ArrayList<>();;
     private String estadoJugadores = "Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES;
     private JLabel titulo = new JLabel(estadoJugadores);
     private JPanel panelJugadores = new JPanel();
-
+    
     public TablaJugadores() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        //Inicializar el modelo
+        modelo = Modelo.getInstaciaModelo();
         modelo.añadirObserver(this);
+        
+        //Definir disposicion
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         crearTabla();
     }
 
-    public void crearTabla() {
+    private void inicializar(){
+        
+    }
+    
+    private void crearTabla() {
+        //Inicializar lista de jugadores
+        jugadoresActuales  = new ArrayList<>();
+        
+        //Diseño de la tabla de jugadores
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-        setSize(DIM_TABLA);
-        setPreferredSize(DIM_TABLA);
+        setSize(dimension_tabla);
+        setPreferredSize(dimension_tabla);
         generarMarcosJugadores();
-
     }
 
-    public void generarMarcosJugadores() {
-        
-        
+    private void generarMarcosJugadores() {
+        //Título
         titulo.setAlignmentX(CENTER_ALIGNMENT);
         titulo.setOpaque(true);
         add(Box.createVerticalGlue());
         add(titulo);
         add(Box.createVerticalGlue());
         
+        //Generar la vista de los jugadores
         jugadoresActuales = modelo.obtenerJugadores();
         for (JugadorVisual j : jugadoresActuales) {
             JLabel labelNombre = new JLabel(j.getNombre());
@@ -74,5 +87,7 @@ public class TablaJugadores extends JPanel implements IVista {
         repaint();
         revalidate();
     }
+    
+    
 
 }
