@@ -26,13 +26,13 @@ public class TablaJugadores extends JPanel implements IVista {
 
     IModeloLeible modelo = Modelo.getInstaciaModelo();
 
-    Dimension DIM_TABLA = new Dimension(350, 200);
-    Dimension DIM_FLD_JUGADOR = new Dimension();
-    List<JugadorVisual> jugadoresActuales = new ArrayList<>();
-    Integer MAX_JUGADORES = 4;
-    String estadoJugadores = "Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES;
-    JLabel titulo = new JLabel(estadoJugadores);
-    JPanel panelJugadores = new JPanel();
+    private Dimension DIM_TABLA = new Dimension(350, 200);
+    private Dimension DIM_FLD_JUGADOR = new Dimension();
+    private List<JugadorVisual> jugadoresActuales = new ArrayList<>();
+    private Integer MAX_JUGADORES = 4;
+    private String estadoJugadores = "Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES;
+    private JLabel titulo = new JLabel(estadoJugadores);
+    private JPanel panelJugadores = new JPanel();
 
     public TablaJugadores() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
