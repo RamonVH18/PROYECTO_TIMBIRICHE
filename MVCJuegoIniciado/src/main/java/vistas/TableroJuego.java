@@ -22,14 +22,14 @@ import interfaces.IVista;
  */
 public class TableroJuego extends JPanel implements IVista{
 
-    Dimension dimensionTablero;
+    private Dimension dimensionTablero;
 
-    Point[][] matriz;
-    List<Linea> lineas = new ArrayList<>();
-    Integer largo;
-    Integer ancho;
-    Integer distanciaPuntos;
-    Integer tamañoPunto;
+    private Point[][] matriz;
+    private List<Linea> lineas = new ArrayList<>();
+    private Integer largo;
+    private Integer ancho;
+    private Integer distanciaPuntos;
+    private Integer tamañoPunto;
 
     public TableroJuego(Point[][] matrizPuntos, Integer distancia, Integer tamaño) {
         distanciaPuntos = distancia;
