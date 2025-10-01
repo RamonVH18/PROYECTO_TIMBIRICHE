@@ -30,11 +30,12 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private boolean mostrandoTablaJugadores;
     private boolean mostrandoTableroJuego;
 
-    private static List<JugadorVisual> listaJugadores = new ArrayList<>();
+    private static List<JugadorVisual> listaJugadores;
 
     List<IVista> vistas = new ArrayList<>();
 
     private Modelo() {
+        this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
@@ -60,6 +61,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
             v.actualizar();
         }
     }
+    
+    
 
     @Override
     public JPanel obtenerTablero() {

@@ -140,6 +140,7 @@ public class PantallaDeJuego extends javax.swing.JFrame implements IVista {
         });
     }
 
+    //TODO: posible desuso
     private void generarTablaJugadores() {
         
     }
