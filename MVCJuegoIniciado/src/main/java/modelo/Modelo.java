@@ -24,7 +24,7 @@ import interfaces.IVista;
 public class Modelo implements IModeloLeible, IModeloModificable {
 
     private static Modelo instanciaModelo;
-    IModeloJuego modeloJuego = ModeloJuego.getInstance();
+    private IModeloJuego modeloJuego;
 
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
@@ -35,6 +35,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     List<IVista> vistas = new ArrayList<>();
 
     private Modelo() {
+        this.modeloJuego = ModeloJuego.getInstance();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
