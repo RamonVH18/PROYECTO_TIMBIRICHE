@@ -32,11 +32,12 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
     private static List<JugadorVisual> listaJugadores;
 
-    List<IVista> vistas = new ArrayList<>();
+    List<IVista> vistas;
 
     private Modelo() {
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
+        this.vistas = new ArrayList<>();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
