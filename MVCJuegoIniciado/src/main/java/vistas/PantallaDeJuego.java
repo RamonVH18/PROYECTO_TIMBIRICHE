@@ -114,5 +114,10 @@ public class PantallaDeJuego extends JFrame implements IVista {
         repaint();
         revalidate();
     }
+    
+    @Override 
+    public void mostrar(){
+      
+    }
 
 }
