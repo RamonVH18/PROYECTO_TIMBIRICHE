@@ -19,4 +19,10 @@ public interface IModeloLeible {
     public List<JugadorVisual> obtenerJugadores();
     
     public void añadirObserver(IVista v);
+    
+    public boolean isMostrandoPantallaDeJuego();
+    
+   // public void isMostrandoTableroJuego();
+    
+    public boolean isMostrandoTablaJugadores();
 }

@@ -111,4 +111,24 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
     }
 
+    @Override
+    public boolean isMostrandoPantallaDeJuego() {
+        return mostrandoPantallaDeJuego;
+    }
+
+    public void setMostrandoPantallaDeJuego(boolean mostrandoPantallaDeJuego) {
+        this.mostrandoPantallaDeJuego = mostrandoPantallaDeJuego;
+    }
+
+    @Override
+    public boolean isMostrandoTablaJugadores() {
+        return mostrandoTablaJugadores;
+    }
+
+    public void setMostrandoTablaJugadores(boolean mostrandoTablaJugadores) {
+        this.mostrandoTablaJugadores = mostrandoTablaJugadores;
+    }
+    
+    
+
 }
