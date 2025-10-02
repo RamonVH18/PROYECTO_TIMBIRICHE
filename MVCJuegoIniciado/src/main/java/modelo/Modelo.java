@@ -71,7 +71,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
     
     public void notificarObservadoresPantallas(IVista v){
-      for(IVista v : pantallas){
+      for(IVista vi : pantallas){
         v.mostrar();
       }
     }
