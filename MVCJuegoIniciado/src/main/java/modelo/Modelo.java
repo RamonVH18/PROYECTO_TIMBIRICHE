@@ -38,7 +38,11 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private Modelo() {
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
+        mostrandoPantallaDeJuego = false;
+        mostrandoTablaJugadores = false;
+        mostrandoTableroJuego = false;
         this.vistas = new ArrayList<>();
+        this.pantallas = new ArrayList<>();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
