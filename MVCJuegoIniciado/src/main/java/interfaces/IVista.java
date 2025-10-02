@@ -11,4 +11,5 @@ package interfaces;
 public interface IVista {
     
     public void actualizar();
+    public void mostrar();
 }
