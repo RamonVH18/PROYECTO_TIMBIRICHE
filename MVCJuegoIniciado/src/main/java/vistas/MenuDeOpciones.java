@@ -83,7 +83,12 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
     public void actualizar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+  
+  @Override
+  public void mostrar(){
+    
+  }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
