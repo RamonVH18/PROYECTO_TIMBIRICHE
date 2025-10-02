@@ -61,7 +61,20 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     public void eliminarObserver(IVista v) {
         vistas.remove(v);
     }
+    
+    public void añadirObservadorPantallas(IVista v){
+      pantallas.add(v);
+    }
 
+    public void eliminarObservadorPantallas(IVista v){
+      pantallas.remove(v);
+    }
+    
+    public void notificarObservadoresPantallas(IVista v){
+      for(IVista v : pantallas){
+        v.mostrar();
+      }
+    }
     public void notificarObservers() {
         for (IVista v : vistas) {
             v.actualizar();
