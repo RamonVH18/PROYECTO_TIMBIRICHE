@@ -31,8 +31,9 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private boolean mostrandoTableroJuego;
 
     private static List<JugadorVisual> listaJugadores;
-
-    List<IVista> vistas;
+    
+    private List<IVista> pantallas;
+    private List<IVista> vistas;
 
     private Modelo() {
         this.listaJugadores = new ArrayList<>();
