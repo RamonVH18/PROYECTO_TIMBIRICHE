@@ -136,4 +136,9 @@ public class TablaJugadores extends JPanel implements IVista {
     public void actualizar() {
         crearTabla();
     }
+    
+    @Override
+    public void mostrar(){
+      
+    }
 }
