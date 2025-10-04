@@ -7,6 +7,7 @@ package interfaces;
 import java.util.List;
 import javax.swing.JPanel;
 import objetosPresentacion.JugadorVisual;
+import vistas.TableroJuego;
 
 /**
  *
@@ -14,7 +15,7 @@ import objetosPresentacion.JugadorVisual;
  */
 public interface IModeloLeible {
     
-    public JPanel obtenerTablero();
+    public TableroJuego obtenerTablero();
     
     public List<JugadorVisual> obtenerJugadores();
     

@@ -39,7 +39,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         add(tabla, BorderLayout.WEST);
 
         //y esta la del tablero tablero asi nomas
-        JPanel tablero = modelo.obtenerTablero();
+        TableroJuego tablero = modelo.obtenerTablero();
         javax.swing.JScrollPane scrollTablero = new javax.swing.JScrollPane(tablero);
         add(scrollTablero, BorderLayout.CENTER);
 
@@ -48,7 +48,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         JButton btnJugada = new JButton("Realizar Jugada");
         JButton btnMenu = new JButton("Menú de opciones");
 
-        btnJugada.addActionListener(e -> control.agregarJugador()); // mock
+        btnJugada.addActionListener(e -> control.realizarJugada(tablero)); // mock
         panelBotones.add(btnJugada);
         panelBotones.add(btnMenu);
 
@@ -60,7 +60,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        control.agregarJugador();
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

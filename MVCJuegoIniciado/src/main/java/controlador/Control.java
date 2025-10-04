@@ -7,6 +7,7 @@ package controlador;
 import interfaces.IControl;
 import interfaces.IModeloModificable;
 import modelo.Modelo;
+import vistas.TableroJuego;
 
 /**
  *
@@ -28,8 +29,8 @@ public class Control implements IControl {
     }
 
     @Override
-    public void agregarJugador() {
-        modelo.agregarJugador();
+    public void realizarJugada(TableroJuego tablero) {
     }
+
 
 }

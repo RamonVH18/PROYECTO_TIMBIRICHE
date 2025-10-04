@@ -18,6 +18,7 @@ public class TableroFactory {
         Integer columnas = tamaño.getColumnas();
         Integer distancia = tamaño.getDistanciaPuntos();
         Integer tamañoPunto = tamaño.getTamañoPunto();
+        Integer grosorLinea = tamaño.getGrosorLinea();
 
         Point[][] puntos = new Point[filas][columnas];
         for (int i = 0; i < filas; i++) {
@@ -26,7 +27,7 @@ public class TableroFactory {
             }
         }
 
-        return new TableroJuego(puntos, distancia, tamañoPunto);
+        return new TableroJuego(puntos, distancia, tamañoPunto, grosorLinea);
     }
     
     // hacer proporcional el tamaño del tablero a la pantalla

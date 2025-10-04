@@ -82,8 +82,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
 
     @Override
-    public JPanel obtenerTablero() {
-        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.GRANDE);
+    public TableroJuego obtenerTablero() {
+        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.PEQUEÑO);
         return tablero;
     }
 
@@ -91,12 +91,6 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     public List<JugadorVisual> obtenerJugadores() {
 
         return listaJugadores;
-    }
-
-    @Override
-    public void agregarJugador() {
-        listaJugadores.add(new JugadorVisual("Isaaquito", ""));
-        notificarObservers();
     }
 
     public void mostrarPantallaDeJuego() {

@@ -23,13 +23,14 @@ public class Linea extends JComponent {
     public Point puntoB;
     public OrientacionLinea orientacion;
     public EstadoLinea estado;
-    public Integer grosorLinea = 10;
+    public Integer grosorLinea;
 
-    public Linea(Point a, Point b, OrientacionLinea orientacion) {
+    public Linea(Point a, Point b, OrientacionLinea orientacion, Integer grosorLinea) {
         this.puntoA = a;
         this.puntoB = b;
         this.orientacion = orientacion;
         this.estado = EstadoLinea.LIBRE;
+        this.grosorLinea = grosorLinea;
     }
 
     //revisar el desacoplo del estado de la línea en el constructor
@@ -49,7 +50,7 @@ public class Linea extends JComponent {
             }
         }
         g2.setStroke(new BasicStroke(grosorLinea));
-        g.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
+        g2.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
     }
-
+    
 }

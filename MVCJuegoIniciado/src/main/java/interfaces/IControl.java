@@ -4,11 +4,15 @@
  */
 package interfaces;
 
+import vistas.TableroJuego;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IControl {
 
-    public void agregarJugador();
+    public void realizarJugada(TableroJuego tablero);
+    
+    
 }

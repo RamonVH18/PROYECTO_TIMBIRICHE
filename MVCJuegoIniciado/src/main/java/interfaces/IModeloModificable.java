@@ -10,5 +10,5 @@ package interfaces;
  */
 public interface IModeloModificable {
     
-    public void agregarJugador();
+
 }
