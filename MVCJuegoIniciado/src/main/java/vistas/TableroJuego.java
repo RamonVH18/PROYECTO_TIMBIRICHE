@@ -35,7 +35,7 @@ public class TableroJuego extends JPanel implements IVista {
 
     private final Point[][] matriz;
     private final List<Linea> lineas = new ArrayList<>();
-    private Integer largo;
+    private Integer largo;  
     private Integer ancho;
     private final Integer distanciaPuntos;
     private final Integer tamañoPunto;

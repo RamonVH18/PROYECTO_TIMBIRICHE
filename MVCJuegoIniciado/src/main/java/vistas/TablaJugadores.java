@@ -1,9 +1,9 @@
 package vistas;
 
+import interfaces.IControl;
 import interfaces.IModeloLeible;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -88,6 +88,7 @@ public class TablaJugadores extends JPanel implements IVista {
     private final int MAX_JUGADORES = 4;
     private IModeloLeible modelo;
     private List<JugadorVisual> jugadoresActuales;
+    private IControl control;
 
     public TablaJugadores() {
         modelo = Modelo.getInstaciaModelo();
