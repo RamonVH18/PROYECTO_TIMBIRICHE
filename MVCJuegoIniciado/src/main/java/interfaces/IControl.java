@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import objetosPresentacion.Linea;
 import vistas.TableroJuego;
 
 /**
@@ -12,7 +13,7 @@ import vistas.TableroJuego;
  */
 public interface IControl {
 
-    public void realizarJugada(TableroJuego tablero);
+    public void realizarJugada(Linea lineaSeleccionada);
     
     
 }

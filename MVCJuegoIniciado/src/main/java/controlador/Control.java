@@ -7,6 +7,8 @@ package controlador;
 import interfaces.IControl;
 import interfaces.IModeloModificable;
 import modelo.Modelo;
+import objetosPresentacion.Linea;
+import vistas.MensajeError;
 import vistas.TableroJuego;
 
 /**
@@ -29,7 +31,12 @@ public class Control implements IControl {
     }
 
     @Override
-    public void realizarJugada(TableroJuego tablero) {
+    public void realizarJugada(Linea lineaSeleccionada) {
+        if (lineaSeleccionada == null) {
+            MensajeError.mostrarError("Debe de seleccionar una linea antes de continuar");
+        }
+        
+        modelo.realizarJugada(lineaSeleccionada);
     }
 
 

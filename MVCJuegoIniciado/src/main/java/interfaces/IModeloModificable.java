@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import objetosPresentacion.Linea;
+
 /**
  *
  * @author Ramon Valencia
@@ -11,4 +13,6 @@ package interfaces;
 public interface IModeloModificable {
 
     public void añadirObserver(IVista v);
+    
+    public void realizarJugada(Linea lineaSelecionada);
 }

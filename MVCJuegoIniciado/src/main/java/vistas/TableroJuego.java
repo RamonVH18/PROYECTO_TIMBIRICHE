@@ -4,6 +4,9 @@
  */
 package vistas;
 
+import controlador.Control;
+import interfaces.IControl;
+import interfaces.IModeloLeible;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +20,7 @@ import objetosPresentacion.OrientacionLinea;
 import interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import modelo.Modelo;
 import objetosPresentacion.EstadoLinea;
 
 /**
@@ -25,6 +29,8 @@ import objetosPresentacion.EstadoLinea;
  */
 public class TableroJuego extends JPanel implements IVista {
 
+    private IModeloLeible modelo;
+    private IControl control;
     private Dimension dimensionTablero;
 
     private final Point[][] matriz;
@@ -37,6 +43,9 @@ public class TableroJuego extends JPanel implements IVista {
     private Linea lineaSeleccionada;
 
     public TableroJuego(Point[][] matrizPuntos, Integer distancia, Integer tamaño, Integer grosor) {
+        modelo = Modelo.getInstaciaModelo();
+        control = Control.getInstanciaControl();
+
         distanciaPuntos = distancia;
         tamañoPunto = tamaño;
         matriz = matrizPuntos;
@@ -117,6 +126,9 @@ public class TableroJuego extends JPanel implements IVista {
                         if (lineaSeleccionada != null) {
                             lineaSeleccionada.estado = EstadoLinea.LIBRE;
                         }
+                        if (linea.estado == EstadoLinea.OCUPADA) {
+                            return;
+                        }
                         lineaSeleccionada = linea;
                         lineaSeleccionada.estado = EstadoLinea.SELECCIONADA;
                         repaint();
@@ -160,9 +172,18 @@ public class TableroJuego extends JPanel implements IVista {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    public Linea getLineaSeleccionada() {
+        return lineaSeleccionada;
+    }
+
     @Override
     public void actualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(lineaSeleccionada == null) {
+            return;
+        }
+        lineaSeleccionada.estado = EstadoLinea.OCUPADA;
+        lineaSeleccionada = null;
+        repaint();
     }
 
     @Override

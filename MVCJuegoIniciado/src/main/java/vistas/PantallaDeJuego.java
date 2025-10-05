@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import modelo.Modelo;
 import interfaces.IVista;
+import objetosPresentacion.Linea;
 
 /**
  *
@@ -21,13 +22,28 @@ import interfaces.IVista;
  */
 public class PantallaDeJuego extends JFrame implements IVista {
 
-    private IModeloLeible modelo = Modelo.getInstaciaModelo();
-    private IControl control = Control.getInstanciaControl();
+    private final IModeloLeible modelo;
+    private final IControl control;
+    private TableroJuego tablero;
 
     /**
      * Creates new form pantallaDeJuego
      */
     public PantallaDeJuego() {
+        modelo = Modelo.getInstaciaModelo();
+        control = Control.getInstanciaControl();
+        generarPantallaDeJuego();
+        setVisible(true);
+    }
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+
+    //TODO: posible desuso
+    private void generarPantallaDeJuego() {
         setTitle("Timbiriche");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -39,71 +55,43 @@ public class PantallaDeJuego extends JFrame implements IVista {
         add(tabla, BorderLayout.WEST);
 
         //y esta la del tablero tablero asi nomas
-        TableroJuego tablero = modelo.obtenerTablero();
+        tablero = modelo.obtenerTablero();
         javax.swing.JScrollPane scrollTablero = new javax.swing.JScrollPane(tablero);
         add(scrollTablero, BorderLayout.CENTER);
+        
+        generarPanelBotones();
 
+        pack();
+    }
+    
+    private void generarPanelBotones() {
         // por el momento no tienen la funcion pero ya es para que lo dejemos listo 
         JPanel panelBotones = new JPanel(new FlowLayout());
         JButton btnJugada = new JButton("Realizar Jugada");
+        configurarBotonClick(btnJugada);
         JButton btnMenu = new JButton("Menú de opciones");
+        configurarBotonClick(btnMenu);
 
-        btnJugada.addActionListener(e -> control.realizarJugada(tablero)); // mock
         panelBotones.add(btnJugada);
         panelBotones.add(btnMenu);
 
         add(panelBotones, BorderLayout.SOUTH);
-
-        pack();
-        setVisible(true);
     }
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    
+    private void configurarBotonClick(JButton boton) {
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                switch(boton.getText()) {
+                    case ("Realizar Jugada"):
+                        Linea lineaSeleccionada = tablero.getLineaSeleccionada();
+                        control.realizarJugada(lineaSeleccionada);
+                    case ("Menú de opciones"):
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaDeJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaDeJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaDeJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaDeJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PantallaDeJuego().setVisible(true);
             }
         });
     }
-
-    //TODO: posible desuso
-    private void generarTablaJugadores() {
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

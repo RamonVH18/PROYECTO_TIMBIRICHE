@@ -16,6 +16,7 @@ import objetosPresentacion.TableroFactory;
 import objetosPresentacion.TamañosTablero;
 import vistas.TableroJuego;
 import interfaces.IVista;
+import objetosPresentacion.Linea;
 
 /**
  *
@@ -53,7 +54,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         }
         return instanciaModelo;
     }
-
+    //Metodos Observers
     public void añadirObserver(IVista v) {
         vistas.add(v);
     }
@@ -77,13 +78,16 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
     public void notificarObservers() {
         for (IVista v : vistas) {
+            //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
             v.actualizar();
         }
     }
-
+ //Metodos Leibles
     @Override
     public TableroJuego obtenerTablero() {
         TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.PEQUEÑO);
+        //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
+        añadirObserver(tablero);
         return tablero;
     }
 
@@ -92,6 +96,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
         return listaJugadores;
     }
+    
+    //Metodos Modificables
 
     public void mostrarPantallaDeJuego() {
 
@@ -121,6 +127,12 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
     public void setMostrandoTablaJugadores(boolean mostrandoTablaJugadores) {
         this.mostrandoTablaJugadores = mostrandoTablaJugadores;
+    }
+
+    @Override
+    public void realizarJugada(Linea lineaSelecionada) {
+        //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
+        notificarObservers();
     }
     
     

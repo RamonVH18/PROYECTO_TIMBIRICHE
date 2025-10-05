@@ -74,7 +74,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuDeOpciones().setVisible(true);
+                new PantallaDeJuego().setVisible(true);
             }
         });
     }

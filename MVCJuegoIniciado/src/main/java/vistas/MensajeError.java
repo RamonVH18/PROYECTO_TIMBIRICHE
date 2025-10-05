@@ -12,4 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class MensajeError extends JOptionPane {
     
+    public static void mostrarError(String message) {
+        showMessageDialog(null, message, "Error", ERROR_MESSAGE);
+    }
+    
 }
