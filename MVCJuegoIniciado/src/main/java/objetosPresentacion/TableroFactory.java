@@ -4,6 +4,8 @@
  */
 package objetosPresentacion;
 
+import interfaces.IControl;
+import interfaces.IModeloLeible;
 import java.awt.Point;
 import vistas.TableroJuego;
 

@@ -18,16 +18,10 @@ import vistas.TableroJuego;
 public class Control implements IControl {
 
     private static Control instanciaControl;
-    private IModeloModificable modelo = Modelo.getInstaciaModelo();
+    private IModeloModificable modelo;
 
-    private Control() {
-    }
-
-    public static Control getInstanciaControl() {
-        if (instanciaControl == null) {
-            instanciaControl = new Control();
-        }
-        return instanciaControl;
+    public Control(IModeloModificable modelo) {
+        this.modelo = modelo;
     }
 
     @Override
@@ -39,5 +33,16 @@ public class Control implements IControl {
         modelo.realizarJugada(lineaSeleccionada);
     }
 
+    @Override
+    public void mostrarPantallaDeJuego() {
+        modelo.mostrarPantallaDeJuego();
+    }
+
+    @Override
+    public void ocultarPantallaDeJuego() {
+        modelo.ocultarPantallaDeJuego();
+    }
+
+    
 
 }

@@ -90,8 +90,9 @@ public class TablaJugadores extends JPanel implements IVista {
     private List<JugadorVisual> jugadoresActuales;
     private IControl control;
 
-    public TablaJugadores() {
-        modelo = Modelo.getInstaciaModelo();
+    public TablaJugadores(IModeloLeible modelo) {
+       this.modelo = modelo;
+       
      //   modelo.añadirObserver(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

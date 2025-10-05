@@ -15,4 +15,8 @@ public interface IModeloModificable {
     public void añadirObserver(IVista v);
     
     public void realizarJugada(Linea lineaSelecionada);
+    
+    public void mostrarPantallaDeJuego();
+    
+    public void ocultarPantallaDeJuego();
 }

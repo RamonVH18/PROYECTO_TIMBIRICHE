@@ -24,7 +24,6 @@ import objetosPresentacion.Linea;
  */
 public class Modelo implements IModeloLeible, IModeloModificable {
 
-    private static Modelo instanciaModelo;
     private IModeloJuego modeloJuego;
 
     private boolean mostrandoPantallaDeJuego;
@@ -36,7 +35,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private List<IVista> pantallas;
     private List<IVista> vistas;
 
-    private Modelo() {
+    public Modelo() {
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
         mostrandoPantallaDeJuego = false;
@@ -48,12 +47,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
 
-    public static Modelo getInstaciaModelo() {
-        if (instanciaModelo == null) {
-            instanciaModelo = new Modelo();
-        }
-        return instanciaModelo;
-    }
+    
     //Metodos Observers
     public void añadirObserver(IVista v) {
         vistas.add(v);
@@ -71,8 +65,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
       pantallas.remove(v);
     }
     
-    public void notificarObservadoresPantallas(IVista v){
-      for(IVista vi : pantallas){
+    public void notificarObservadoresPantallas(){
+      for(IVista v : pantallas){
         v.mostrar();
       }
     }
@@ -99,10 +93,19 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     
     //Metodos Modificables
 
+    @Override
     public void mostrarPantallaDeJuego() {
-
+        mostrandoPantallaDeJuego = true;
+        notificarObservadoresPantallas();
     }
 
+    @Override
+    public void ocultarPantallaDeJuego() {
+        mostrandoPantallaDeJuego = false;
+        notificarObservadoresPantallas();
+    }
+    
+    
     public void mostrarTablaJugadores() {
 
     }
@@ -134,7 +137,5 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
         notificarObservers();
     }
-    
-    
 
 }

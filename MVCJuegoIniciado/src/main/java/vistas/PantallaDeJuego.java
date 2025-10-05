@@ -29,11 +29,10 @@ public class PantallaDeJuego extends JFrame implements IVista {
     /**
      * Creates new form pantallaDeJuego
      */
-    public PantallaDeJuego() {
-        modelo = Modelo.getInstaciaModelo();
-        control = Control.getInstanciaControl();
+    public PantallaDeJuego(IModeloLeible modelo, IControl control) {
+        this.modelo = modelo;
+        this.control = control;
         generarPantallaDeJuego();
-        setVisible(true);
     }
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -51,7 +50,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         setLayout(new BorderLayout());
 
         //esta es la tabal de los jugadores
-        TablaJugadores tabla = new TablaJugadores();
+        TablaJugadores tabla = new TablaJugadores(modelo);
         add(tabla, BorderLayout.WEST);
 
         //y esta la del tablero tablero asi nomas
@@ -105,7 +104,12 @@ public class PantallaDeJuego extends JFrame implements IVista {
     
     @Override 
     public void mostrar(){
-      
+        if(modelo.isMostrandoPantallaDeJuego()){
+            this.setVisible(true);
+        }
+        else{
+            this.setVisible(false);
+        }
     }
 
 }

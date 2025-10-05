@@ -28,9 +28,6 @@ import objetosPresentacion.EstadoLinea;
  * @author Ramon Valencia
  */
 public class TableroJuego extends JPanel implements IVista {
-
-    private IModeloLeible modelo;
-    private IControl control;
     private Dimension dimensionTablero;
 
     private final Point[][] matriz;
@@ -43,8 +40,6 @@ public class TableroJuego extends JPanel implements IVista {
     private Linea lineaSeleccionada;
 
     public TableroJuego(Point[][] matrizPuntos, Integer distancia, Integer tamaño, Integer grosor) {
-        modelo = Modelo.getInstaciaModelo();
-        control = Control.getInstanciaControl();
 
         distanciaPuntos = distancia;
         tamañoPunto = tamaño;

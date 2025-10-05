@@ -15,5 +15,7 @@ public interface IControl {
 
     public void realizarJugada(Linea lineaSeleccionada);
     
+    public void mostrarPantallaDeJuego();
     
+    public void ocultarPantallaDeJuego();
 }
