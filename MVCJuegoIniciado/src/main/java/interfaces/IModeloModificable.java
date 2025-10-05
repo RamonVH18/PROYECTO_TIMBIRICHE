@@ -9,6 +9,6 @@ package interfaces;
  * @author Ramon Valencia
  */
 public interface IModeloModificable {
-    
 
+    public void añadirObserver(IVista v);
 }

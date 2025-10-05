@@ -19,7 +19,6 @@ public interface IModeloLeible {
     
     public List<JugadorVisual> obtenerJugadores();
     
-    public void añadirObserver(IVista v);
     
     public boolean isMostrandoPantallaDeJuego();
     

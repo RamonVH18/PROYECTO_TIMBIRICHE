@@ -91,7 +91,7 @@ public class TablaJugadores extends JPanel implements IVista {
 
     public TablaJugadores() {
         modelo = Modelo.getInstaciaModelo();
-        modelo.añadirObserver(this);
+     //   modelo.añadirObserver(this);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(250, 400));
