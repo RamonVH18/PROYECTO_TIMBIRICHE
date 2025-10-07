@@ -9,7 +9,6 @@ import interfaces.IModeloLeible;
 import interfaces.IModeloModificable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JPanel;
 import modeloJuego.ModeloJuego;
 import objetosPresentacion.JugadorVisual;
 import objetosPresentacion.TableroFactory;

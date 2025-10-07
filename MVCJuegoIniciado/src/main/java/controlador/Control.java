@@ -6,10 +6,8 @@ package controlador;
 
 import interfaces.IControl;
 import interfaces.IModeloModificable;
-import modelo.Modelo;
 import objetosPresentacion.Linea;
 import vistas.MensajeError;
-import vistas.TableroJuego;
 
 /**
  *
@@ -17,7 +15,6 @@ import vistas.TableroJuego;
  */
 public class Control implements IControl {
 
-    private static Control instanciaControl;
     private IModeloModificable modelo;
 
     public Control(IModeloModificable modelo) {
