@@ -33,6 +33,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     
     private List<IVista> pantallas;
     private List<IVista> vistas;
+    private IVista observadorTablero;
 
     public Modelo() {
         this.listaJugadores = new ArrayList<>();
@@ -80,7 +81,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     public TableroJuego obtenerTablero() {
         TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.PEQUEÑO);
         //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
-        añadirObserver(tablero);
+        observadorTablero=tablero;
         return tablero;
     }
 
@@ -134,7 +135,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     @Override
     public void realizarJugada(Linea lineaSelecionada) {
         //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
-        notificarObservers();
+        observadorTablero.actualizar();
     }
 
 }
