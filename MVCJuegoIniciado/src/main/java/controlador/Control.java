@@ -7,6 +7,7 @@ package controlador;
 import interfaces.IControl;
 import interfaces.IModeloModificable;
 import objetosPresentacion.Linea;
+import objetosPresentacion.TamañosTablero;
 import vistas.MensajeError;
 
 /**
@@ -31,8 +32,8 @@ public class Control implements IControl {
     }
 
     @Override
-    public void mostrarPantallaDeJuego() {
-        modelo.mostrarPantallaDeJuego();
+    public void mostrarPantallaDeJuego(TamañosTablero tamaño) {
+        modelo.mostrarPantallaDeJuego(tamaño);
     }
 
     @Override

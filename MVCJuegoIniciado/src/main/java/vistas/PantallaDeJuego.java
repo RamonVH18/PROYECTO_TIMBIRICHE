@@ -32,7 +32,6 @@ public class PantallaDeJuego extends JFrame implements IVista {
     public PantallaDeJuego(IModeloLeible modelo, IControl control) {
         this.modelo = modelo;
         this.control = control;
-        generarPantallaDeJuego();
     }
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -105,11 +104,12 @@ public class PantallaDeJuego extends JFrame implements IVista {
     @Override 
     public void mostrar(){
         if(modelo.isMostrandoPantallaDeJuego()){
+            generarPantallaDeJuego();
             this.setVisible(true);
         }
         else{
             this.setVisible(false);
         }
     }
-
+    
 }

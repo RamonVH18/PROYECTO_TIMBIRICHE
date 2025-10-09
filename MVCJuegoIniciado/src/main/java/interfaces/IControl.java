@@ -5,7 +5,7 @@
 package interfaces;
 
 import objetosPresentacion.Linea;
-import vistas.TableroJuego;
+import objetosPresentacion.TamañosTablero;
 
 /**
  *
@@ -15,7 +15,7 @@ public interface IControl {
 
     public void realizarJugada(Linea lineaSeleccionada);
     
-    public void mostrarPantallaDeJuego();
+    public void mostrarPantallaDeJuego(TamañosTablero tamaño);
     
     public void ocultarPantallaDeJuego();
 }

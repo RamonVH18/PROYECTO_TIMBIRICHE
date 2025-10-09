@@ -2,6 +2,7 @@ package main;
 
 import controlador.Control;
 import modelo.Modelo;
+import objetosPresentacion.TamañosTablero;
 import vistas.PantallaDeJuego;
 
 /**
@@ -14,9 +15,10 @@ public class Main {
         Control control = new Control(modelo);
         PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control);
         
+        modelo.añadirObserverPantallaDeJuego(pantallaDeJuego);
         modelo.añadirObservadorPantallas(pantallaDeJuego);
         
-        control.mostrarPantallaDeJuego();
+        control.mostrarPantallaDeJuego(TamañosTablero.PEQUEÑO);
         
         
     }

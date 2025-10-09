@@ -5,6 +5,7 @@
 package interfaces;
 
 import objetosPresentacion.Linea;
+import objetosPresentacion.TamañosTablero;
 
 /**
  *
@@ -16,7 +17,7 @@ public interface IModeloModificable {
     
     public void realizarJugada(Linea lineaSelecionada);
     
-    public void mostrarPantallaDeJuego();
+    public void mostrarPantallaDeJuego(TamañosTablero tamaño);
     
     public void ocultarPantallaDeJuego();
 }

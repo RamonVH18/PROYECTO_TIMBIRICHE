@@ -24,23 +24,24 @@ import objetosPresentacion.Linea;
 public class Modelo implements IModeloLeible, IModeloModificable {
 
     private IModeloJuego modeloJuego;
-
+    private TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
-    private boolean mostrandoTableroJuego;
-
+    private boolean mostrandoTableroDeJuego;
+  
     private static List<JugadorVisual> listaJugadores;
     
     private List<IVista> pantallas;
     private List<IVista> vistas;
     private IVista observadorTablero;
-
+    private IVista observarPantallaJuego;
+    
     public Modelo() {
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
-        mostrandoTableroJuego = false;
+        mostrandoTableroDeJuego = false;
         this.vistas = new ArrayList<>();
         this.pantallas = new ArrayList<>();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
@@ -49,6 +50,10 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
     
     //Metodos Observers
+    
+    public void añadirObserverPantallaDeJuego(IVista tablero){
+        this.observarPantallaJuego = tablero;
+    }
     public void añadirObserver(IVista v) {
         vistas.add(v);
     }
@@ -72,15 +77,13 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
     public void notificarObservers() {
         for (IVista v : vistas) {
-            //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
             v.actualizar();
         }
     }
  //Metodos Leibles
     @Override
     public TableroJuego obtenerTablero() {
-        TableroJuego tablero = TableroFactory.crearTablero(TamañosTablero.PEQUEÑO);
-        //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
+        TableroJuego tablero = TableroFactory.crearTablero(tamaño);
         observadorTablero=tablero;
         return tablero;
     }
@@ -94,7 +97,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     //Metodos Modificables
 
     @Override
-    public void mostrarPantallaDeJuego() {
+    public void mostrarPantallaDeJuego(TamañosTablero tamaño) {
+        this.tamaño = tamaño;
         mostrandoPantallaDeJuego = true;
         notificarObservadoresPantallas();
     }
@@ -134,8 +138,11 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
     @Override
     public void realizarJugada(Linea lineaSelecionada) {
-        //EL TABLERO DEBE DE TENER SU PROPIO OBSERVER
         observadorTablero.actualizar();
+    }
+    
+    public void mostrarPantallaDeJuego(){
+        observarPantallaJuego.mostrar();
     }
 
 }
