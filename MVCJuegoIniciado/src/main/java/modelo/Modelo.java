@@ -15,7 +15,9 @@ import objetosPresentacion.TableroFactory;
 import objetosPresentacion.TamañosTablero;
 import vistas.TableroJuego;
 import interfaces.IVista;
+import java.awt.Point;
 import objetosPresentacion.Linea;
+import objetosPresentacion.OrientacionLinea;
 
 /**
  *
@@ -23,7 +25,7 @@ import objetosPresentacion.Linea;
  */
 public class Modelo implements IModeloLeible, IModeloModificable {
 
-    private final Point[][] matriz;
+    private Point[][] matriz;
     private final List<Linea> lineas; 
     private IModeloJuego modeloJuego;
     private TamañosTablero tamaño;
@@ -171,7 +173,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
             for (int j = 0; j < columnas - 1; j++) {
                 Point a = matriz[i][j];
                 Point b = matriz[i][j + 1];
-                lineas.add(new Linea(a, b, OrientacionLinea.HORIZONTAL, grosorLinea));
+                lineas.add(new Linea(a, b, OrientacionLinea.HORIZONTAL, tamaño.getGrosorLinea()));
             }
         }
 
@@ -180,7 +182,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
             for (int j = 0; j < columnas; j++) {
                 Point a = matriz[i][j];
                 Point b = matriz[i + 1][j];
-                lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, grosorLinea));
+                lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
             }
         }
     }

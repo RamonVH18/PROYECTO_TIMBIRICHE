@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import java.awt.Point;
 import java.util.List;
 import javax.swing.JPanel;
 import objetosPresentacion.JugadorVisual;
