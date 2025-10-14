@@ -64,9 +64,10 @@ public class TableroJuego extends JPanel implements IVista {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // limpia el fondo
         
-        ArrayList <Linea> lineas = modelo.getLineas();
+        ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
         Point[][] matriz = modelo.getMatriz();
-
+        Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
+        
         for (Linea l : lineas) {
             l.paintComponent(g); // usamos el paintComponent de cada línea
         }
@@ -94,6 +95,7 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
+                ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
                 for (Linea linea : lineas) {
                     if (estaSobreLinea(click, linea)) {
                         if (lineaSeleccionada != null) {
