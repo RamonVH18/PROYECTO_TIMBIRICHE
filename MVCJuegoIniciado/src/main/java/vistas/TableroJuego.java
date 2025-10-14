@@ -94,6 +94,7 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
+                List<Linea> lineas = modelo.getLineas();
                 for (Linea linea : lineas) {
                     if (estaSobreLinea(click, linea)) {
                         if (lineaSeleccionada != null) {
