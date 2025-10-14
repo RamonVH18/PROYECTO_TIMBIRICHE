@@ -103,13 +103,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
     
     @Override 
     public void mostrar(){
-        if(modelo.isMostrandoPantallaDeJuego()){
-            generarPantallaDeJuego();
-            this.setVisible(true);
-        }
-        else{
-            this.setVisible(false);
-        }
+        setVisible(modelo.isMostrandoPantallaDeJuego());
     }
     
 }

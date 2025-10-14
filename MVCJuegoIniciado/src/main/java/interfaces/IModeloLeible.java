@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import objetosPresentacion.JugadorVisual;
 import vistas.TableroJuego;
+import objetosPresentacion.TamañosTablero;
 
 /**
  *
@@ -25,4 +26,10 @@ public interface IModeloLeible {
    // public void isMostrandoTableroJuego();
     
     public boolean isMostrandoTablaJugadores();
+
+    public Point[][] getMatriz();
+    
+    public List getLineas();
+
+    public TamañosTablero getTamañoTablero();
 }

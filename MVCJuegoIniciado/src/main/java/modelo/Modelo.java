@@ -23,13 +23,15 @@ import objetosPresentacion.Linea;
  */
 public class Modelo implements IModeloLeible, IModeloModificable {
 
+    private final Point[][] matriz;
+    private final List<Linea> lineas; 
     private IModeloJuego modeloJuego;
     private TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
     private boolean mostrandoTableroDeJuego;
   
-    private static List<JugadorVisual> listaJugadores;
+    private List<JugadorVisual> listaJugadores;
     
     private List<IVista> pantallas;
     private List<IVista> vistas;
@@ -37,6 +39,8 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private IVista observarPantallaJuego;
     
     public Modelo() {
+        //this.matriz;
+        this.lineas = new ArrayList<>();
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
         mostrandoPantallaDeJuego = false;
@@ -93,6 +97,11 @@ public class Modelo implements IModeloLeible, IModeloModificable {
 
         return listaJugadores;
     }
+
+    @Override
+    public TamañosTablero getTamañoTablero(){
+        return this.tamaño;
+    }
     
     //Metodos Modificables
 
@@ -143,6 +152,37 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     
     public void mostrarPantallaDeJuego(){
         observarPantallaJuego.mostrar();
+    }
+
+    public Point[][] getMatriz(){
+        return this.matriz;
+    }
+
+    public List getLineas(){
+        return this.lineas;
+    }
+
+    private void generarLineas() {
+        int filas = matriz.length;
+        int columnas = matriz[0].length;
+
+        // Líneas horizontales
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas - 1; j++) {
+                Point a = matriz[i][j];
+                Point b = matriz[i][j + 1];
+                lineas.add(new Linea(a, b, OrientacionLinea.HORIZONTAL, grosorLinea));
+            }
+        }
+
+        // Líneas verticales
+        for (int i = 0; i < filas - 1; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Point a = matriz[i][j];
+                Point b = matriz[i + 1][j];
+                lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, grosorLinea));
+            }
+        }
     }
 
 }
