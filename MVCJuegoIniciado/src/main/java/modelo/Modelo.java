@@ -41,7 +41,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private IVista observarPantallaJuego;
     
     public Modelo() {
-        //this.matriz;
+        this.matriz = generarLineas();
         this.lineas = new ArrayList<>();
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
