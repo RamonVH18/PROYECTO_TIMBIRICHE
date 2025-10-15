@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import modeloJuego.ModeloJuego;
 import objetosPresentacion.JugadorVisual;
-import objetosPresentacion.TableroFactory;
 import objetosPresentacion.TamañosTablero;
 import vistas.TableroJuego;
 import interfaces.IVista;
@@ -26,23 +25,25 @@ import objetosPresentacion.OrientacionLinea;
 public class Modelo implements IModeloLeible, IModeloModificable {
 
     private Point[][] matriz;
-    private final List<Linea> lineas; 
+    private final List<Linea> lineas;
     private IModeloJuego modeloJuego;
     private TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
     private boolean mostrandoTableroDeJuego;
-  
+
     private List<JugadorVisual> listaJugadores;
-    
+
     private List<IVista> pantallas;
     private List<IVista> vistas;
     private IVista observadorTablero;
     private IVista observarPantallaJuego;
-    
-    public Modelo() {
-        this.matriz = generarLineas();
+
+    public Modelo(TamañosTablero tamaño) {
+        this.tamaño = tamaño;
+        this.matriz = generarMatriz();
         this.lineas = new ArrayList<>();
+        generarLineas();
         this.listaJugadores = new ArrayList<>();
         this.modeloJuego = ModeloJuego.getInstance();
         mostrandoPantallaDeJuego = false;
@@ -54,12 +55,11 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
 
-    
     //Metodos Observers
-    
-    public void añadirObserverPantallaDeJuego(IVista tablero){
+    public void añadirObserverPantallaDeJuego(IVista tablero) {
         this.observarPantallaJuego = tablero;
     }
+
     public void añadirObserver(IVista v) {
         vistas.add(v);
     }
@@ -67,33 +67,33 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     public void eliminarObserver(IVista v) {
         vistas.remove(v);
     }
-    
-    public void añadirObservadorPantallas(IVista v){
-      pantallas.add(v);
+
+    public void añadirObservadorPantallas(IVista v) {
+        pantallas.add(v);
     }
 
-    public void eliminarObservadorPantallas(IVista v){
-      pantallas.remove(v);
+    public void eliminarObservadorPantallas(IVista v) {
+        pantallas.remove(v);
     }
-    
-    public void notificarObservadoresPantallas(){
-      for(IVista v : pantallas){
-        v.mostrar();
-      }
+
+    public void notificarObservadoresPantallas() {
+        for (IVista v : pantallas) {
+            v.mostrar();
+        }
     }
+
     public void notificarObservers() {
         for (IVista v : vistas) {
             v.actualizar();
         }
     }
- //Metodos Leibles
+    //Metodos Leibles
     @Override
-    public TableroJuego obtenerTablero() {
-        TableroJuego tablero = TableroFactory.crearTablero(tamaño);
-        observadorTablero=tablero;
-        return tablero;
+    public void setObserverTablero(TableroJuego tablero) {
+   
+        observadorTablero = tablero;
     }
-
+    
     @Override
     public List<JugadorVisual> obtenerJugadores() {
 
@@ -101,15 +101,13 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
 
     @Override
-    public TamañosTablero getTamañoTablero(){
+    public TamañosTablero getTamañoTablero() {
         return this.tamaño;
     }
-    
-    //Metodos Modificables
 
+    //Metodos Modificables
     @Override
-    public void mostrarPantallaDeJuego(TamañosTablero tamaño) {
-        this.tamaño = tamaño;
+    public void mostrarPantallaDeJuego() {
         mostrandoPantallaDeJuego = true;
         notificarObservadoresPantallas();
     }
@@ -119,8 +117,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         mostrandoPantallaDeJuego = false;
         notificarObservadoresPantallas();
     }
-    
-    
+
     public void mostrarTablaJugadores() {
 
     }
@@ -151,16 +148,13 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     public void realizarJugada(Linea lineaSelecionada) {
         observadorTablero.actualizar();
     }
-    
-    public void mostrarPantallaDeJuego(){
-        observarPantallaJuego.mostrar();
-    }
 
-    public Point[][] getMatriz(){
+
+    public Point[][] getMatriz() {
         return this.matriz;
     }
 
-    public List getLineas(){
+    public List getLineas() {
         return this.lineas;
     }
 
@@ -185,6 +179,21 @@ public class Modelo implements IModeloLeible, IModeloModificable {
                 lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
             }
         }
+    }
+
+    private Point[][] generarMatriz() {
+        Integer filas = tamaño.getFilas();
+        Integer columnas = tamaño.getColumnas();
+        Integer distancia = tamaño.getDistanciaPuntos();
+        Integer tamañoPunto = tamaño.getTamañoPunto();
+        Integer grosorLinea = tamaño.getGrosorLinea();
+        Point[][] puntos = new Point[filas][columnas];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                puntos[i][j] = new Point((j + 1) * distancia, (i + 1) * distancia);
+            }
+        }
+        return puntos;
     }
 
 }

@@ -17,8 +17,6 @@ import objetosPresentacion.TamañosTablero;
  */
 public interface IModeloLeible {
     
-    public TableroJuego obtenerTablero();
-    
     public List<JugadorVisual> obtenerJugadores();
     
     

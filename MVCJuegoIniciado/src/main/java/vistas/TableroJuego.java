@@ -4,7 +4,6 @@
  */
 package vistas;
 
-import controlador.Control;
 import interfaces.IControl;
 import interfaces.IModeloLeible;
 import java.awt.Color;
@@ -12,16 +11,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import objetosPresentacion.Linea;
-import objetosPresentacion.OrientacionLinea;
-import objetosPresentacion.TamañosTablero;
 import interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import modelo.Modelo;
 import objetosPresentacion.EstadoLinea;
 
 /**
@@ -41,7 +36,6 @@ public class TableroJuego extends JPanel implements IVista {
         this.modelo = modelo;
         this.control = control;
         generarTablero();
-        generarLineas();
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
     }
 
@@ -49,7 +43,6 @@ public class TableroJuego extends JPanel implements IVista {
     private void generarTablero() {
         Point[][] matriz = modelo.getMatriz(); 
         Integer distanciaPuntos = modelo.getTamañoTablero().getDistanciaPuntos();
-        
         largo = (matriz.length * distanciaPuntos) + distanciaPuntos;
         ancho = (matriz[0].length * distanciaPuntos) + distanciaPuntos;
         dimensionTablero = new Dimension(ancho, largo);
