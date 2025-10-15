@@ -32,8 +32,8 @@ public class Control implements IControl {
     }
 
     @Override
-    public void mostrarPantallaDeJuego(TamañosTablero tamaño) {
-        modelo.mostrarPantallaDeJuego(tamaño);
+    public void mostrarPantallaDeJuego() {
+        modelo.mostrarPantallaDeJuego();
     }
 
     @Override

@@ -6,6 +6,7 @@ package interfaces;
 
 import objetosPresentacion.Linea;
 import objetosPresentacion.TamañosTablero;
+import vistas.TableroJuego;
 
 /**
  *
@@ -15,9 +16,11 @@ public interface IModeloModificable {
 
     public void añadirObserver(IVista v);
     
+    public void setObserverTablero(TableroJuego tablero);
+    
     public void realizarJugada(Linea lineaSelecionada);
     
-    public void mostrarPantallaDeJuego(TamañosTablero tamaño);
+    public void mostrarPantallaDeJuego();
     
     public void ocultarPantallaDeJuego();
 }

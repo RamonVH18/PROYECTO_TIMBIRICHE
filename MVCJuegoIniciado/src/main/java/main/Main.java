@@ -4,6 +4,7 @@ import controlador.Control;
 import modelo.Modelo;
 import objetosPresentacion.TamañosTablero;
 import vistas.PantallaDeJuego;
+import vistas.TableroJuego;
 
 /**
  *
@@ -11,14 +12,17 @@ import vistas.PantallaDeJuego;
  */
 public class Main {
     public static void main(String[] args) {
-        Modelo modelo = new Modelo();
+        Modelo modelo = new Modelo(TamañosTablero.PEQUEÑO);
         Control control = new Control(modelo);
-        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control);
+        TableroJuego tablero = new TableroJuego(modelo, control);
+        modelo.setObserverTablero(tablero);
+        
+        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
         
         modelo.añadirObserverPantallaDeJuego(pantallaDeJuego);
         modelo.añadirObservadorPantallas(pantallaDeJuego);
         
-        control.mostrarPantallaDeJuego(TamañosTablero.PEQUEÑO);
+        control.mostrarPantallaDeJuego();
         
         
     }

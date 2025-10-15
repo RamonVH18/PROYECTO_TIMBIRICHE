@@ -29,9 +29,11 @@ public class PantallaDeJuego extends JFrame implements IVista {
     /**
      * Creates new form pantallaDeJuego
      */
-    public PantallaDeJuego(IModeloLeible modelo, IControl control) {
+    public PantallaDeJuego(IModeloLeible modelo, IControl control, TableroJuego tablero) {
         this.modelo = modelo;
         this.control = control;
+        this.tablero = tablero;
+        generarPantallaDeJuego();
     }
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -53,7 +55,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         add(tabla, BorderLayout.WEST);
 
         //y esta la del tablero tablero asi nomas
-        tablero = modelo.obtenerTablero();
+       // tablero = modelo.obtenerTablero();
         javax.swing.JScrollPane scrollTablero = new javax.swing.JScrollPane(tablero);
         add(scrollTablero, BorderLayout.CENTER);
         
@@ -103,13 +105,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
     
     @Override 
     public void mostrar(){
-        if(modelo.isMostrandoPantallaDeJuego()){
-            generarPantallaDeJuego();
-            this.setVisible(true);
-        }
-        else{
-            this.setVisible(false);
-        }
+        setVisible(modelo.isMostrandoPantallaDeJuego());
     }
     
 }
