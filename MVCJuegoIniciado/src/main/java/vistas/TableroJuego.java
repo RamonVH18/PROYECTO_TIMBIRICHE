@@ -4,7 +4,6 @@
  */
 package vistas;
 
-import controlador.Control;
 import interfaces.IControl;
 import interfaces.IModeloLeible;
 import java.awt.Color;
@@ -12,15 +11,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import objetosPresentacion.Linea;
-import objetosPresentacion.OrientacionLinea;
 import interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import modelo.Modelo;
 import objetosPresentacion.EstadoLinea;
 
 /**
@@ -30,28 +26,23 @@ import objetosPresentacion.EstadoLinea;
 public class TableroJuego extends JPanel implements IVista {
     private Dimension dimensionTablero;
 
-    private final Point[][] matriz;
-    private final List<Linea> lineas = new ArrayList<>();
     private Integer largo;  
     private Integer ancho;
-    private final Integer distanciaPuntos;
-    private final Integer tamañoPunto;
-    private final Integer grosorLinea;
     private Linea lineaSeleccionada;
+    private IModeloLeible modelo;
+    private IControl control;
 
-    public TableroJuego(Point[][] matrizPuntos, Integer distancia, Integer tamaño, Integer grosor) {
-
-        distanciaPuntos = distancia;
-        tamañoPunto = tamaño;
-        matriz = matrizPuntos;
-        grosorLinea = grosor;
+    public TableroJuego(IModeloLeible modelo, IControl control) {
+        this.modelo = modelo;
+        this.control = control;
         generarTablero();
-        generarLineas();
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
     }
 
     // esto es lo que fija el tablero 
     private void generarTablero() {
+        Point[][] matriz = modelo.getMatriz(); 
+        Integer distanciaPuntos = modelo.getTamañoTablero().getDistanciaPuntos();
         largo = (matriz.length * distanciaPuntos) + distanciaPuntos;
         ancho = (matriz[0].length * distanciaPuntos) + distanciaPuntos;
         dimensionTablero = new Dimension(ancho, largo);
@@ -65,7 +56,11 @@ public class TableroJuego extends JPanel implements IVista {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // limpia el fondo
-
+        
+        ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
+        Point[][] matriz = modelo.getMatriz();
+        Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
+        
         for (Linea l : lineas) {
             l.paintComponent(g); // usamos el paintComponent de cada línea
         }
@@ -78,29 +73,6 @@ public class TableroJuego extends JPanel implements IVista {
             }
         }
 
-    }
-
-    private void generarLineas() {
-        int filas = matriz.length;
-        int columnas = matriz[0].length;
-
-        // Líneas horizontales
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas - 1; j++) {
-                Point a = matriz[i][j];
-                Point b = matriz[i][j + 1];
-                lineas.add(new Linea(a, b, OrientacionLinea.HORIZONTAL, grosorLinea));
-            }
-        }
-
-        // Líneas verticales
-        for (int i = 0; i < filas - 1; i++) {
-            for (int j = 0; j < columnas; j++) {
-                Point a = matriz[i][j];
-                Point b = matriz[i + 1][j];
-                lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, grosorLinea));
-            }
-        }
     }
 
     private void configurarMouseClicker() {
@@ -116,6 +88,7 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
+                ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
                 for (Linea linea : lineas) {
                     if (estaSobreLinea(click, linea)) {
                         if (lineaSeleccionada != null) {
