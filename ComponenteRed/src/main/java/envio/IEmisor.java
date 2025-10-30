@@ -10,6 +10,6 @@ package envio;
  */
 public interface IEmisor {
     
-    public void agregarAColaEnvio(PaqueteDTO paquete);
+    public void enviarPaquete(EnvioDTO envio);
     
 }

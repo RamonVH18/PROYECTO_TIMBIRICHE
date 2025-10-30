@@ -12,7 +12,7 @@ import java.util.Queue;
  * @author Ramon Valencia
  */
 public class ColaEnvio {
-    private static Queue<PaqueteDTO> cola;
+    private static Queue<EnvioDTO> cola;
     private static ICliente cliente;
     private static ColaEnvio instancia;
     
@@ -31,13 +31,13 @@ public class ColaEnvio {
         this.cliente = cliente;
     }
     
-    public void encolar(PaqueteDTO paquete) {
+    public void encolar(EnvioDTO paquete) {
         cola.add(paquete);
         notificarPaqueteNuevo();
     }
     
-    public PaqueteDTO desencolar() {
-        PaqueteDTO paquete = cola.remove();
+    public EnvioDTO desencolar() {
+        EnvioDTO paquete = cola.remove();
         return paquete;
     }
     

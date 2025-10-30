@@ -10,8 +10,7 @@ import com.google.gson.JsonObject;
 /**
  *
  * @author Ramon Valencia
- */
-public class PaqueteDTO {
+ */public class PaqueteDTO {
 
     private final String tipoPaquete;
     private final JsonObject mensaje;

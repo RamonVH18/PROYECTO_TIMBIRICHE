@@ -8,28 +8,37 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class ClienteTCP implements ICliente {
-    private final Socket socket;
-    private final PrintWriter salida;
+    private Socket socket;
+    private PrintWriter salida;
     private final ColaEnvio cola;
     
-    public ClienteTCP(String ip, int port) throws IOException {
+    public ClienteTCP() {
         this.cola = ColaEnvio.getInstancia();
-        this.socket = new Socket(ip, port);
-        this.salida = new PrintWriter(socket.getOutputStream(), true);
+        
     }
     
     @Override
     public void enviarPaquete() {
         Gson gson = new Gson();
-        PaqueteDTO paquete = cola.desencolar();
-        String json = gson.toJson(paquete);
-        salida.println(json);
+        EnvioDTO envio = cola.desencolar();
+        
+        String json = gson.toJson(envio.getPaquete());
+        try {
+            socket = new Socket(envio.getHost(), envio.getPort());
+            salida = new PrintWriter(socket.getOutputStream(), true);
+            salida.println(json);
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
     }
     
     

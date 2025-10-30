@@ -26,8 +26,8 @@ public class Emisor implements IEmisor {
     }
 
     @Override
-    public void agregarAColaEnvio(PaqueteDTO paquete) {
-        colaEnvio.encolar(paquete);
+    public void enviarPaquete(EnvioDTO envio) {
+        colaEnvio.encolar(envio);
     }
 
     public ColaEnvio getColaEnvio() {

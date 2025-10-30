@@ -23,19 +23,21 @@ public class ServerJson {
 
         try (ServerSocket server = new ServerSocket(puerto)) {
             System.out.println("Servidor escuchando en puerto " + puerto);
+            while (true) {
+                Socket cliente = server.accept(); // espera conexión
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(cliente.getInputStream())
+                );
 
-            Socket cliente = server.accept(); // espera conexión
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(cliente.getInputStream())
-            );
+                String jsonRecibido = in.readLine(); // recibe el JSON como String
+                System.out.println("JSON recibido: " + jsonRecibido);
 
-            String jsonRecibido = in.readLine(); // recibe el JSON como String
-            System.out.println("JSON recibido: " + jsonRecibido);
+                // Deserializar el JSON a JsonObject
+                PaqueteDTO paquete = gson.fromJson(jsonRecibido, PaqueteDTO.class);
+                System.out.println("Tipo: " + paquete.getTipoPaquete());
+                System.out.println("Mensaje: " + paquete.getMensaje());
 
-            // Deserializar el JSON a JsonObject
-            PaqueteDTO paquete = gson.fromJson(jsonRecibido, PaqueteDTO.class);
-            System.out.println("Tipo: " + paquete.getTipoPaquete());
-            System.out.println("Mensaje: " + paquete.getMensaje());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

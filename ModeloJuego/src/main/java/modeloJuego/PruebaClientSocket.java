@@ -6,6 +6,7 @@ package modeloJuego;
 
 import com.google.gson.JsonObject;
 import envio.DispatcherFactory;
+import envio.EnvioDTO;
 import envio.IEmisor;
 import envio.PaqueteDTO;
 import java.io.IOException;
@@ -18,14 +19,22 @@ public class PruebaClientSocket {
 
     private static IEmisor emisor;
 
-    public static void main(String[] args) throws IOException {
-        emisor = DispatcherFactory.createDispatcher("localhost", 5000);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        emisor = DispatcherFactory.createDispatcher();
 
-        JsonObject jason = new JsonObject();
-        jason.addProperty("nombre", "Este es un paquete enviado usando Json");
-        PaqueteDTO paquete = new PaqueteDTO("Jason", jason);
+        
+        
+        for (int i = 0; i < 3; i++) {
 
-        emisor.agregarAColaEnvio(paquete);
+            JsonObject jason = new JsonObject();
+            jason.addProperty("nombre", "Este es un paquete enviado usando Json " + i);
+            PaqueteDTO paquete = new PaqueteDTO("Jason", jason);
+            EnvioDTO envio = new EnvioDTO("localhost", 5000, paquete);
+            emisor.enviarPaquete(envio);
+
+            Thread.sleep(2000L);
+        }
+
     }
 
 }
