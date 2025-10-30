@@ -12,10 +12,11 @@ import java.io.IOException;
  */
 public class DispatcherFactory {
     
-    public static Emisor createDispatcher() throws IOException {
+    public static Emisor createDispatcher(String ip, int port) throws IOException {
+        ColaEnvio cola = ColaEnvio.getInstancia();
         Emisor emisor = Emisor.getInstanceEmisor();
-        ColaEnvio cola = emisor.getColaEnvio();
-        ICliente cliente = new ClienteTCP();
+        
+        ICliente cliente = new ClienteTCP(ip, port);
         cola.subscribirCliente(cliente);
         return emisor;
     }

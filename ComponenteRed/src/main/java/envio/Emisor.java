@@ -19,10 +19,9 @@ public class Emisor implements IEmisor {
     public static Emisor getInstanceEmisor() {
         if (instancia == null) {
             instancia = new Emisor();
+            colaEnvio = ColaEnvio.getInstancia();
         }
-        if (colaEnvio == null) {
-            colaEnvio = new ColaEnvio();
-        }
+        
         return instancia;
     }
 

@@ -14,9 +14,17 @@ import java.util.Queue;
 public class ColaEnvio {
     private static Queue<PaqueteDTO> cola;
     private static ICliente cliente;
+    private static ColaEnvio instancia;
     
-    public ColaEnvio() {
+    private ColaEnvio() {
         cola = new ArrayDeque<>();
+    }
+    
+    public static ColaEnvio getInstancia() {
+        if (instancia == null) {
+            instancia = new ColaEnvio();
+        }
+        return instancia;
     }
     
     public void subscribirCliente(ICliente cliente) {

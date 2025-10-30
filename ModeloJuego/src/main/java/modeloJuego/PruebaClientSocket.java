@@ -4,8 +4,6 @@
  */
 package modeloJuego;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import envio.DispatcherFactory;
 import envio.IEmisor;
@@ -17,19 +15,17 @@ import java.io.IOException;
  * @author Ramon Valencia
  */
 public class PruebaClientSocket {
-    
+
     private static IEmisor emisor;
-    
+
     public static void main(String[] args) throws IOException {
-        emisor = DispatcherFactory.createDispatcher();
-        
-        String abraham = "ABRAHAMA";
-        Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(abraham);
-        JsonObject jason = element.getAsJsonObject();
+        emisor = DispatcherFactory.createDispatcher("localhost", 5000);
+
+        JsonObject jason = new JsonObject();
+        jason.addProperty("nombre", "ABRAHAMA");
         PaqueteDTO paquete = new PaqueteDTO("abraham", jason);
-        
+
         emisor.agregarAColaEnvio(paquete);
     }
-    
+
 }

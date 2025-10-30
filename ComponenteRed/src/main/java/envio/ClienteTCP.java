@@ -15,11 +15,10 @@ import java.net.Socket;
 public class ClienteTCP implements ICliente {
     private final Socket socket;
     private final PrintWriter salida;
-    private String ip = "localhost";
-    private int port = 5000; 
-    private static ColaEnvio cola;
+    private final ColaEnvio cola;
     
-    public ClienteTCP() throws IOException {
+    public ClienteTCP(String ip, int port) throws IOException {
+        this.cola = ColaEnvio.getInstancia();
         this.socket = new Socket(ip, port);
         this.salida = new PrintWriter(socket.getOutputStream(), true);
     }
