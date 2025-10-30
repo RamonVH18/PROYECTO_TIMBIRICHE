@@ -6,9 +6,9 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>MVCJuegoIniciado</module>
-        <module>ModeloJuego</module>
-        <module>ComponenteRed</module>
+        <module>../MVCJuegoIniciado</module>
+        <module>../ModeloJuego</module>
+        <module>../ComponenteRed</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
