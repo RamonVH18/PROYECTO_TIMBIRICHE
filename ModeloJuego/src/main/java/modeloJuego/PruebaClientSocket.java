@@ -22,8 +22,8 @@ public class PruebaClientSocket {
         emisor = DispatcherFactory.createDispatcher("localhost", 5000);
 
         JsonObject jason = new JsonObject();
-        jason.addProperty("nombre", "ABRAHAMA");
-        PaqueteDTO paquete = new PaqueteDTO("abraham", jason);
+        jason.addProperty("nombre", "Este es un paquete enviado usando Json");
+        PaqueteDTO paquete = new PaqueteDTO("Jason", jason);
 
         emisor.agregarAColaEnvio(paquete);
     }

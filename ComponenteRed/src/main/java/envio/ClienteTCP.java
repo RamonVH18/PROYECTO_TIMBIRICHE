@@ -4,6 +4,7 @@
  */
 package envio;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -25,8 +26,10 @@ public class ClienteTCP implements ICliente {
     
     @Override
     public void enviarPaquete() {
+        Gson gson = new Gson();
         PaqueteDTO paquete = cola.desencolar();
-        salida.println(paquete);
+        String json = gson.toJson(paquete);
+        salida.println(json);
     }
     
     
