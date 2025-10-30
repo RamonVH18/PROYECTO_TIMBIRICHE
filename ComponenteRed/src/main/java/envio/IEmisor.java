@@ -10,8 +10,6 @@ package envio;
  */
 public interface IEmisor {
     
-    public Emisor getInstanceEmisor();
-    
     public void agregarAColaEnvio(PaqueteDTO paquete);
     
 }

@@ -10,14 +10,13 @@ package envio;
  */
 public class Emisor implements IEmisor {
     private static Emisor instancia;
-    private static ColaEnvio colaEnvio;
+    public static ColaEnvio colaEnvio;
     
     private Emisor() {
         
     }
     
-    @Override
-    public Emisor getInstanceEmisor() {
+    public static Emisor getInstanceEmisor() {
         if (instancia == null) {
             instancia = new Emisor();
         }
@@ -32,6 +31,8 @@ public class Emisor implements IEmisor {
         colaEnvio.encolar(paquete);
     }
 
-    
+    public ColaEnvio getColaEnvio() {
+        return colaEnvio;
+    }
     
 }

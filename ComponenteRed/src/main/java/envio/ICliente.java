@@ -8,7 +8,7 @@ package envio;
  *
  * @author Ramon Valencia
  */
-public interface Cliente {
+public interface ICliente {
     
     public void enviarPaquete();
 }

@@ -13,13 +13,13 @@ import java.util.Queue;
  */
 public class ColaEnvio {
     private static Queue<PaqueteDTO> cola;
-    private static Cliente cliente;
+    private static ICliente cliente;
     
     public ColaEnvio() {
         cola = new ArrayDeque<>();
     }
     
-    public void subscribirCliente(Cliente cliente) {
+    public void subscribirCliente(ICliente cliente) {
         this.cliente = cliente;
     }
     

@@ -12,11 +12,11 @@ import java.net.Socket;
  *
  * @author Ramon Valencia
  */
-public class ClienteTCP implements Cliente {
+public class ClienteTCP implements ICliente {
     private final Socket socket;
     private final PrintWriter salida;
-    private String ip;
-    private int port;
+    private String ip = "localhost";
+    private int port = 5000; 
     private static ColaEnvio cola;
     
     public ClienteTCP() throws IOException {
