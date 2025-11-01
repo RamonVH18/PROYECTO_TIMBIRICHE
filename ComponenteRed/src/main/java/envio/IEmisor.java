@@ -4,6 +4,8 @@
  */
 package envio;
 
+import DTOs.EnvioDTO;
+
 /**
  *
  * @author Ramon Valencia

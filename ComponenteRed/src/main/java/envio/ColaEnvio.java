@@ -4,6 +4,7 @@
  */
 package envio;
 
+import DTOs.EnvioDTO;
 import java.util.ArrayDeque;
 import java.util.Queue;
 

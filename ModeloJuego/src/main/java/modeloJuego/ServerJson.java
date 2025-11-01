@@ -5,7 +5,7 @@ package modeloJuego;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import envio.PaqueteDTO;
+import DTOs.PaqueteDTO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;

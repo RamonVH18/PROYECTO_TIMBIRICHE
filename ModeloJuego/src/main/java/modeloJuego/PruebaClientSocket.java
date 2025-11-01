@@ -6,9 +6,9 @@ package modeloJuego;
 
 import com.google.gson.JsonObject;
 import envio.DispatcherFactory;
-import envio.EnvioDTO;
+import DTOs.EnvioDTO;
 import envio.IEmisor;
-import envio.PaqueteDTO;
+import DTOs.PaqueteDTO;
 import java.io.IOException;
 
 /**

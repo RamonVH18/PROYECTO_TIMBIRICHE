@@ -1,6 +1,6 @@
 package recepcion;
 
-import envio.PaqueteDTO;
+import DTOs.PaqueteDTO;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
