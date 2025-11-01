@@ -10,7 +10,7 @@ package envio;
  */
 public class Emisor implements IEmisor {
     private static Emisor instancia;
-    public static ColaEnvio colaEnvio;
+    private static ColaEnvio colaEnvio;
     
     private Emisor() {
         
@@ -28,10 +28,6 @@ public class Emisor implements IEmisor {
     @Override
     public void enviarPaquete(EnvioDTO envio) {
         colaEnvio.encolar(envio);
-    }
-
-    public ColaEnvio getColaEnvio() {
-        return colaEnvio;
     }
     
 }
