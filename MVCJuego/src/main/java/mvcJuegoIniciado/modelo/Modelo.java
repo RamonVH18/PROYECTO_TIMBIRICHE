@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package modelo;
+package mvcJuegoIniciado.modelo;
 
 import interfaces.IModeloJuego;
-import interfaces.IModeloLeible;
-import interfaces.IModeloModificable;
+import mvcJuegoIniciado.interfaces.IModeloLeible;
+import mvcJuegoIniciado.interfaces.IModeloModificable;
 import java.util.ArrayList;
 import java.util.List;
 import modeloJuego.ModeloJuego;
 import objetosPresentacion.JugadorVisual;
 import objetosPresentacion.TamañosTablero;
-import vistas.TableroJuego;
-import interfaces.IVista;
+import mvcJuegoIniciado.vistas.TableroJuego;
+import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.Point;
 import objetosPresentacion.Linea;
 import objetosPresentacion.OrientacionLinea;
@@ -24,13 +24,13 @@ import objetosPresentacion.OrientacionLinea;
  */
 public class Modelo implements IModeloLeible, IModeloModificable {
 
-    private Point[][] matriz;
+    private final Point[][] matriz;
     private final List<Linea> lineas;
-    private IModeloJuego modeloJuego;
-    private TamañosTablero tamaño;
+    private final IModeloJuego modeloJuego;
+    private final TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
-    private boolean mostrandoTableroDeJuego;
+    private final boolean mostrandoTableroDeJuego;
 
     private List<JugadorVisual> listaJugadores;
 
@@ -60,6 +60,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         this.observarPantallaJuego = tablero;
     }
 
+    @Override
     public void añadirObserver(IVista v) {
         vistas.add(v);
     }
@@ -88,7 +89,6 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         }
     }
     //Metodos Leibles
-    @Override
     public void setObserverTablero(TableroJuego tablero) {
    
         observadorTablero = tablero;
@@ -150,10 +150,12 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     }
 
 
+    @Override
     public Point[][] getMatriz() {
         return this.matriz;
     }
 
+    @Override
     public List getLineas() {
         return this.lineas;
     }

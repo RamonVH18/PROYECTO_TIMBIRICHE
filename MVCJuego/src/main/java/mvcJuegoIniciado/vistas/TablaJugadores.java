@@ -1,7 +1,7 @@
-package vistas;
+package mvcJuegoIniciado.vistas;
 
-import interfaces.IControl;
-import interfaces.IModeloLeible;
+import mvcJuegoIniciado.interfaces.IControl;
+import mvcJuegoIniciado.interfaces.IModeloLeible;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
@@ -10,9 +10,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import modelo.Modelo;
 import objetosPresentacion.JugadorVisual;
-import interfaces.IVista;
+import mvcJuegoIniciado.interfaces.IVista;
 
 /**
  *

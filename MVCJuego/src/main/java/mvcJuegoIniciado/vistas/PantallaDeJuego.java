@@ -2,18 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package vistas;
+package mvcJuegoIniciado.vistas;
 
-import controlador.Control;
-import interfaces.IControl;
-import interfaces.IModeloLeible;
+
+import mvcJuegoIniciado.interfaces.IControl;
+import mvcJuegoIniciado.interfaces.IModeloLeible;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import modelo.Modelo;
-import interfaces.IVista;
+import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.Linea;
 
 /**
@@ -28,6 +27,9 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     /**
      * Creates new form pantallaDeJuego
+     * @param modelo
+     * @param control
+     * @param tablero
      */
     public PantallaDeJuego(IModeloLeible modelo, IControl control, TableroJuego tablero) {
         this.modelo = modelo;

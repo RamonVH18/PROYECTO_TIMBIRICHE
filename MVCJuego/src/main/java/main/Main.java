@@ -1,10 +1,12 @@
 package main;
 
-import controlador.Control;
-import modelo.Modelo;
+import mvcJuegoIniciado.controlador.Control;
+import mvcJuegoIniciado.modelo.Modelo;
+import mvcJuegoIniciado.vistas.PantallaDeJuego;
+import mvcJuegoIniciado.vistas.TableroJuego;
 import objetosPresentacion.TamañosTablero;
-import vistas.PantallaDeJuego;
-import vistas.TableroJuego;
+
+
 
 /**
  *
@@ -23,7 +25,5 @@ public class Main {
         modelo.añadirObservadorPantallas(pantallaDeJuego);
         
         control.mostrarPantallaDeJuego();
-        
-        
     }
 }

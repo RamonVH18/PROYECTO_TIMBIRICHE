@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package vistas;
+package mvcJuegoIniciado.vistas;
 
-import interfaces.IControl;
-import interfaces.IModeloLeible;
+import mvcJuegoIniciado.interfaces.IControl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,9 +13,10 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import objetosPresentacion.Linea;
-import interfaces.IVista;
+import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import mvcJuegoIniciado.interfaces.IModeloLeible;
 import objetosPresentacion.EstadoLinea;
 
 /**

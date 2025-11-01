@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controlador;
+package mvcJuegoIniciado.controlador;
 
-import interfaces.IControl;
-import interfaces.IModeloModificable;
+import mvcJuegoIniciado.interfaces.IControl;
+import mvcJuegoIniciado.interfaces.IModeloModificable;
 import objetosPresentacion.Linea;
 import objetosPresentacion.TamañosTablero;
-import vistas.MensajeError;
+import mvcJuegoIniciado.vistas.MensajeError;
 
 /**
  *
