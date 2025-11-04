@@ -22,7 +22,7 @@ import objetosPresentacion.OrientacionLinea;
  *
  * @author Ramon Valencia
  */
-public class Modelo implements IModeloLeible, IModeloModificable {
+public class ModeloJuegoIniciado implements IModeloLeible, IModeloModificable {
 
     private final Point[][] matriz;
     private final List<Linea> lineas;
@@ -39,7 +39,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     private IVista observadorTablero;
     private IVista observarPantallaJuego;
 
-    public Modelo(TamañosTablero tamaño) {
+    public ModeloJuegoIniciado(TamañosTablero tamaño) {
         this.tamaño = tamaño;
         this.matriz = generarMatriz();
         this.lineas = new ArrayList<>();
@@ -89,6 +89,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         }
     }
     //Metodos Leibles
+    @Override
     public void setObserverTablero(TableroJuego tablero) {
    
         observadorTablero = tablero;
@@ -96,7 +97,6 @@ public class Modelo implements IModeloLeible, IModeloModificable {
     
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-
         return listaJugadores;
     }
 
@@ -149,7 +149,7 @@ public class Modelo implements IModeloLeible, IModeloModificable {
         observadorTablero.actualizar();
     }
 
-
+    // <<<--- NO ME CONVENCE --->>>
     @Override
     public Point[][] getMatriz() {
         return this.matriz;

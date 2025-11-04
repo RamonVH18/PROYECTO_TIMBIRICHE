@@ -14,11 +14,11 @@ import mvcJuegoIniciado.vistas.MensajeError;
  *
  * @author Ramon Valencia
  */
-public class Control implements IControl {
+public class ControlJuegoIniciado implements IControl {
 
     private IModeloModificable modelo;
 
-    public Control(IModeloModificable modelo) {
+    public ControlJuegoIniciado(IModeloModificable modelo) {
         this.modelo = modelo;
     }
 

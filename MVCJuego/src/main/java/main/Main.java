@@ -1,7 +1,7 @@
 package main;
 
-import mvcJuegoIniciado.controlador.Control;
-import mvcJuegoIniciado.modelo.Modelo;
+import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
+import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
 import mvcJuegoIniciado.vistas.PantallaDeJuego;
 import mvcJuegoIniciado.vistas.TableroJuego;
 import objetosPresentacion.TamañosTablero;
@@ -14,8 +14,8 @@ import objetosPresentacion.TamañosTablero;
  */
 public class Main {
     public static void main(String[] args) {
-        Modelo modelo = new Modelo(TamañosTablero.PEQUEÑO);
-        Control control = new Control(modelo);
+        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO);
+        ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
         modelo.setObserverTablero(tablero);
         
