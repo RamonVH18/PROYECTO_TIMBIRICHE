@@ -4,21 +4,21 @@
  */
 package mvcJuegoIniciado.controlador;
 
-import mvcJuegoIniciado.interfaces.IControl;
-import mvcJuegoIniciado.interfaces.IModeloModificable;
 import objetosPresentacion.Linea;
 import objetosPresentacion.TamañosTablero;
 import mvcJuegoIniciado.vistas.MensajeError;
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class Control implements IControl {
+public class ControlJuegoIniciado implements IControlJuegoIniciado {
 
-    private IModeloModificable modelo;
+    private IModeloModificableJI modelo;
 
-    public Control(IModeloModificable modelo) {
+    public ControlJuegoIniciado(IModeloModificableJI modelo) {
         this.modelo = modelo;
     }
 

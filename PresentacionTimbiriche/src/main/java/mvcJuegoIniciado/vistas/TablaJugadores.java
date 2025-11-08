@@ -1,7 +1,5 @@
 package mvcJuegoIniciado.vistas;
 
-import mvcJuegoIniciado.interfaces.IControl;
-import mvcJuegoIniciado.interfaces.IModeloLeible;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
@@ -12,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import objetosPresentacion.JugadorVisual;
 import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 
 /**
  *
@@ -23,7 +23,7 @@ public class TablaJugadores extends JPanel implements IVista {
 //    private Dimension DIM_FLD_JUGADOR = new Dimension();
 //
 //    //Atributos de la clase
-//    private IModeloLeible modelo;
+//    private IModeloLeibleJI modelo;
 //    
 //    //TODO: Hacer esto responsivo
 //    private Dimension dimension_tabla = new Dimension(350, 200);
@@ -85,11 +85,11 @@ public class TablaJugadores extends JPanel implements IVista {
 
     
     private final int MAX_JUGADORES = 4;
-    private IModeloLeible modelo;
+    private IModeloLeibleJI modelo;
     private List<JugadorVisual> jugadoresActuales;
-    private IControl control;
+    private IControlJuegoIniciado control;
 
-    public TablaJugadores(IModeloLeible modelo) {
+    public TablaJugadores(IModeloLeibleJI modelo) {
        this.modelo = modelo;
        
      //   modelo.añadirObserver(this);

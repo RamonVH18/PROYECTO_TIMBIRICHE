@@ -13,7 +13,7 @@ import objetosPresentacion.TamañosTablero;
  *
  * @author Ramon Valencia
  */
-public interface IModeloLeible {
+public interface IModeloLeibleJI {
     
     public List<JugadorVisual> obtenerJugadores();
     

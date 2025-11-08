@@ -11,7 +11,7 @@ import mvcJuegoIniciado.vistas.TableroJuego;
  *
  * @author Ramon Valencia
  */
-public interface IModeloModificable {
+public interface IModeloModificableJI {
 
     public void añadirObserver(IVista v);
     

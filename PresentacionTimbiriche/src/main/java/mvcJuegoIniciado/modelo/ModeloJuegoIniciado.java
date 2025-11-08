@@ -5,8 +5,6 @@
 package mvcJuegoIniciado.modelo;
 
 import interfaces.IModeloJuego;
-import mvcJuegoIniciado.interfaces.IModeloLeible;
-import mvcJuegoIniciado.interfaces.IModeloModificable;
 import java.util.ArrayList;
 import java.util.List;
 import modeloJuego.ModeloJuego;
@@ -17,35 +15,36 @@ import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.Point;
 import objetosPresentacion.Linea;
 import objetosPresentacion.OrientacionLinea;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
+import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class Modelo implements IModeloLeible, IModeloModificable {
+public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJI {
 
     private final Point[][] matriz;
     private final List<Linea> lineas;
-    private final IModeloJuego modeloJuego;
     private final TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
     private final boolean mostrandoTableroDeJuego;
 
-    private List<JugadorVisual> listaJugadores;
+    private final List<JugadorVisual> listaJugadores;
 
-    private List<IVista> pantallas;
-    private List<IVista> vistas;
+    private final List<IVista> pantallas;
+    private final List<IVista> vistas;
     private IVista observadorTablero;
     private IVista observarPantallaJuego;
 
-    public Modelo(TamañosTablero tamaño) {
+    public ModeloJuegoIniciado(TamañosTablero tamaño) {
         this.tamaño = tamaño;
         this.matriz = generarMatriz();
         this.lineas = new ArrayList<>();
         generarLineas();
         this.listaJugadores = new ArrayList<>();
-        this.modeloJuego = ModeloJuego.getInstance();
+        
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
         mostrandoTableroDeJuego = false;

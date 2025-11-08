@@ -10,7 +10,7 @@ import objetosPresentacion.Linea;
  *
  * @author Ramon Valencia
  */
-public interface IControl {
+public interface IControlJuegoIniciado {
 
     public void realizarJugada(Linea lineaSeleccionada);
     

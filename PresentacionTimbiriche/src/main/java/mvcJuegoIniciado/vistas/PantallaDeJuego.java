@@ -5,8 +5,6 @@
 package mvcJuegoIniciado.vistas;
 
 
-import mvcJuegoIniciado.interfaces.IControl;
-import mvcJuegoIniciado.interfaces.IModeloLeible;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -14,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.Linea;
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 
 /**
  *
@@ -21,8 +21,8 @@ import objetosPresentacion.Linea;
  */
 public class PantallaDeJuego extends JFrame implements IVista {
 
-    private final IModeloLeible modelo;
-    private final IControl control;
+    private final IModeloLeibleJI modelo;
+    private final IControlJuegoIniciado control;
     private TableroJuego tablero;
 
     /**
@@ -31,7 +31,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
      * @param control
      * @param tablero
      */
-    public PantallaDeJuego(IModeloLeible modelo, IControl control, TableroJuego tablero) {
+    public PantallaDeJuego(IModeloLeibleJI modelo, IControlJuegoIniciado control, TableroJuego tablero) {
         this.modelo = modelo;
         this.control = control;
         this.tablero = tablero;
