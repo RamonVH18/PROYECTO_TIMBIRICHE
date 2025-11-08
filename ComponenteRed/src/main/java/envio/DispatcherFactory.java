@@ -4,15 +4,13 @@
  */
 package envio;
 
-import java.io.IOException;
-
 /**
  *
  * @author Ramon Valencia
  */
 public class DispatcherFactory {
     
-    public static IEmisor createDispatcher() throws IOException {
+    public static IEmisor createDispatcher() {
         Emisor emisor = Emisor.getInstanceEmisor();
         ColaEnvio cola = ColaEnvio.getInstancia();
         ICliente cliente = new ClienteTCP();

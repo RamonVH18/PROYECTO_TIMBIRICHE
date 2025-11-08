@@ -4,7 +4,6 @@
  */
 package mvcJuegoIniciado.vistas;
 
-import mvcJuegoIniciado.interfaces.IControl;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,8 +15,9 @@ import objetosPresentacion.Linea;
 import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import mvcJuegoIniciado.interfaces.IModeloLeible;
 import objetosPresentacion.EstadoLinea;
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 
 /**
  *
@@ -29,10 +29,10 @@ public class TableroJuego extends JPanel implements IVista {
     private Integer largo;  
     private Integer ancho;
     private Linea lineaSeleccionada;
-    private IModeloLeible modelo;
-    private IControl control;
+    private IModeloLeibleJI modelo;
+    private IControlJuegoIniciado control;
 
-    public TableroJuego(IModeloLeible modelo, IControl control) {
+    public TableroJuego(IModeloLeibleJI modelo, IControlJuegoIniciado control) {
         this.modelo = modelo;
         this.control = control;
         generarTablero();
