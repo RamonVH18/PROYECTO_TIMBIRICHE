@@ -17,4 +17,8 @@ public interface IControlJuegoIniciado {
     public void mostrarPantallaDeJuego();
     
     public void ocultarPantallaDeJuego();
+    
+    public void mostrarMenuDeOpciones();
+    
+    public void ocultarMenuDeOpciones();
 }

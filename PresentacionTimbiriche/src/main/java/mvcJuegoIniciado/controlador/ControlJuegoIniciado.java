@@ -41,6 +41,14 @@ public class ControlJuegoIniciado implements IControlJuegoIniciado {
         modelo.ocultarPantallaDeJuego();
     }
 
-    
+    @Override
+    public void mostrarMenuDeOpciones() {
+        modelo.mostrarMenuDeOpciones();
+    }
+
+    @Override
+    public void ocultarMenuDeOpciones() {
+        modelo.ocultarMenuDeOpciones();
+    }
 
 }

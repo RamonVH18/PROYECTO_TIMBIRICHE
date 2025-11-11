@@ -30,6 +30,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
     private final boolean mostrandoTableroDeJuego;
+    private boolean mostrandoMenuDeOpciones;
 
     private final List<JugadorVisual> listaJugadores;
 
@@ -48,6 +49,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
         mostrandoTableroDeJuego = false;
+        mostrandoMenuDeOpciones = false;
         this.vistas = new ArrayList<>();
         this.pantallas = new ArrayList<>();
         listaJugadores.add(new JugadorVisual("Rodrigo", ""));
@@ -116,6 +118,19 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         mostrandoPantallaDeJuego = false;
         notificarObservadoresPantallas();
     }
+    
+    @Override
+    public void mostrarMenuDeOpciones() {
+        mostrandoMenuDeOpciones = true;
+        notificarObservadoresPantallas();
+    }
+
+    @Override
+    public void ocultarMenuDeOpciones() {
+        mostrandoMenuDeOpciones = false;
+        notificarObservadoresPantallas();
+    }
+
 
     public void mostrarTablaJugadores() {
 
@@ -141,6 +156,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     public void setMostrandoTablaJugadores(boolean mostrandoTablaJugadores) {
         this.mostrandoTablaJugadores = mostrandoTablaJugadores;
+    }
+    
+    @Override
+    public boolean isMostrandoMenuDeOpciones() {
+        return mostrandoMenuDeOpciones;
     }
 
     @Override

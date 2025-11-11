@@ -23,6 +23,8 @@ public interface IModeloLeibleJI {
    // public void isMostrandoTableroJuego();
     
     public boolean isMostrandoTablaJugadores();
+    
+    public boolean isMostrandoMenuDeOpciones();
 
     public Point[][] getMatriz();
     

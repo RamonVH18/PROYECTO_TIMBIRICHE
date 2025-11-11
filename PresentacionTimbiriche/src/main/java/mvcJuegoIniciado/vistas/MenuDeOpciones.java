@@ -1,10 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package mvcJuegoIniciado.vistas;
 
+import java.awt.Color;
+import java.util.ResourceBundle.Control;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import modeloJuego.ModeloJuego;
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IVista;
+import utils.PanelBordesRedondeados;
 
 /**
  *
@@ -12,11 +16,14 @@ import mvcJuegoIniciado.interfaces.IVista;
  */
 public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
 
-    /**
-     * Creates new form MenuDeOpciones
-     */
-    public MenuDeOpciones() {
+    IModeloLeibleJI modelo;
+    IControlJuegoIniciado control;
+            
+    public MenuDeOpciones(IModeloLeibleJI modelo, IControlJuegoIniciado control) {
+        this.modelo = modelo;
+        this.control = control;
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -28,22 +35,146 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanelPrincipal = new javax.swing.JPanel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jPanelAbandonarPartida = new utils.PanelBordesRedondeados();
+        jLabelAbandonarPartida = new javax.swing.JLabel();
+        jPanelTerminarPartida = new utils.PanelBordesRedondeados();
+        jLabelTerminarPartida = new javax.swing.JLabel();
+        jPanelCambiarPaletaDeColores = new utils.PanelBordesRedondeados();
+        jLabelCambiarPaletaDeColores = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelPrincipal.setForeground(new java.awt.Color(0, 0, 0));
+        jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelTitulo.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Menu de Opciones");
+        jPanelPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 400, -1));
+
+        jPanelAbandonarPartida.setBackground(new java.awt.Color(0, 0, 0));
+        jPanelAbandonarPartida.setRoundBottomLeft(20);
+        jPanelAbandonarPartida.setRoundBottomRight(20);
+        jPanelAbandonarPartida.setRoundTopLeft(20);
+        jPanelAbandonarPartida.setRoundTopRight(20);
+        jPanelAbandonarPartida.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelAbandonarPartida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelAbandonarPartida.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAbandonarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelAbandonarPartida.setText("Abandonar Partida");
+        jLabelAbandonarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAbandonarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelAbandonarPartidaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelAbandonarPartidaMouseExited(evt);
+            }
+        });
+        jPanelAbandonarPartida.add(jLabelAbandonarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 40));
+
+        jPanelPrincipal.add(jPanelAbandonarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 280, 40));
+
+        jPanelTerminarPartida.setBackground(new java.awt.Color(0, 0, 0));
+        jPanelTerminarPartida.setRoundBottomLeft(20);
+        jPanelTerminarPartida.setRoundBottomRight(20);
+        jPanelTerminarPartida.setRoundTopLeft(20);
+        jPanelTerminarPartida.setRoundTopRight(20);
+        jPanelTerminarPartida.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTerminarPartida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelTerminarPartida.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTerminarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTerminarPartida.setText("Terminar Partida");
+        jLabelTerminarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelTerminarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelTerminarPartidaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelTerminarPartidaMouseExited(evt);
+            }
+        });
+        jPanelTerminarPartida.add(jLabelTerminarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 40));
+
+        jPanelPrincipal.add(jPanelTerminarPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 280, 40));
+
+        jPanelCambiarPaletaDeColores.setBackground(new java.awt.Color(0, 0, 0));
+        jPanelCambiarPaletaDeColores.setRoundBottomLeft(20);
+        jPanelCambiarPaletaDeColores.setRoundBottomRight(20);
+        jPanelCambiarPaletaDeColores.setRoundTopLeft(20);
+        jPanelCambiarPaletaDeColores.setRoundTopRight(20);
+        jPanelCambiarPaletaDeColores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelCambiarPaletaDeColores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelCambiarPaletaDeColores.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCambiarPaletaDeColores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCambiarPaletaDeColores.setText("Cambiar Paleta de Colores");
+        jLabelCambiarPaletaDeColores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCambiarPaletaDeColores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelCambiarPaletaDeColoresMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelCambiarPaletaDeColoresMouseExited(evt);
+            }
+        });
+        jPanelCambiarPaletaDeColores.add(jLabelCambiarPaletaDeColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 40));
+
+        jPanelPrincipal.add(jPanelCambiarPaletaDeColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 280, 40));
+
+        getContentPane().add(jPanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        control.ocultarMenuDeOpciones();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jLabelCambiarPaletaDeColoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCambiarPaletaDeColoresMouseEntered
+        hoverColorBoton(jPanelCambiarPaletaDeColores);
+    }//GEN-LAST:event_jLabelCambiarPaletaDeColoresMouseEntered
+
+    private void jLabelCambiarPaletaDeColoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCambiarPaletaDeColoresMouseExited
+        normalColorBoton(jPanelCambiarPaletaDeColores);
+    }//GEN-LAST:event_jLabelCambiarPaletaDeColoresMouseExited
+
+    private void jLabelAbandonarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAbandonarPartidaMouseEntered
+        hoverColorBoton(jPanelAbandonarPartida);
+    }//GEN-LAST:event_jLabelAbandonarPartidaMouseEntered
+
+    private void jLabelAbandonarPartidaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAbandonarPartidaMouseExited
+        normalColorBoton(jPanelAbandonarPartida);
+    }//GEN-LAST:event_jLabelAbandonarPartidaMouseExited
+
+    private void jLabelTerminarPartidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTerminarPartidaMouseEntered
+        hoverColorBoton(jPanelTerminarPartida);
+    }//GEN-LAST:event_jLabelTerminarPartidaMouseEntered
+
+    private void jLabelTerminarPartidaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTerminarPartidaMouseExited
+        normalColorBoton(jPanelTerminarPartida);
+    }//GEN-LAST:event_jLabelTerminarPartidaMouseExited
+
+    
+    private void hoverColorBoton(PanelBordesRedondeados panelBordesRedondeados){
+        panelBordesRedondeados.setBackground(new Color(51,51,51));
+    }
+    
+    private void normalColorBoton(PanelBordesRedondeados panelBordesRedondeados){
+        panelBordesRedondeados.setBackground(new Color(0,0,0));
+    }
 
     @Override
     public void actualizar() {
@@ -52,9 +183,22 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
   
   @Override
   public void mostrar(){
-    
+      if(modelo.isMostrandoMenuDeOpciones()){
+          this.setVisible(true);
+      }
+      else{
+          this.setVisible(false);
+      }
   }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelAbandonarPartida;
+    private javax.swing.JLabel jLabelCambiarPaletaDeColores;
+    private javax.swing.JLabel jLabelTerminarPartida;
+    private javax.swing.JLabel jLabelTitulo;
+    private utils.PanelBordesRedondeados jPanelAbandonarPartida;
+    private utils.PanelBordesRedondeados jPanelCambiarPaletaDeColores;
+    private javax.swing.JPanel jPanelPrincipal;
+    private utils.PanelBordesRedondeados jPanelTerminarPartida;
     // End of variables declaration//GEN-END:variables
 }
