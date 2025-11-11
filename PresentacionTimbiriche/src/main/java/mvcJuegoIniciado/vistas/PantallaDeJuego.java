@@ -88,8 +88,10 @@ public class PantallaDeJuego extends JFrame implements IVista {
                     case ("Realizar Jugada"):
                         Linea lineaSeleccionada = tablero.getLineaSeleccionada();
                         control.realizarJugada(lineaSeleccionada);
+                        break;
                     case ("Menú de opciones"):
                         control.mostrarMenuDeOpciones();
+                        break;
                 }
             }
         });
