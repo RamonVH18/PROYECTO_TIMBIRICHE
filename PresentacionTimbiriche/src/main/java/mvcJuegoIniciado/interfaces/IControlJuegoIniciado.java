@@ -4,7 +4,7 @@
  */
 package mvcJuegoIniciado.interfaces;
 
-import objetosPresentacion.Linea;
+import objetosPresentacion.LineaTablero;
 
 /**
  *
@@ -12,7 +12,7 @@ import objetosPresentacion.Linea;
  */
 public interface IControlJuegoIniciado {
 
-    public void realizarJugada(Linea lineaSeleccionada);
+    public void realizarJugada(LineaTablero lineaSeleccionada);
     
     public void mostrarPantallaDeJuego();
     

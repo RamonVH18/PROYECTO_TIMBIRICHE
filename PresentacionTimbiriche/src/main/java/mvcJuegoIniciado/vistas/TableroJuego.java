@@ -11,7 +11,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import objetosPresentacion.Linea;
+import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,7 +28,7 @@ public class TableroJuego extends JPanel implements IVista {
 
     private Integer largo;  
     private Integer ancho;
-    private Linea lineaSeleccionada;
+    private LineaTablero lineaSeleccionada;
     private IModeloLeibleJI modelo;
     private IControlJuegoIniciado control;
 
@@ -57,11 +57,11 @@ public class TableroJuego extends JPanel implements IVista {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // limpia el fondo
         
-        ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
+        ArrayList <LineaTablero> lineas = (ArrayList <LineaTablero>) modelo.getLineas();
         Point[][] matriz = modelo.getMatriz();
         Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
         
-        for (Linea l : lineas) {
+        for (LineaTablero l : lineas) {
             l.paintComponent(g); // usamos el paintComponent de cada línea
         }
 
@@ -88,8 +88,8 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
-                ArrayList <Linea> lineas = (ArrayList <Linea>) modelo.getLineas();
-                for (Linea linea : lineas) {
+                ArrayList <LineaTablero> lineas = (ArrayList <LineaTablero>) modelo.getLineas();
+                for (LineaTablero linea : lineas) {
                     if (estaSobreLinea(click, linea)) {
                         if (lineaSeleccionada != null) {
                             lineaSeleccionada.estado = EstadoLinea.LIBRE;
@@ -107,7 +107,7 @@ public class TableroJuego extends JPanel implements IVista {
         });
     }
 
-    private boolean estaSobreLinea(Point p, Linea linea) {
+    private boolean estaSobreLinea(Point p, LineaTablero linea) {
         double distancia = distanciaPuntoALinea(p, linea.puntoA, linea.puntoB);
         return distancia <= (linea.grosorLinea + 3); // margen extra de clic
     }
@@ -140,7 +140,7 @@ public class TableroJuego extends JPanel implements IVista {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    public Linea getLineaSeleccionada() {
+    public LineaTablero getLineaSeleccionada() {
         return lineaSeleccionada;
     }
 

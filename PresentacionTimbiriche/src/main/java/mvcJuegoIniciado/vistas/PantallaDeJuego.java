@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import mvcJuegoIniciado.interfaces.IVista;
-import objetosPresentacion.Linea;
+import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 
@@ -86,7 +86,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 switch(boton.getText()) {
                     case ("Realizar Jugada"):
-                        Linea lineaSeleccionada = tablero.getLineaSeleccionada();
+                        LineaTablero lineaSeleccionada = tablero.getLineaSeleccionada();
                         control.realizarJugada(lineaSeleccionada);
                         break;
                     case ("Menú de opciones"):

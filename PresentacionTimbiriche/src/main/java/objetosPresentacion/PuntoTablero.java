@@ -10,9 +10,9 @@ import java.awt.Point;
  *
  * @author Ramon Valencia
  */
-public class Punto extends Point {
+public class PuntoTablero extends Point {
 
-    public Punto(int x, int y) {
+    public PuntoTablero(int x, int y) {
         super(x, y);
     }
 

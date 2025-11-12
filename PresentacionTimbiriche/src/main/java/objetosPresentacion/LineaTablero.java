@@ -17,7 +17,7 @@ import javax.swing.JComponent;
  *
  * @author Ramon Valencia
  */
-public class Linea extends JComponent {
+public class LineaTablero extends JComponent {
 
     public Point puntoA;
     public Point puntoB;
@@ -25,7 +25,7 @@ public class Linea extends JComponent {
     public EstadoLinea estado;
     public Integer grosorLinea;
 
-    public Linea(Point a, Point b, OrientacionLinea orientacion, Integer grosorLinea) {
+    public LineaTablero(Point a, Point b, OrientacionLinea orientacion, Integer grosorLinea) {
         this.puntoA = a;
         this.puntoB = b;
         this.orientacion = orientacion;

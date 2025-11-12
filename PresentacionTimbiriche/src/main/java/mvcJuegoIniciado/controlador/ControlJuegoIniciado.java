@@ -4,8 +4,9 @@
  */
 package mvcJuegoIniciado.controlador;
 
-import objetosPresentacion.Linea;
-import objetosPresentacion.TamañosTablero;
+
+
+import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.vistas.MensajeError;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
@@ -23,7 +24,7 @@ public class ControlJuegoIniciado implements IControlJuegoIniciado {
     }
 
     @Override
-    public void realizarJugada(Linea lineaSeleccionada) {
+    public void realizarJugada(LineaTablero lineaSeleccionada) {
         if (lineaSeleccionada == null) {
             MensajeError.mostrarError("Debe de seleccionar una linea antes de continuar");
         }

@@ -4,7 +4,7 @@
  */
 package mvcJuegoIniciado.interfaces;
 
-import objetosPresentacion.Linea;
+import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.vistas.TableroJuego;
 
 /**
@@ -17,7 +17,7 @@ public interface IModeloModificableJI {
     
     public void setObserverTablero(TableroJuego tablero);
     
-    public void realizarJugada(Linea lineaSelecionada);
+    public void realizarJugada(LineaTablero lineaSelecionada);
     
     public void mostrarPantallaDeJuego();
     

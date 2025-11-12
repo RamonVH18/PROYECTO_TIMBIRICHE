@@ -13,10 +13,13 @@ import objetosPresentacion.TamañosTablero;
 import mvcJuegoIniciado.vistas.TableroJuego;
 import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.Point;
-import objetosPresentacion.Linea;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
+import mvcJuegoIniciado.interfaces.IModeloModificableJI;
+import objetosPresentacion.LineaTablero;
 import objetosPresentacion.OrientacionLinea;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
+import objetosModeloJuego.Linea;
 
 /**
  *
@@ -25,7 +28,7 @@ import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJI {
 
     private final Point[][] matriz;
-    private final List<Linea> lineas;
+    private final List<LineaTablero> lineas;
     private final TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
@@ -164,7 +167,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     }
 
     @Override
-    public void realizarJugada(Linea lineaSelecionada) {
+    public void realizarJugada(LineaTablero lineaSelecionada) {
         observadorTablero.actualizar();
     }
 
@@ -188,7 +191,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             for (int j = 0; j < columnas - 1; j++) {
                 Point a = matriz[i][j];
                 Point b = matriz[i][j + 1];
-                lineas.add(new Linea(a, b, OrientacionLinea.HORIZONTAL, tamaño.getGrosorLinea()));
+                lineas.add(new LineaTablero(a, b, OrientacionLinea.HORIZONTAL, tamaño.getGrosorLinea()));
             }
         }
 
@@ -197,7 +200,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             for (int j = 0; j < columnas; j++) {
                 Point a = matriz[i][j];
                 Point b = matriz[i + 1][j];
-                lineas.add(new Linea(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
+                lineas.add(new LineaTablero(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
             }
         }
     }

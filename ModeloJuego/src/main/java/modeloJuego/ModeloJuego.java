@@ -4,6 +4,7 @@
 package modeloJuego;
 
 import interfaces.IModeloJuego;
+import objetosModeloJuego.Linea;
 
 /**
  *
@@ -24,7 +25,21 @@ public class ModeloJuego implements IModeloJuego {
         return instanciaModelo;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+    @Override
+    public void realizarJugada(Linea linea) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public void notificarCambioLinea() {
+        
+    }
+    
+    public void verificarCuadrosCompletados() {
+        
+    }
+    
+    public void revisarPaqueteRecibido() {
+        
+    }
+
 }
