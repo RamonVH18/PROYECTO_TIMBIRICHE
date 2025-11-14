@@ -4,14 +4,11 @@
  */
 package interfaces;
 
-import DTOs.PaqueteDTO;
-
 /**
  *
- * @author Ximena
+ * @author Ramon Valencia
  */
-public interface IReceptorPaquetes {
+public interface ICliente {
     
-    public void recibirPaquete(PaqueteDTO paquete);
-    
+    public void enviarPaquete();
 }

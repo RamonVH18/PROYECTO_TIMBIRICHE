@@ -4,6 +4,7 @@
  */
 package envio;
 
+import interfaz.IEmisor;
 import DTOs.EnvioDTO;
 
 /**

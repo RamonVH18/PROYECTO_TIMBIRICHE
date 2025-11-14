@@ -6,10 +6,8 @@ package interfaces;
 
 /**
  *
- * @author Ximena
+ * @author Ramon Valencia
  */
-public interface ReceptorPaquetesInjector {
-    
-    public void inyectarManejador(IReceptorPaquetes receptor);
-    
+public interface IReceptor {
+    public void recibirPaquete();
 }

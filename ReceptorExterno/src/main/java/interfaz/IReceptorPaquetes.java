@@ -2,16 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package envio;
+package interfaz;
 
-import DTOs.EnvioDTO;
+import DTOs.PaqueteDTO;
 
 /**
  *
  * @author Ramon Valencia
  */
-public interface IEmisor {
-    
-    public void enviarPaquete(EnvioDTO envio);
-    
+public interface IReceptorPaquetes {
+    public void recibirPaquete(PaqueteDTO paquete);
 }

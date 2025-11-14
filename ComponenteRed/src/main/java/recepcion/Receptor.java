@@ -1,30 +1,35 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package recepcion;
+
+import DTOs.PaqueteDTO;
+import interfaces.IReceptor;
+import interfaces.ReceptorPaqueteInjector;
+import interfaz.IReceptorPaquetes;
 
 /**
  *
- * @author janot
+ * @author Ramon Valencia
  */
-public class Receptor implements IReceptor{
-private static Receptor instancia;
-    public static ColaRecepcion colaRecepcion;
+public class Receptor implements IReceptor, ReceptorPaqueteInjector{
     
-    private Receptor() {
-        colaRecepcion = ColaRecepcion.getInstancia();
+    private IReceptorPaquetes modelo;
+    private final ColaRecepcion cola;
+    
+    public Receptor() {
+        this.cola = ColaRecepcion.getInstancia();
     }
-    
-    public static Receptor getInstanceReceptor() {
-        if (instancia == null) {
-            instancia = new Receptor();
-            colaRecepcion = ColaRecepcion.getInstancia();
-        }
-        
-        return instancia;
-    }
-    
-   
     @Override
     public void recibirPaquete() {
-        System.out.println(colaRecepcion.desencolar());
+        PaqueteDTO paquete = cola.desencolar();
+        modelo.recibirPaquete(paquete);
+    }
+
+    @Override
+    public void inyectarManejador(IReceptorPaquetes receptor) {
+        this.modelo = receptor;
     }
     
 }

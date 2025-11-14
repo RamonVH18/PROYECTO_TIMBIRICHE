@@ -4,6 +4,7 @@
  */
 package envio;
 
+import interfaces.ICliente;
 import DTOs.EnvioDTO;
 import com.google.gson.Gson;
 import java.io.IOException;

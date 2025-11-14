@@ -9,6 +9,9 @@
         <module>../ModeloJuego</module>
         <module>../ComponenteRed</module>
         <module>../PresentacionTimbiriche</module>
+        <module>../EmisorExterno</module>
+        <module>../ReceptorExterno</module>
+        <module>../InfraestructuraMensajes</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package envio;
+package interfaces;
+
+import interfaz.IReceptorPaquetes;
 
 /**
  *
  * @author Ramon Valencia
  */
-public interface ICliente {
+public interface ReceptorPaqueteInjector {
     
-    public void enviarPaquete();
+    public void inyectarManejador(IReceptorPaquetes receptor);
 }

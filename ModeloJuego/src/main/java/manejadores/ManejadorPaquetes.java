@@ -4,12 +4,20 @@
  */
 package manejadores;
 
+import DTOs.PaqueteDTO;
+import interfaz.IReceptorPaquetes;
+
 
 /**
  *
  * @author Ximena
  */
-public class ManejadorPaquetes {
+public class ManejadorPaquetes implements IReceptorPaquetes{
+
+    @Override
+    public void recibirPaquete(PaqueteDTO paquete) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

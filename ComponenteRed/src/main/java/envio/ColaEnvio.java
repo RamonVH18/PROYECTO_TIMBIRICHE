@@ -4,6 +4,7 @@
  */
 package envio;
 
+import interfaces.ICliente;
 import DTOs.EnvioDTO;
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -38,8 +39,7 @@ public class ColaEnvio {
     }
     
     public EnvioDTO desencolar() {
-        EnvioDTO paquete = cola.remove();
-        return paquete;
+        return cola.remove();
     }
     
     private void notificarPaqueteNuevo() {

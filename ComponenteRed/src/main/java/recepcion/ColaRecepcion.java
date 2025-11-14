@@ -1,20 +1,25 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package recepcion;
 
 import DTOs.PaqueteDTO;
+import interfaces.IReceptor;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
  *
- * @author janot
+ * @author Ramon Valencia
  */
 public class ColaRecepcion {
-    private static Queue<PaqueteDTO> cola;
+    private final Queue<PaqueteDTO> colaRecepcion;
     private static ColaRecepcion instancia;
     private static IReceptor receptor;
     
     private ColaRecepcion() {
-        cola = new ArrayDeque<>();
+        this.colaRecepcion = new ArrayDeque<>();
     }
     
     public static ColaRecepcion getInstancia() {
@@ -24,22 +29,20 @@ public class ColaRecepcion {
         return instancia;
     }
     
-    public void subscribirRecepcion(IReceptor receptor) {
+    public void suscribirReceptor(IReceptor receptor) {
         this.receptor = receptor;
     }
     
     public void encolar(PaqueteDTO paquete) {
-        cola.add(paquete);
+        colaRecepcion.add(paquete);
         notificarPaqueteNuevo();
     }
     
     public PaqueteDTO desencolar() {
-        PaqueteDTO paquete = cola.remove();
-        return paquete;
+        return colaRecepcion.remove();
     }
     
     private void notificarPaqueteNuevo() {
-        receptor.recibirPaquete();
+        
     }
-    
 }

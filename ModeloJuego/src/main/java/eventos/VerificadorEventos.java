@@ -8,6 +8,6 @@ package eventos;
  *
  * @author Ximena
  */
-public class ModificadorEventos {
+public class VerificadorEventos {
     
 }

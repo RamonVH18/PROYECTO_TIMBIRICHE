@@ -4,6 +4,9 @@
  */
 package envio;
 
+import interfaz.IEmisor;
+import interfaces.ICliente;
+
 /**
  *
  * @author Ramon Valencia
