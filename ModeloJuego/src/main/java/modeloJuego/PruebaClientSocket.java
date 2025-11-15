@@ -21,19 +21,15 @@ public class PruebaClientSocket {
 
     public static void main(String[] args) throws IOException, InterruptedException, Exception {
         emisor = DispatcherFactory.createDispatcher();
-
         
-        
-        for (int i = 0; i < 3; i++) {
-
             JsonObject jason = new JsonObject();
             jason.addProperty("host", "localhost");
-            jason.addProperty("port", 1000);
+            jason.addProperty("port", 5000);
             PaqueteDTO paquete = new PaqueteDTO("registroPeer", jason);
             EnvioDTO envio = new EnvioDTO("localhost", 8000, paquete);
             emisor.enviarPaquete(envio);
             Thread.sleep(2000L);
-        }
+        
 
     }
 

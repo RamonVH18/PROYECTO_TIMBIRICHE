@@ -37,7 +37,7 @@ public class ServidorDirectorio {
         finalizarProceso = false;
     }
 
-    public void iniciarServidor() throws ErrorRecibirMensajesExcepction, ErrorEnviarMensajesException {
+    public void iniciarServidor() throws ErrorRecibirMensajesExcepction {
 
         try (ServerSocket server = new ServerSocket(port)) {
             while (true) {
@@ -78,7 +78,7 @@ public class ServidorDirectorio {
 
     }
 
-    private void registrarDireccion(DireccionPeerDTO direccion) throws ErrorEnviarMensajesException {
+    private void registrarDireccion(DireccionPeerDTO direccion) {
         //for para comprobar que una no se repitan las direcciones
         for (DireccionPeerDTO d : direcciones) {
             if (d.equals(direccion)) {
@@ -92,14 +92,19 @@ public class ServidorDirectorio {
 
     }
 
-    private void enviarNuevaDireccionASockets(DireccionPeerDTO direccion) throws ErrorEnviarMensajesException {
+    private void enviarNuevaDireccionASockets(DireccionPeerDTO direccion) {
 
         for (DireccionPeerDTO d : direcciones) {
             if (!d.equals(direccion)) {
-                //Se envia la direccion del nuevo peer a un peer ya existente
-                enviarDireccion(d, direccion);
-                //Se envia la direccion de un peer existente a un nuevo peer
-                enviarDireccion(direccion, d);
+                try {
+                    //Se envia la direccion del nuevo peer a un peer ya existente
+                    enviarDireccion(d, direccion);
+                    //Se envia la direccion de un peer existente a un nuevo peer
+                    enviarDireccion(direccion, d);
+                } catch (ErrorEnviarMensajesException ex) {
+                    System.err.println("No se encontro el peer con el host " + d.getHost() + " en el puerto " + d.getPort());
+                }
+
             }
         }
     }
@@ -111,7 +116,8 @@ public class ServidorDirectorio {
         json.addProperty("port", direccionEnviada.getPort());
 
         String direccion = gson.toJson(new PaqueteDTO("direccionPeer", json));
-        try (Socket socketCliente = new Socket(direccionDestino.getHost(), direccionDestino.getPort()); PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true)) {
+        try (Socket socketCliente = new Socket(direccionDestino.getHost(), direccionDestino.getPort()); 
+                PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true)) {
 
             out.println(direccion);
         } catch (IOException ex) {

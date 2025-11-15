@@ -37,7 +37,7 @@ public class ClienteTCP implements ICliente {
             salida = new PrintWriter(socket.getOutputStream(), true);
             salida.println(json);
         } catch (IOException ex) {
-            throw new FalloConexionSocketException("ERROR AL CONECTAR EL SOCKET CON EL SERVIDOR" + ex.getMessage());
+            throw new FalloConexionSocketException("ERROR AL CONECTAR EL SOCKET CON EL SERVIDOR: " + ex.getMessage());
             
         }
     }
