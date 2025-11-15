@@ -12,6 +12,6 @@ import DTOs.EnvioDTO;
  */
 public interface IEmisor {
     
-    public void enviarPaquete(EnvioDTO envio);
+    public void enviarPaquete(EnvioDTO envio) throws Exception;
     
 }

@@ -7,11 +7,10 @@ package envio;
 import interfaces.ICliente;
 import DTOs.EnvioDTO;
 import com.google.gson.Gson;
+import excepciones.FalloConexionSocketException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +27,7 @@ public class ClienteTCP implements ICliente {
     }
     
     @Override
-    public void enviarPaquete() {
+    public void enviarPaquete() throws FalloConexionSocketException {
         Gson gson = new Gson();
         EnvioDTO envio = cola.desencolar();
         
@@ -38,7 +37,7 @@ public class ClienteTCP implements ICliente {
             salida = new PrintWriter(socket.getOutputStream(), true);
             salida.println(json);
         } catch (IOException ex) {
-            Logger.getLogger(ClienteTCP.class.getName()).log(Level.SEVERE, null, ex);
+            throw new FalloConexionSocketException("ERROR AL CONECTAR EL SOCKET CON EL SERVIDOR" + ex.getMessage());
             
         }
     }

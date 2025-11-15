@@ -19,7 +19,7 @@ public class PruebaClientSocket {
 
     private static IEmisor emisor;
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, Exception {
         emisor = DispatcherFactory.createDispatcher();
 
         
@@ -27,11 +27,11 @@ public class PruebaClientSocket {
         for (int i = 0; i < 3; i++) {
 
             JsonObject jason = new JsonObject();
-            jason.addProperty("nombre", "Este es un paquete enviado usando Json " + i);
-            PaqueteDTO paquete = new PaqueteDTO("Jason", jason);
-            EnvioDTO envio = new EnvioDTO("localhost", 5000, paquete);
+            jason.addProperty("host", "localhost");
+            jason.addProperty("port", 1000);
+            PaqueteDTO paquete = new PaqueteDTO("registroPeer", jason);
+            EnvioDTO envio = new EnvioDTO("localhost", 8000, paquete);
             emisor.enviarPaquete(envio);
-
             Thread.sleep(2000L);
         }
 

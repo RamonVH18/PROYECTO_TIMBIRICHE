@@ -4,11 +4,13 @@
  */
 package interfaces;
 
+import excepciones.FalloConexionSocketException;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface ICliente {
     
-    public void enviarPaquete();
+    public void enviarPaquete() throws FalloConexionSocketException;
 }

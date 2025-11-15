@@ -6,6 +6,7 @@ package envio;
 
 import interfaces.ICliente;
 import DTOs.EnvioDTO;
+import excepciones.FalloConexionSocketException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -33,7 +34,7 @@ public class ColaEnvio {
         this.cliente = cliente;
     }
     
-    public void encolar(EnvioDTO paquete) {
+    public void encolar(EnvioDTO paquete) throws FalloConexionSocketException {
         cola.add(paquete);
         notificarPaqueteNuevo();
     }
@@ -42,7 +43,7 @@ public class ColaEnvio {
         return cola.remove();
     }
     
-    private void notificarPaqueteNuevo() {
+    private void notificarPaqueteNuevo() throws FalloConexionSocketException {
         cliente.enviarPaquete();
     }
     

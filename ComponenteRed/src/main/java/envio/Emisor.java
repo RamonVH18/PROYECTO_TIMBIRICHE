@@ -6,6 +6,7 @@ package envio;
 
 import interfaz.IEmisor;
 import DTOs.EnvioDTO;
+import excepciones.FalloConexionSocketException;
 
 /**
  *
@@ -29,8 +30,12 @@ public class Emisor implements IEmisor {
     }
 
     @Override
-    public void enviarPaquete(EnvioDTO envio) {
-        colaEnvio.encolar(envio);
+    public void enviarPaquete(EnvioDTO envio) throws Exception {
+        try {
+            colaEnvio.encolar(envio);
+        } catch (FalloConexionSocketException ex) {
+            throw new Exception(ex);
+        }
     }
     
 }

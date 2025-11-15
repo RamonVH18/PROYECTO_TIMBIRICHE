@@ -2,18 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany</groupId>
-    <artifactId>PresentacionTimbiriche</artifactId>
+    <artifactId>ServidorDirectorios</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>org.netbeans.external</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>RELEASE220</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ModeloJuego</artifactId>
+            <artifactId>InfraestructuraMensajes</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -21,7 +16,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>main.Main</exec.mainClass>
+        <exec.mainClass>directorio.EnsambladorDirectorio</exec.mainClass>
     </properties>
-    <name>PresentacionTimbiriche</name>
 </project>
