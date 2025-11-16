@@ -27,7 +27,7 @@ public class Serializador {
 
     public PaqueteDTO serializarDireccionAPaquete(String tipoPaquete, DireccionDTO direccion) throws PaqueteVacioAlSerializarException {
         if (validarSerializacion(tipoPaquete, direccion)) {
-            JsonObject jsonDireccion = new JsonObject();
+            JsonObject jsonDireccion = serializarDireccion(direccion);
             return new PaqueteDTO(tipoPaquete, jsonDireccion);
         }
         return null;

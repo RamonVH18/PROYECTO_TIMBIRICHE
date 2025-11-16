@@ -148,7 +148,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         PaqueteDTO paquete;
         try {
             paquete = serializador.serializarDireccionAPaquete("direccionPeer", direccionLocal);
-            enviarPaqueteA(paquete, new DireccionDTO("192.168.1.71", 8000));
+            enviarPaqueteA(paquete, new DireccionDTO("localhost", 8000));
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {
