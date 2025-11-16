@@ -23,7 +23,7 @@ public class Ensamblador {
     public static ColaRecepcion colaRecepcion;
 
     public static void main(String[] args) throws FalloCreacionServerException {
-        modeloJuego = ModeloJuego.getInstance();
+        modeloJuego = new ModeloJuego();
         modeloJuego.inicializarModeloJuego();
         
         receptor = new Receptor();

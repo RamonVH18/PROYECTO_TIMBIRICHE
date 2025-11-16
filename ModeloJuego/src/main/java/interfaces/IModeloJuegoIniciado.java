@@ -1,6 +1,9 @@
 package interfaces;
 
 import objetosModeloJuego.Linea;
+import estructurasDatos.MatrizPuntos;
+import objetosModeloJuego.Jugador;
+import objetosModeloJuego.TamañoTablero;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,5 +15,9 @@ import objetosModeloJuego.Linea;
  */
 public interface IModeloJuegoIniciado {
     
-    public void realizarJugada(Linea linea);
+    public void crearMatriz(TamañoTablero tamaño);
+    
+    public MatrizPuntos obtenerMatriz();
+    
+    public void realizarJugada(Linea linea, Jugador jugador);
 }

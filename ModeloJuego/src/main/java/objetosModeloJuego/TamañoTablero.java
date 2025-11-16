@@ -9,7 +9,23 @@ package objetosModeloJuego;
  * @author Ramon Valencia
  */
 public enum TamañoTablero {
-    PEQUEÑO,
-    MEDIANO,
-    GRANDE
+    PEQUEÑO(10,10),
+    MEDIANO(20, 20),
+    GRANDE(30, 30);
+    
+    private final Integer filas;
+    private final Integer columnas;
+
+    TamañoTablero(int filas, int columnas) {
+        this.filas = filas;
+        this.columnas = columnas;
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
 }

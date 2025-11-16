@@ -24,4 +24,32 @@ public class Punto {
     public int getCoordenadaY() {
         return coordenadaY;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.coordenadaX;
+        hash = 47 * hash + this.coordenadaY;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Punto other = (Punto) obj;
+        if (this.coordenadaX != other.coordenadaX) {
+            return false;
+        }
+        return this.coordenadaY == other.coordenadaY;
+    }
+    
+    
 }

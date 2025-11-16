@@ -4,29 +4,27 @@
  */
 package mvcJuegoIniciado.modelo;
 
+import interfaces.IModeloJuegoIniciado;
 import java.util.ArrayList;
 import java.util.List;
-import modeloJuego.ModeloJuego;
 import objetosPresentacion.JugadorVisual;
 import objetosPresentacion.TamañosTablero;
 import mvcJuegoIniciado.vistas.TableroJuego;
 import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.Point;
-import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
-import mvcJuegoIniciado.interfaces.IModeloModificableJI;
+import modeloJuego.ModeloJuego;
 import objetosPresentacion.LineaTablero;
 import objetosPresentacion.OrientacionLinea;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
-import objetosModeloJuego.Linea;
-import interfaces.IModeloJuegoIniciado;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJI {
-
+    
+    private final IModeloJuegoIniciado modeloJuego;
     private final Point[][] matriz;
     private final List<LineaTablero> lineas;
     private final TamañosTablero tamaño;
@@ -43,6 +41,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private IVista observarPantallaJuego;
 
     public ModeloJuegoIniciado(TamañosTablero tamaño) {
+        this.modeloJuego = new ModeloJuego();
         this.tamaño = tamaño;
         this.matriz = generarMatriz();
         this.lineas = new ArrayList<>();
@@ -170,7 +169,6 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public void realizarJugada(LineaTablero lineaSelecionada) {
         observadorTablero.actualizar();
     }
-
 
     @Override
     public Point[][] getMatriz() {
