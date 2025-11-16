@@ -30,22 +30,27 @@ import interfaz.IReceptorPaquetes;
 public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
 
     private static ModeloJuego instanciaModelo;
-    private final ManejadorPaquetes manejoPaquetes;
-    private final VerificadorEventos verificadorEventos;
-    private final Serializador serializador;
-    private final Deserializador deserializador;
-    private final ListaJugadores listaJugadores;
+    private ManejadorPaquetes manejoPaquetes;
+    private VerificadorEventos verificadorEventos;
+    private Serializador serializador;
+    private Deserializador deserializador;
+    private ListaJugadores listaJugadores;
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
-
+    
+    
+    
     public ModeloJuego() {
-        manejoPaquetes = new ManejadorPaquetes(instanciaModelo);
-        verificadorEventos = new VerificadorEventos(instanciaModelo);
-        serializador = new Serializador(instanciaModelo, verificadorEventos);
-        deserializador = new Deserializador(instanciaModelo, verificadorEventos);
         listaJugadores = new ListaJugadores();
         jugadorLocal = new Jugador();
         direccionLocal = new DireccionDTO("192.168.1.71", 5000);
+    }
+    public void inicializarModeloJuego() {
+        manejoPaquetes = new ManejadorPaquetes(this);
+        verificadorEventos = new VerificadorEventos(this);
+        serializador = new Serializador(this, verificadorEventos);
+        deserializador = new Deserializador(this, verificadorEventos);
+        
     }
 
     public static ModeloJuego getInstance() {
@@ -102,7 +107,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
         PaqueteDTO paquete;
         try {
-            paquete = serializador.serializarDireccionAPaquete("solicitudInfoJugador", direccion);
+            paquete = serializador.serializarDireccionAPaquete("solicitudInfoJugador", direccionLocal);
             enviarPaqueteA(paquete, direccion);
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,8 +152,8 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     public void conectarseAServidor() {
         PaqueteDTO paquete;
         try {
-            paquete = serializador.serializarDireccionAPaquete("direccionPeer", direccionLocal);
-            enviarPaqueteA(paquete, new DireccionDTO("localhost", 8000));
+            paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
+            enviarPaqueteA(paquete, new DireccionDTO("192.168.1.71", 8000));
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {

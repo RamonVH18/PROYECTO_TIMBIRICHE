@@ -28,7 +28,7 @@ public class VerificadorEventos {
     }
     
     public void eventoNuevoJugador(NuevoJugadorEvent njEvent) {
-        
+        modeloJuego.registrarNuevoJugador(njEvent.getJugador(), njEvent.getDireccion());
     }
     
 }

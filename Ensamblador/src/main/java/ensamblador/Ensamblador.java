@@ -6,6 +6,7 @@ package ensamblador;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
 import modeloJuego.ModeloJuego;
+import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
 
@@ -19,10 +20,15 @@ public class Ensamblador {
     public static IEmisor emisor;
     public static Receptor receptor;
     public static ServerTCP servidor;
+    public static ColaRecepcion colaRecepcion;
 
     public static void main(String[] args) throws FalloCreacionServerException {
         modeloJuego = ModeloJuego.getInstance();
+        modeloJuego.inicializarModeloJuego();
+        
         receptor = new Receptor();
+        colaRecepcion = ColaRecepcion.getInstancia();
+        colaRecepcion.suscribirReceptor(receptor);
         receptor.inyectarManejador(modeloJuego);
         servidor = new ServerTCP(5000);
 

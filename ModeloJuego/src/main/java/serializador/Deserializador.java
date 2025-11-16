@@ -43,6 +43,7 @@ public class Deserializador {
             }
             case ("nuevaInfoJugador") -> {
                 NuevoJugadorEvent njEvent = deserializarNuevoJugadorEvent(paquete.getMensaje());
+                verificadorEventos.eventoNuevoJugador(njEvent);
                 
             }
         }
@@ -55,8 +56,8 @@ public class Deserializador {
     }
     
     private NuevoJugadorEvent deserializarNuevoJugadorEvent(JsonObject json) {
-        DireccionDTO d = gson.fromJson(json.get("jugador"), DireccionDTO.class);
-        Jugador j = gson.fromJson(json.get("direccion"), Jugador.class);
+        DireccionDTO d = gson.fromJson(json.get("direccion"), DireccionDTO.class);
+        Jugador j = gson.fromJson(json.get("jugador"), Jugador.class);
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(j, d);
         return njEvent;
     }
