@@ -1,7 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
 package ensamblador;
 
 import excepciones.FalloCreacionServerException;
@@ -12,24 +11,31 @@ import recepcion.ServerTCP;
 
 /**
  *
- * @author Ramon Valencia 
+ * @author Ramon Valencia
  */
 public class Ensamblador {
-    
+
     public static ModeloJuego modeloJuego;
     public static IEmisor emisor;
     public static Receptor receptor;
     public static ServerTCP servidor;
-    
+
     public static void main(String[] args) throws FalloCreacionServerException {
         modeloJuego = ModeloJuego.getInstance();
+        receptor = new Receptor();
         receptor.inyectarManejador(modeloJuego);
-        
-        
+        servidor = new ServerTCP(5000);
+
         modeloJuego.guardarInformacionJugador("PolloJalado", "1", "1");
-        servidor.iniciarServidor();
+        Thread hiloServidor = new Thread(() -> {
+            try {
+                servidor.iniciarServidor();  // método bloqueante que escucha sockets
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, "Hilo-Servidor");
+        hiloServidor.start();
         modeloJuego.conectarseAServidor();
-        
-        
+
     }
 }
