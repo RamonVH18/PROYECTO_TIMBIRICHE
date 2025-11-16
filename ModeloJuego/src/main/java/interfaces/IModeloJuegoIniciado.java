@@ -10,7 +10,7 @@ import objetosModeloJuego.Linea;
  *
  * @author Ramon Valencia
  */
-public interface IModeloJuego {
+public interface IModeloJuegoIniciado {
     
     public void realizarJugada(Linea linea);
 }

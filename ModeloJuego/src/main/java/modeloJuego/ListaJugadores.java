@@ -4,6 +4,7 @@
  */
 package modeloJuego;
 
+import java.util.ArrayList;
 import java.util.List;
 import objetosModeloJuego.Jugador;
 
@@ -13,6 +14,10 @@ import objetosModeloJuego.Jugador;
  */
 public class ListaJugadores {
     private static List<Jugador> jugadores;
+    
+    public ListaJugadores() {
+        jugadores = new ArrayList<>();
+    }
     
     public void crearOrdenJugadores() {
         

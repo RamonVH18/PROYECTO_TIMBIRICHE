@@ -43,6 +43,6 @@ public class ColaRecepcion {
     }
     
     private void notificarPaqueteNuevo() {
-        
+        receptor.recibirPaquete();
     }
 }

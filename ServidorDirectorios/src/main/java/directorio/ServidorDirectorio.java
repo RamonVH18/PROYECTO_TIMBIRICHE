@@ -4,7 +4,7 @@
  */
 package directorio;
 
-import DTOs.DireccionPeerDTO;
+import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ServidorDirectorio {
 
-    List<DireccionPeerDTO> direcciones;
+    List<DireccionDTO> direcciones;
     private final int port;
     private final Gson gson;
     private boolean finalizarProceso;
@@ -49,7 +49,7 @@ public class ServidorDirectorio {
                     if (mensaje == null || mensaje.isBlank()) {
                         continue;
                     }
-                    DireccionPeerDTO direccion = obtenerDireccionDePeer(mensaje);
+                    DireccionDTO direccion = obtenerDireccionDePeer(mensaje);
                     if (direccion != null) {
                         registrarDireccion(direccion);
                     }
@@ -63,7 +63,7 @@ public class ServidorDirectorio {
         }
     }
 
-    private DireccionPeerDTO obtenerDireccionDePeer(String mensaje) {
+    private DireccionDTO obtenerDireccionDePeer(String mensaje) {
 
         PaqueteDTO paquete = gson.fromJson(mensaje, PaqueteDTO.class);
         if ("apagarServidor".equals(paquete.getTipoPaquete())) {
@@ -73,14 +73,14 @@ public class ServidorDirectorio {
         if (!"registroPeer".equals(paquete.getTipoPaquete())) {
             return null;
         }
-        DireccionPeerDTO direccion = gson.fromJson(paquete.getMensaje(), DireccionPeerDTO.class);
+        DireccionDTO direccion = gson.fromJson(paquete.getMensaje(), DireccionDTO.class);
         return direccion;
 
     }
 
-    private void registrarDireccion(DireccionPeerDTO direccion) {
+    private void registrarDireccion(DireccionDTO direccion) {
         //for para comprobar que una no se repitan las direcciones
-        for (DireccionPeerDTO d : direcciones) {
+        for (DireccionDTO d : direcciones) {
             if (d.equals(direccion)) {
                 return;
             }
@@ -92,9 +92,9 @@ public class ServidorDirectorio {
 
     }
 
-    private void enviarNuevaDireccionASockets(DireccionPeerDTO direccion) {
+    private void enviarNuevaDireccionASockets(DireccionDTO direccion) {
 
-        for (DireccionPeerDTO d : direcciones) {
+        for (DireccionDTO d : direcciones) {
             if (!d.equals(direccion)) {
                 try {
                     //Se envia la direccion del nuevo peer a un peer ya existente
@@ -104,12 +104,11 @@ public class ServidorDirectorio {
                 } catch (ErrorEnviarMensajesException ex) {
                     System.err.println("No se encontro el peer con el host " + d.getHost() + " en el puerto " + d.getPort());
                 }
-
             }
         }
     }
 
-    private void enviarDireccion(DireccionPeerDTO direccionDestino, DireccionPeerDTO direccionEnviada) throws ErrorEnviarMensajesException {
+    private void enviarDireccion(DireccionDTO direccionDestino, DireccionDTO direccionEnviada) throws ErrorEnviarMensajesException {
 
         JsonObject json = new JsonObject();
         json.addProperty("host", direccionEnviada.getHost());

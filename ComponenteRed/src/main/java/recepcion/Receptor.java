@@ -18,9 +18,11 @@ public class Receptor implements IReceptor, ReceptorPaqueteInjector{
     private IReceptorPaquetes modelo;
     private final ColaRecepcion cola;
     
+    
     public Receptor() {
         this.cola = ColaRecepcion.getInstancia();
     }
+    
     @Override
     public void recibirPaquete() {
         PaqueteDTO paquete = cola.desencolar();

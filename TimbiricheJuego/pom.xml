@@ -13,6 +13,7 @@
         <module>../ReceptorExterno</module>
         <module>../InfraestructuraMensajes</module>
         <module>../ServidorDirectorios</module>
+        <module>../Ensamblador</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -18,15 +18,16 @@ import java.net.Socket;
  * @author Ramon Valencia
  */
 public class ServerTCP {
-    private BufferedReader entrada;
     private final int puerto;
+    private static ColaRecepcion colaRecepcion;
     
     public ServerTCP(int puerto) {
         this.puerto = puerto;
+        this.colaRecepcion = ColaRecepcion.getInstancia();
     }
     
     private void recibirPaquete(PaqueteDTO paquete) {
-        
+        colaRecepcion.encolar(paquete);
     }
     
     public void iniciarServidor() throws FalloCreacionServerException {

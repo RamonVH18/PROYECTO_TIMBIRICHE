@@ -14,6 +14,7 @@ import objetosModeloJuego.TamañoTablero;
  */
 public class EstadoJuego {
     
+
     private int numJugadores;
     private TamañoTablero tamañoTablero;
     private List<Linea> lineas;

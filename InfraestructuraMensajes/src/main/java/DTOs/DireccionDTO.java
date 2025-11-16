@@ -10,12 +10,12 @@ import java.util.Objects;
  *
  * @author Ramon Valencia
  */
-public class DireccionPeerDTO {
+public class DireccionDTO {
     
     private final String host;
     private final int port;
 
-    public DireccionPeerDTO(String host, int port) {
+    public DireccionDTO(String host, int port) {
         this.host = host;
         this.port = port;
                 
@@ -46,7 +46,7 @@ public class DireccionPeerDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final DireccionPeerDTO other = (DireccionPeerDTO) obj;
+        final DireccionDTO other = (DireccionDTO) obj;
         if (this.port != other.port) {
             return false;
         }

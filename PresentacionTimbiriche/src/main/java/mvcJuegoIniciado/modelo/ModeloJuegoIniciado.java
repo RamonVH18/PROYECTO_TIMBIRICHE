@@ -4,7 +4,6 @@
  */
 package mvcJuegoIniciado.modelo;
 
-import interfaces.IModeloJuego;
 import java.util.ArrayList;
 import java.util.List;
 import modeloJuego.ModeloJuego;
@@ -20,6 +19,7 @@ import objetosPresentacion.OrientacionLinea;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 import objetosModeloJuego.Linea;
+import interfaces.IModeloJuegoIniciado;
 
 /**
  *
