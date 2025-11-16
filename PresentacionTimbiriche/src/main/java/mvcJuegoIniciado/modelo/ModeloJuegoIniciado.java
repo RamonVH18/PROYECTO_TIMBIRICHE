@@ -4,7 +4,10 @@
  */
 package mvcJuegoIniciado.modelo;
 
+import adapters.JugadorAdapter;
+import adapters.LineaAdapter;
 import interfaces.IModeloJuegoIniciado;
+import interfaces.ObservadorJuego;
 import java.util.ArrayList;
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
@@ -14,15 +17,16 @@ import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.Point;
 import modeloJuego.ModeloJuego;
 import objetosPresentacion.LineaTablero;
-import objetosPresentacion.OrientacionLinea;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
+import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Linea;
 
 /**
  *
  * @author Ramon Valencia
  */
-public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJI {
+public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJI, ObservadorJuego {
     
     private final IModeloJuegoIniciado modeloJuego;
     private final Point[][] matriz;
@@ -40,8 +44,8 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private IVista observadorTablero;
     private IVista observarPantallaJuego;
 
-    public ModeloJuegoIniciado(TamañosTablero tamaño) {
-        this.modeloJuego = new ModeloJuego();
+    public ModeloJuegoIniciado(TamañosTablero tamaño, IModeloJuegoIniciado model) {
+        this.modeloJuego = model;
         this.tamaño = tamaño;
         this.matriz = generarMatriz();
         this.lineas = new ArrayList<>();
@@ -54,8 +58,6 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         mostrandoMenuDeOpciones = false;
         this.vistas = new ArrayList<>();
         this.pantallas = new ArrayList<>();
-        listaJugadores.add(new JugadorVisual("Rodrigo", ""));
-        listaJugadores.add(new JugadorVisual("Daniel Miramontes", ""));
     }
 
     //Metodos Observers
@@ -97,17 +99,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         observadorTablero = tablero;
     }
     
-    @Override
-    public List<JugadorVisual> obtenerJugadores() {
-
-        return listaJugadores;
-    }
-
-    @Override
-    public TamañosTablero getTamañoTablero() {
-        return this.tamaño;
-    }
-
+    
     //Metodos Modificables
     @Override
     public void mostrarPantallaDeJuego() {
@@ -164,10 +156,33 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public boolean isMostrandoMenuDeOpciones() {
         return mostrandoMenuDeOpciones;
     }
+    
+    
+    
+    
+    
+    
+    @Override
+    public List<JugadorVisual> obtenerJugadores() {
+        List <Jugador> jugadores = modeloJuego.obtenerJugadores();
+        for(Jugador j : jugadores) {
+            listaJugadores.add(
+                    JugadorAdapter.toJVisual(j)
+            );
+        }
+        return listaJugadores;
+    }
+
+    @Override
+    public TamañosTablero getTamañoTablero() {
+        return this.tamaño;
+    }
+
 
     @Override
     public void realizarJugada(LineaTablero lineaSelecionada) {
-        observadorTablero.actualizar();
+        Linea linea = LineaAdapter.toLinea(lineaSelecionada);
+        modeloJuego.realizarJugada(linea);
     }
 
     @Override
@@ -185,22 +200,22 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         int columnas = matriz[0].length;
 
         // Líneas horizontales
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas - 1; j++) {
-                Point a = matriz[i][j];
-                Point b = matriz[i][j + 1];
-                lineas.add(new LineaTablero(a, b, OrientacionLinea.HORIZONTAL, tamaño.getGrosorLinea()));
-            }
-        }
-
-        // Líneas verticales
-        for (int i = 0; i < filas - 1; i++) {
-            for (int j = 0; j < columnas; j++) {
-                Point a = matriz[i][j];
-                Point b = matriz[i + 1][j];
-                lineas.add(new LineaTablero(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
-            }
-        }
+//        for (int i = 0; i < filas; i++) {
+//            for (int j = 0; j < columnas - 1; j++) {
+//                Point a = matriz[i][j];
+//                Point b = matriz[i][j + 1];
+//                lineas.add(new LineaTablero(a, b, OrientacionLinea.HORIZONTAL, tamaño.getGrosorLinea()));
+//            }
+//        }
+//
+//        // Líneas verticales
+//        for (int i = 0; i < filas - 1; i++) {
+//            for (int j = 0; j < columnas; j++) {
+//                Point a = matriz[i][j];
+//                Point b = matriz[i + 1][j];
+//                lineas.add(new LineaTablero(a, b, OrientacionLinea.VERTICAL, tamaño.getGrosorLinea()));
+//            }
+//        }
     }
 
     private Point[][] generarMatriz() {
@@ -216,6 +231,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             }
         }
         return puntos;
+    }
+
+    @Override
+    public void cambiarTurno() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -21,6 +21,19 @@ public class Linea {
         this.puntoB = B;
         this.estadoLinea = "LIBRE";
     }
+
+    public Punto getPuntoA() {
+        return puntoA;
+    }
+
+    public Punto getPuntoB() {
+        return puntoB;
+    }
+
+    public String getEstadoLinea() {
+        return estadoLinea;
+    }
+    
     
     public void marcarComoOcupada() {
         estadoLinea = "OCUPADA";

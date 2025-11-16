@@ -26,8 +26,10 @@ import interfaces.IModeloJuegoInicio;
 import interfaz.IReceptorPaquetes;
 import estructurasDatos.ListaLineas;
 import estructurasDatos.MatrizPuntos;
-import objetosModeloJuego.Cuadro;
+import java.util.List;
+import manejadores.ManejadorTurnos;
 import objetosModeloJuego.TamañoTablero;
+import interfaces.ObservadorJuego;
 
 /**
  *
@@ -36,6 +38,7 @@ import objetosModeloJuego.TamañoTablero;
 public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
  
     private ManejadorPaquetes manejoPaquetes;
+    private ManejadorTurnos manejoTurnos;
     private VerificadorEventos verificadorEventos;
     private Serializador serializador;
     private Deserializador deserializador;
@@ -43,6 +46,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     private EstadoJuego estadoJuego;
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
+    private ObservadorJuego observador;
 
     public ModeloJuego() {
         estadoJuego = new EstadoJuego();
@@ -53,10 +57,15 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
 
     public void inicializarModeloJuego() {
         manejoPaquetes = new ManejadorPaquetes(this);
+        manejoTurnos = new ManejadorTurnos(this, listaJugadores);
         verificadorEventos = new VerificadorEventos(this);
         serializador = new Serializador(this, verificadorEventos);
         deserializador = new Deserializador(this, verificadorEventos);
 
+    }
+    
+    public void suscribirObservador(ObservadorJuego observador) {
+        this.observador = observador;
     }
     /**
      * INICIO METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
@@ -102,8 +111,18 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     
     /**
      * 
-     * @param tamaño 
      */
+    public void empezarJuego() {
+        manejoTurnos.iniciarTurno();
+        Jugador jugador = manejoTurnos.mostrarJugadorActual();
+        observador.cambiarTurno();
+    }
+ 
+    @Override
+    public List<Jugador> obtenerJugadores() {
+        return listaJugadores.obtenerJugadores();
+    }
+ 
     @Override
     public void crearMatriz(TamañoTablero tamaño) {
         MatrizPuntos matriz = new MatrizPuntos(tamaño);
@@ -131,10 +150,15 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     @Override
-    public void realizarJugada(Linea linea, Jugador jugador) {
+    public void realizarJugada(Linea linea) {
         actualizarLineas(linea);
-        verificarCuadrosCompletados(jugador);
-        estadoJuego.getCuadros();
+        Jugador jugador = manejoTurnos.mostrarJugadorActual();
+        if(verificarCuadrosCompletados(jugador)) {
+            
+        }
+        manejoTurnos.siguienteTurno();
+        manejoTurnos.iniciarTurno();
+//        observador.cambiarTurno();
     }
 
     public void notificarCambioLinea() {
@@ -181,15 +205,16 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion) {
         manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
         listaJugadores.agregarJugador(jugador);
-        System.out.println("Eso jugadorcin: " + jugador.getNombre());
     }
 
     @Override
     public void guardarInformacionJugador(String nombreJugador, String imagenJugador, String colorJugador) {
         jugadorLocal = new Jugador("0", nombreJugador, imagenJugador, colorJugador);
-
+        listaJugadores.agregarJugador(jugadorLocal);
     }
     /*
     FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
+
+    
 }

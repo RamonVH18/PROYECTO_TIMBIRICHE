@@ -2,6 +2,7 @@ package interfaces;
 
 import objetosModeloJuego.Linea;
 import estructurasDatos.MatrizPuntos;
+import java.util.List;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.TamañoTablero;
 
@@ -19,5 +20,7 @@ public interface IModeloJuegoIniciado {
     
     public MatrizPuntos obtenerMatriz();
     
-    public void realizarJugada(Linea linea, Jugador jugador);
+    public List<Jugador> obtenerJugadores();
+    
+    public void realizarJugada(Linea linea);
 }

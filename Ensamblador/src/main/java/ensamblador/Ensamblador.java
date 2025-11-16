@@ -6,6 +6,12 @@ package ensamblador;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
 import modeloJuego.ModeloJuego;
+import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
+import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
+import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoIniciado.vistas.PantallaDeJuego;
+import mvcJuegoIniciado.vistas.TableroJuego;
+import objetosPresentacion.TamañosTablero;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -26,6 +32,7 @@ public class Ensamblador {
         modeloJuego = new ModeloJuego();
         modeloJuego.inicializarModeloJuego();
         
+        
         receptor = new Receptor();
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
@@ -42,6 +49,25 @@ public class Ensamblador {
         }, "Hilo-Servidor");
         hiloServidor.start();
         modeloJuego.conectarseAServidor();
+        iniciarPresentacion();
 
+    }
+    
+    public static void iniciarPresentacion() {
+        
+        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
+        ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
+        TableroJuego tablero = new TableroJuego(modelo, control);
+        modelo.setObserverTablero(tablero);
+        
+        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
+        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo,control);
+        
+        modelo.añadirObserverPantallaDeJuego(pantallaDeJuego);
+        modelo.añadirObservadorPantallas(pantallaDeJuego);
+        
+        modelo.añadirObservadorPantallas(menuDeOpciones);
+        
+        control.mostrarPantallaDeJuego();
     }
 }

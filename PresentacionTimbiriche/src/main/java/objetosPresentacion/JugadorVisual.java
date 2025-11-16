@@ -4,8 +4,6 @@
  */
 package objetosPresentacion;
 
-import java.awt.image.BufferedImage;
-
 /**
  *
  * @author Ramon Valencia
@@ -13,29 +11,47 @@ import java.awt.image.BufferedImage;
 public class JugadorVisual {
 
     private Integer identificador;
-    private final String nombre;
-    private final String imagen;
+    private String nombre;
+    private String imagen;
+    private String color;
 
-    public JugadorVisual(String nombre, String imagen) {
+    public JugadorVisual(String nombre, String imagen, String color) {
         this.nombre = nombre;
         this.imagen = imagen;
-    }
-
-    public void setIdentificador(Integer identificador) {
-        this.identificador = identificador;
+        this.color = color;
     }
 
     public Integer getIdentificador() {
         return identificador;
     }
 
+    public void setIdentificador(Integer identificador) {
+        this.identificador = identificador;
+    }
+
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getImagen() {
         // Una vez que agregue las al paquete este get se encargara de procesarlas
         return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
 }

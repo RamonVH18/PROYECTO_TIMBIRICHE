@@ -25,14 +25,20 @@ public class LineaTablero extends JComponent {
     public EstadoLinea estado;
     public Integer grosorLinea;
 
-    public LineaTablero(Point a, Point b, OrientacionLinea orientacion, Integer grosorLinea) {
+    public LineaTablero(Point a, Point b, EstadoLinea estado) {
         this.puntoA = a;
         this.puntoB = b;
-        this.orientacion = orientacion;
-        this.estado = EstadoLinea.LIBRE;
-        this.grosorLinea = grosorLinea;
+        this.orientacion = generarOrientacion(a, b);
+        this.estado = estado;
     }
-
+    
+    private OrientacionLinea generarOrientacion(Point a, Point b) {
+        
+        if(a.getX() == b.getX()) {
+            return OrientacionLinea.VERTICAL;
+        }
+        return OrientacionLinea.HORIZONTAL;
+    }
     //revisar el desacoplo del estado de la línea en el constructor
     //setLibre, setOcupado, setSeleccionado
     @Override
@@ -52,5 +58,31 @@ public class LineaTablero extends JComponent {
         g2.setStroke(new BasicStroke(grosorLinea));
         g2.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
     }
+
+    public OrientacionLinea getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(OrientacionLinea orientacion) {
+        this.orientacion = orientacion;
+    }
+
+    public EstadoLinea getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoLinea estado) {
+        this.estado = estado;
+    }
+
+    public Integer getGrosorLinea() {
+        return grosorLinea;
+    }
+
+    public void setGrosorLinea(Integer grosorLinea) {
+        this.grosorLinea = grosorLinea;
+    }
+
+    
     
 }
