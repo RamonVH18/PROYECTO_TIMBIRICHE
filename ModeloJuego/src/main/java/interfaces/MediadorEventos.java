@@ -12,12 +12,8 @@ import objetosModeloJuego.Jugador;
  * @author Ramon Valencia
  */
 public interface MediadorEventos {
-
-    public void recibirNuevaDireccion(DireccionDTO direccion, Jugador jugador);
     
     public void solicitarInfoNuevoJugador(DireccionDTO direccion);
-    
-    public Jugador obtenerJugadorPorNuevaDireccion(DireccionDTO direcion);
     
     public void transmitirInfoANuevoJugador(DireccionDTO direccion);
     

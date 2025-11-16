@@ -37,20 +37,19 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     private ListaJugadores listaJugadores;
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
-    
-    
-    
+
     public ModeloJuego() {
         listaJugadores = new ListaJugadores();
         jugadorLocal = new Jugador();
         direccionLocal = new DireccionDTO("192.168.1.71", 5000);
     }
+
     public void inicializarModeloJuego() {
-        manejoPaquetes = new ManejadorPaquetes(this);
-        verificadorEventos = new VerificadorEventos(this);
-        serializador = new Serializador(this, verificadorEventos);
-        deserializador = new Deserializador(this, verificadorEventos);
-        
+        manejoPaquetes = new ManejadorPaquetes(instanciaModelo);
+        verificadorEventos = new VerificadorEventos(instanciaModelo);
+        serializador = new Serializador(instanciaModelo, verificadorEventos);
+        deserializador = new Deserializador(instanciaModelo, verificadorEventos);
+
     }
 
     public static ModeloJuego getInstance() {
@@ -61,12 +60,38 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         return instanciaModelo;
     }
 
+    public void conectarseAServidor() {
+        PaqueteDTO paquete;
+        try {
+            paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
+            enviarPaqueteA(paquete, new DireccionDTO("192.168.1.71", 8000));
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void enviarPaqueteA(PaqueteDTO paquete, DireccionDTO direccion) throws ErrorAlEnviarPaqueteException {
         manejoPaquetes.enviarPaqueteDireccion(paquete, direccion);
     }
 
     private void enviarPaqueteATodos(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
         manejoPaquetes.enviarPaqueteDTO(paquete);
+    }
+
+    @Override
+    public void recibirPaquete(PaqueteDTO paquete) {
+        revisarPaqueteRecibido(paquete);
+    }
+
+    @Override
+    public void revisarPaqueteRecibido(PaqueteDTO paquete) {
+        try {
+            deserializador.deserializarPaquete(paquete);
+        } catch (PaqueteVacioAlDeserializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -82,27 +107,10 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
 
     }
 
-    @Override
-    public void revisarPaqueteRecibido(PaqueteDTO paquete) {
-        try {
-            deserializador.deserializarPaquete(paquete);
-        } catch (PaqueteVacioAlDeserializarException ex) {
-            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void recibirNuevaDireccion(DireccionDTO direccion, Jugador jugador) {
-
-//        manejoPaquetes.agregarNuevaDireccion(nombreJugador, direccion);
-    }
-
-    @Override
-    public Jugador obtenerJugadorPorNuevaDireccion(DireccionDTO direcion) {
-
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    /*
+    INICIO DEL FLUJO PARA AGREGAR NUEVO JUGADOR
+     */
+    
     @Override
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
         PaqueteDTO paquete;
@@ -132,12 +140,6 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     @Override
-    public void guardarInformacionJugador(String nombreJugador, String imagenJugador, String colorJugador) {
-        jugadorLocal = new Jugador("0", nombreJugador, imagenJugador, colorJugador);
-
-    }
-
-    @Override
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion) {
         manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
         listaJugadores.agregarJugador(jugador);
@@ -145,20 +147,11 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     @Override
-    public void recibirPaquete(PaqueteDTO paquete) {
-        revisarPaqueteRecibido(paquete);
-    }
+    public void guardarInformacionJugador(String nombreJugador, String imagenJugador, String colorJugador) {
+        jugadorLocal = new Jugador("0", nombreJugador, imagenJugador, colorJugador);
 
-    public void conectarseAServidor() {
-        PaqueteDTO paquete;
-        try {
-            paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
-            enviarPaqueteA(paquete, new DireccionDTO("192.168.1.71", 8000));
-        } catch (PaqueteVacioAlSerializarException ex) {
-            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ErrorAlEnviarPaqueteException ex) {
-            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
-
+    /*
+    FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
+     */
 }
