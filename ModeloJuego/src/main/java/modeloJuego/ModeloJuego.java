@@ -115,6 +115,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
      * 
      */
     public void empezarJuego() {
+        listaJugadores.crearOrdenJugadores();
         manejoTurnos.iniciarTurno();
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
         observador.cambiarTurno();
@@ -123,6 +124,11 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     @Override
     public List<Jugador> obtenerJugadores() {
         return listaJugadores.obtenerJugadores();
+    }
+    
+    @Override
+    public Jugador obtenerJugadorEnTurno() {
+        return manejoTurnos.mostrarJugadorActual();
     }
  
     @Override
@@ -229,8 +235,8 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     @Override
-    public void guardarInformacionJugador(String nombreJugador, String imagenJugador, String colorJugador) {
-        jugadorLocal = new Jugador("0", nombreJugador, imagenJugador, colorJugador);
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador, String colorJugador) {
+        jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
     }
     /*

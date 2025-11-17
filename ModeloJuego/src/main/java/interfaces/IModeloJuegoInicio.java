@@ -4,7 +4,7 @@
  */
 package interfaces;
 
-import objetosModeloJuego.Jugador;
+
 
 /**
  *
@@ -12,5 +12,5 @@ import objetosModeloJuego.Jugador;
  */
 public interface IModeloJuegoInicio {
     
-    public void guardarInformacionJugador(String nombreJugador, String imagenJugador, String colorJugador);
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador, String colorJugador);
 }

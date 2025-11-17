@@ -24,5 +24,7 @@ public interface IModeloJuegoIniciado {
     
     public List<Jugador> obtenerJugadores();
     
+    public Jugador obtenerJugadorEnTurno();
+    
     public void realizarJugada(Linea linea);
 }

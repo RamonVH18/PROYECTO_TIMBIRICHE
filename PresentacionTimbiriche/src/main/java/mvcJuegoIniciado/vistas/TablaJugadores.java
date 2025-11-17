@@ -2,6 +2,7 @@ package mvcJuegoIniciado.vistas;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -18,101 +19,55 @@ import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
  * @author Ramon Valencia
  */
 public class TablaJugadores extends JPanel implements IVista {
-//    //Constantes
-//    private Integer MAX_JUGADORES = 4;
-//    private Dimension DIM_FLD_JUGADOR = new Dimension();
-//
-//    //Atributos de la clase
-//    private IModeloLeibleJI modelo;
-//    
-//    //TODO: Hacer esto responsivo
-//    private Dimension dimension_tabla = new Dimension(350, 200);
-//    private static List<JugadorVisual> jugadoresActuales;
-//    private JLabel titulo;
-//
-//    public TablaJugadores() {
-//        //Inicializar el modelo
-//        modelo = Modelo.getInstaciaModelo();
-//        modelo.añadirObserver(this);
-//
-//        //Definir disposicion
-//        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//        crearTabla();
-//    }
-//
-//    private void inicializar() {
-//
-//    }
-//
-//    private void crearTabla() {
-//        //Inicializar lista de jugadores
-//        titulo = new JLabel();
-//        jugadoresActuales = new ArrayList<>();
-//
-//        //Diseño de la tabla de jugadores
-//        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-//        setSize(dimension_tabla);
-//        setPreferredSize(dimension_tabla);
-//        generarMarcosJugadores();
-//    }
-//
-//    private void generarMarcosJugadores() {
-//        //Título
-//
-//        titulo.setAlignmentX(CENTER_ALIGNMENT);
-//        titulo.setOpaque(true);
-//        add(Box.createVerticalGlue());
-//        add(titulo);
-//        add(Box.createVerticalGlue());
-//
-//        //Generar la vista de los jugadores
-//        jugadoresActuales = modelo.obtenerJugadores();
-//        for (JugadorVisual j : jugadoresActuales) {
-//            JLabel labelNombre = new JLabel(j.getNombre());
-//            labelNombre.setAlignmentX(CENTER_ALIGNMENT);
-//            add(labelNombre);
-//        }
-//        titulo.setText("Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES);
-//    }
-//
-//    @Override
-//    public void actualizar() {
-//        removeAll();
-//        generarMarcosJugadores();
-//        repaint();
-//        revalidate();
-//    }
+    //Constantes
+    private Integer MAX_JUGADORES = 4;
+    private Dimension DIM_FLD_JUGADOR = new Dimension();
 
-    
-    private final int MAX_JUGADORES = 4;
+    //Atributos de la clase
     private IModeloLeibleJI modelo;
-    private List<JugadorVisual> jugadoresActuales;
-    private IControlJuegoIniciado control;
+    
+    //TODO: Hacer esto responsivo
+    private Dimension dimension_tabla = new Dimension(350, 200);
+    private static List<JugadorVisual> jugadoresActuales;
+    private JLabel titulo;
 
     public TablaJugadores(IModeloLeibleJI modelo) {
-       this.modelo = modelo;
-       
-     //   modelo.añadirObserver(this);
+        //Inicializar el modelo
+        this.modelo = modelo;
+//        modelo.añadirObserver(this);
 
+        //Definir disposicion
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(250, 400));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-
         crearTabla();
     }
 
-    private void crearTabla() {
-        removeAll();
+    private void inicializar() {
 
-        // Título
-        jugadoresActuales = modelo.obtenerJugadores();
-        JLabel titulo = new JLabel("Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES);
+    }
+
+    private void crearTabla() {
+        //Inicializar lista de jugadores
+        titulo = new JLabel();
+        jugadoresActuales = new ArrayList<>();
+
+        //Diseño de la tabla de jugadores
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        setSize(dimension_tabla);
+        setPreferredSize(dimension_tabla);
+        generarMarcosJugadores();
+    }
+
+    private void generarMarcosJugadores() {
+        //Título
+        titulo.setText("Jugadores: " + jugadoresActuales.size() + "/" + MAX_JUGADORES);
         titulo.setAlignmentX(CENTER_ALIGNMENT);
+        titulo.setOpaque(true);
         add(Box.createVerticalStrut(10));
         add(titulo);
         add(Box.createVerticalStrut(10));
 
-        // Generar la vista de los jugadores
+        //Generar la vista de los jugadores
+        jugadoresActuales = modelo.obtenerJugadores();
         for (JugadorVisual j : jugadoresActuales) {
             JPanel panelJugador = new JPanel();
             panelJugador.setLayout(new BoxLayout(panelJugador, BoxLayout.X_AXIS));
@@ -128,14 +83,15 @@ public class TablaJugadores extends JPanel implements IVista {
             add(panelJugador);
             add(Box.createVerticalStrut(5));
         }
-
-        revalidate();
-        repaint();
+        
     }
 
     @Override
     public void actualizar() {
-        crearTabla();
+        removeAll();
+        generarMarcosJugadores();
+        repaint();
+        revalidate();
     }
     
     @Override

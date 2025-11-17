@@ -39,6 +39,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private boolean mostrandoMenuDeOpciones;
 
     private final List<JugadorVisual> listaJugadores;
+    private JugadorVisual jugadorEnTurno;
 
     private final List<IVista> pantallas;
     private final List<IVista> vistas;
@@ -233,7 +234,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     @Override
     public void cambiarTurno() {
         lineas = generarLineas();
+        jugadorEnTurno = JugadorAdapter.toJVisual(
+                modeloJuego.obtenerJugadorEnTurno()
+        );
         observadorPantallaJuego.actualizar();
+        
     }
 
 }
