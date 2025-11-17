@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ResourceBundle.Control;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import modeloJuego.ModeloJuego;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IVista;
