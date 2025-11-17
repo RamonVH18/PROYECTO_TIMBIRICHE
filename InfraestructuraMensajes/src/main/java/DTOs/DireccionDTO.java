@@ -14,12 +14,19 @@ public class DireccionDTO {
     
     private final String host;
     private final int port;
+    private final boolean esHost;
 
     public DireccionDTO(String host, int port) {
         this.host = host;
-        this.port = port;
-                
+        this.port = port;  
+        this.esHost = false;
     }    
+    
+    public DireccionDTO(String host, int port, boolean esHost) {
+        this.host = host;
+        this.port = port;
+        this.esHost = esHost;
+    }
 
     public String getHost() {
         return host;
@@ -29,6 +36,10 @@ public class DireccionDTO {
         return port;
     }
 
+    public boolean isEsHost() {
+        return esHost;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

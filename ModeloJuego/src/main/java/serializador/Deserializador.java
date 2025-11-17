@@ -5,14 +5,19 @@
 package serializador;
 
 import DTOs.DireccionDTO;
+import DTOs.JugadorLobbyDTO;
+import DTOs.LobbyEstadoDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
 import excepciones.PaqueteVacioAlDeserializarException;
 import interfaces.Mediador;
+import java.util.ArrayList;
+import java.util.List;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 
@@ -46,11 +51,26 @@ public class Deserializador {
             case ("nuevaInfoJugador") -> {
                 NuevoJugadorEvent njEvent = deserializarNuevoJugadorEvent(paquete.getMensaje());
                 verificadorEventos.eventoNuevoJugador(njEvent);
-                
+
             }
             case ("nuevaLineaPintada") -> {
                 LineaPintadaEvent lpEvent = deserializarLineaPintadaEvent(paquete.getMensaje());
                 verificadorEventos.eventoLineaPintada(lpEvent);
+            }
+
+            case "nuevoJugadorLobby" -> {
+                JugadorLobbyDTO jugador = deserializarJugadorLobby(paquete.getMensaje());
+                modeloJuego.revisarPaqueteRecibido(paquete);
+            }
+
+            case "jugadorListo" -> {
+                modeloJuego.revisarPaqueteRecibido(paquete);
+            }
+            case "estadoLobby" -> {
+                modeloJuego.revisarPaqueteRecibido(paquete);
+            }
+            case "iniciarPartida" -> {
+                modeloJuego.revisarPaqueteRecibido(paquete);
             }
         }
     }
@@ -60,14 +80,14 @@ public class Deserializador {
 //        ValidacionesClases.validarDireccionPeerDTO(direccion);
         return direccion;
     }
-    
+
     private NuevoJugadorEvent deserializarNuevoJugadorEvent(JsonObject json) {
         DireccionDTO d = gson.fromJson(json.get("direccion"), DireccionDTO.class);
         Jugador j = gson.fromJson(json.get("jugador"), Jugador.class);
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(j, d);
         return njEvent;
     }
-    
+
     private LineaPintadaEvent deserializarLineaPintadaEvent(JsonObject json) {
         Linea l = gson.fromJson(json.get("linea"), Linea.class);
         LineaPintadaEvent lpEvent = new LineaPintadaEvent(l);
@@ -84,4 +104,40 @@ public class Deserializador {
         return true;
     }
 
+    private JugadorLobbyDTO deserializarJugadorLobby(JsonObject json) {
+        return new JugadorLobbyDTO(
+                json.get("idJugador").getAsString(),
+                json.get("nombre").getAsString(),
+                json.get("imagen").getAsString(),
+                json.get("color").getAsString(),
+                json.get("listo").getAsBoolean()
+        );
+    }
+
+    private LobbyEstadoDTO reconstruirEstadoLobby(JsonObject json) {
+        JsonArray array = json.getAsJsonArray("jugadores");
+        List<JugadorLobbyDTO> jugadores = new ArrayList<>();
+
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject j = array.get(i).getAsJsonObject();
+            JugadorLobbyDTO jugador = new JugadorLobbyDTO(
+                    j.get("idJugador").getAsString(),
+                    j.get("nombre").getAsString(),
+                    j.get("imagen").getAsString(),
+                    j.get("color").getAsString(),
+                    j.get("listo").getAsBoolean()
+            );
+            jugadores.add(jugador);
+        }
+
+        int max = json.get("maxJugadores").getAsInt();
+        boolean iniciada = json.get("partidaIniciada").getAsBoolean();
+        String tam = json.get("tamanoTablero").getAsString();
+
+        return new LobbyEstadoDTO(jugadores, max, iniciada, tam);
+    }
+
+    public LobbyEstadoDTO deserializarEstadoLobby(JsonObject json) {
+        return reconstruirEstadoLobby(json);
+    }
 }

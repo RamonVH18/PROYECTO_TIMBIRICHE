@@ -11,4 +11,5 @@ package interfaces;
 public interface ObservadorJuego {
     
     public void cambiarTurno();
+    
 }
