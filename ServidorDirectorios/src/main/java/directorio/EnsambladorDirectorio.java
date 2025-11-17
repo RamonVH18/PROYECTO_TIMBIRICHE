@@ -12,8 +12,9 @@ import excepciones.ErrorRecibirMensajesExcepction;
  * @author Ramon Valencia
  */
 public class EnsambladorDirectorio {
-    
+
     private static ServidorDirectorio servidor;
+
     /**
      * @param args the command line arguments
      * @throws excepciones.ErrorRecibirMensajesExcepction
@@ -24,5 +25,5 @@ public class EnsambladorDirectorio {
         servidor = new ServidorDirectorio(8000);
         servidor.iniciarServidor();
     }
-    
+
 }

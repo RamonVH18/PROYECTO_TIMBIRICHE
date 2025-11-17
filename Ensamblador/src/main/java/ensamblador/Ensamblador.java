@@ -37,7 +37,7 @@ public class Ensamblador {
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
         receptor.inyectarManejador(modeloJuego);
-        servidor = new ServerTCP(5000);
+        servidor = new ServerTCP(8080);
 
         modeloJuego.guardarInformacionJugador("PolloJalado", "1", "1");
         Thread hiloServidor = new Thread(() -> {

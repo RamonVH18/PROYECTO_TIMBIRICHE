@@ -54,7 +54,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         estadoJuego = new EstadoJuego();
         listaJugadores = new ListaJugadores();
         jugadorLocal = new Jugador();
-        direccionLocal = new DireccionDTO("192.168.1.71", 5000);
+        direccionLocal = new DireccionDTO("192.168.1.71", 8080);
     }
 
     public void inicializarModeloJuego() {
@@ -210,7 +210,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     @Override
     public void transmitirInfoANuevoJugador(DireccionDTO direccion) {
         Jugador j = jugadorLocal;
-        NuevoJugadorEvent njEvent = new NuevoJugadorEvent(jugadorLocal, direccion);
+        NuevoJugadorEvent njEvent = new NuevoJugadorEvent(jugadorLocal, direccionLocal);
         PaqueteDTO paquete;
         try {
             paquete = serializador.serializarNuevoJugadorEvent("nuevaInfoJugador", njEvent);

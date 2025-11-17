@@ -232,6 +232,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     @Override
     public void cambiarTurno() {
+        lineas = generarLineas();
         observadorPantallaJuego.actualizar();
     }
 

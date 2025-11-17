@@ -5,8 +5,6 @@
 package serializador;
 
 import DTOs.DireccionDTO;
-import DTOs.JugadorLobbyDTO;
-import DTOs.LobbyEstadoDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -108,71 +106,4 @@ public class Serializador {
         return true;
     }
 
-    public PaqueteDTO serializarTipoSimple(String tipoPaquete) throws PaqueteVacioAlSerializarException {
-        if (tipoPaquete == null || tipoPaquete.isBlank()) {
-            throw new PaqueteVacioAlSerializarException("El tipo de paquete está vacío");
-        }
-
-        JsonObject json = new JsonObject();
-        return new PaqueteDTO(tipoPaquete, json);
-    }
-
-    public PaqueteDTO serializarNuevoJugadorLobby(JugadorLobbyDTO jugador)
-            throws PaqueteVacioAlSerializarException {
-
-        if (jugador == null) {
-            throw new PaqueteVacioAlSerializarException("No se puede serializar jugadorLobby nulo");
-        }
-
-        JsonObject json = new JsonObject();
-        json.addProperty("idJugador", jugador.getIdJugador());
-        json.addProperty("nombre", jugador.getNombre());
-        json.addProperty("imagen", jugador.getImagen());
-        json.addProperty("color", jugador.getColor());
-        json.addProperty("listo", jugador.isListo());
-
-        return new PaqueteDTO("nuevoJugadorLobby", json);
-    }
-
-    public PaqueteDTO serializarJugadorListo(String idJugador)
-            throws PaqueteVacioAlSerializarException {
-
-        if (idJugador == null || idJugador.isBlank()) {
-            throw new PaqueteVacioAlSerializarException("El idJugador está vacío");
-        }
-
-        JsonObject json = new JsonObject();
-        json.addProperty("idJugador", idJugador);
-
-        return new PaqueteDTO("jugadorListo", json);
-    }
-
-    public PaqueteDTO serializarEstadoLobby(LobbyEstadoDTO estado)
-            throws PaqueteVacioAlSerializarException {
-
-        if (estado == null) {
-            throw new PaqueteVacioAlSerializarException("El estado del lobby es nulo");
-        }
-
-        JsonObject json = new JsonObject();
-
-        // Serializar lista de jugadores
-        JsonArray arrayJugadores = new JsonArray();
-        for (JugadorLobbyDTO j : estado.getJugadores()) {
-            JsonObject jsonJugador = new JsonObject();
-            jsonJugador.addProperty("idJugador", j.getIdJugador());
-            jsonJugador.addProperty("nombre", j.getNombre());
-            jsonJugador.addProperty("imagen", j.getImagen());
-            jsonJugador.addProperty("color", j.getColor());
-            jsonJugador.addProperty("listo", j.isListo());
-            arrayJugadores.add(jsonJugador);
-        }
-
-        json.add("jugadores", arrayJugadores);
-        json.addProperty("maxJugadores", estado.getMaxJugadores());
-        json.addProperty("partidaIniciada", estado.isPartidaIniciada());
-        json.addProperty("tamanoTablero", estado.getTamanoTablero());
-
-        return new PaqueteDTO("estadoLobby", json);
-    }
 }
