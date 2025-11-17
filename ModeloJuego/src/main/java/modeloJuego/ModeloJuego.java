@@ -38,7 +38,7 @@ import objetosModeloJuego.Punto;
  * @author Ramon Valencia
  */
 public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
- 
+
     private ManejadorPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
     private VerificadorEventos verificadorEventos;
@@ -65,15 +65,15 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         deserializador = new Deserializador(this, verificadorEventos);
 
     }
-    
+
     public void suscribirObservador(ObservadorJuego observador) {
         this.observador = observador;
     }
+
     /**
      * INICIO METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
      */
-    
-    
+
     public void conectarseAServidor() {
         PaqueteDTO paquete;
         try {
@@ -107,57 +107,61 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * FIN METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
      */
-    
+
     /**
-     * 
+     *
      */
     public void empezarJuego() {
         listaJugadores.crearOrdenJugadores();
         manejoTurnos.iniciarTurno();
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
-        observador.cambiarTurno();
+        observador.cambiarTurno(
+                manejoTurnos.esMiTurno(jugadorLocal)
+        );
     }
- 
+
     @Override
     public List<Jugador> obtenerJugadores() {
         return listaJugadores.obtenerJugadores();
     }
-    
+
     @Override
     public Jugador obtenerJugadorEnTurno() {
         return manejoTurnos.mostrarJugadorActual();
     }
- 
+
     @Override
     public void crearMatriz(TamañoTablero tamaño) {
         MatrizPuntos matriz = new MatrizPuntos(tamaño);
         crearLineas(matriz);
         estadoJuego.setMatriz(matriz);
     }
-    
+
     private void crearLineas(MatrizPuntos matriz) {
         ListaLineas lineas = new ListaLineas(matriz.obtenerMatriz());
         crearCuadros(matriz, lineas);
         estadoJuego.setLineas(lineas);
     }
+
     private void crearCuadros(MatrizPuntos matriz, ListaLineas lineas) {
         ListaCuadros cuadros = new ListaCuadros(matriz.obtenerMatriz(), lineas.obtenerListaLinea());
         estadoJuego.setCuadros(cuadros);
     }
-    
+
     @Override
     public Punto[][] obtenerMatriz() {
         return estadoJuego.getMatriz().obtenerMatriz();
     }
-    
+
     @Override
     public List<Linea> obtenerLineas() {
         return estadoJuego.getLineas().obtenerListaLinea();
     }
-    
+
     @Override
     public void actualizarLineasCuadros(Linea linea) {
         estadoJuego.getLineas().marcarLinea(linea);
@@ -174,9 +178,11 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         manejoTurnos.iniciarTurno();
         notificarCambioTurno();
     }
-    
+
     public void notificarCambioTurno() {
-        observador.cambiarTurno();
+        observador.cambiarTurno(
+                manejoTurnos.esMiTurno(jugadorLocal)
+        );
     }
 
     private void transmitirNuevaJugada(Linea linea) {
@@ -199,7 +205,6 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     /*
     INICIO DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
-    
     @Override
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
         PaqueteDTO paquete;
@@ -243,5 +248,4 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
 
-    
 }

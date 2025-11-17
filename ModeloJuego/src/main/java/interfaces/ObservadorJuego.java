@@ -10,6 +10,6 @@ package interfaces;
  */
 public interface ObservadorJuego {
     
-    public void cambiarTurno();
+    public void cambiarTurno(boolean turno);
     
 }

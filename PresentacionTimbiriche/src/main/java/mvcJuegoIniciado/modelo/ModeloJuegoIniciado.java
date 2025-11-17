@@ -39,7 +39,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private boolean mostrandoMenuDeOpciones;
 
     private final List<JugadorVisual> listaJugadores;
-    private JugadorVisual jugadorEnTurno;
+    private boolean estoyJugando;
 
     private final List<IVista> pantallas;
     private final List<IVista> vistas;
@@ -229,14 +229,12 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         return matrizTablero;
     }
 
-    
-
     @Override
-    public void cambiarTurno() {
+    public void cambiarTurno(boolean turno) {
         lineas = generarLineas();
-        jugadorEnTurno = JugadorAdapter.toJVisual(
-                modeloJuego.obtenerJugadorEnTurno()
-        );
+        if (turno) {
+            
+        }
         observadorPantallaJuego.actualizar();
         
     }

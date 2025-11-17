@@ -62,7 +62,7 @@ public class Ensamblador {
         modeloJuego.guardarInformacionJugador("2", "PolloJalado", "1", "1");
         modeloJuego.registrarNuevoJugador(
                 new Jugador("1", "Yizbin", "1", "1"),
-                new DireccionDTO("192.168.1.71", 5000)
+                new DireccionDTO("192.168.1.75", 5000)
         );
     }
 
@@ -83,5 +83,6 @@ public class Ensamblador {
         modelo.añadirObservadorPantallas(menuDeOpciones);
 
         control.mostrarPantallaDeJuego();
+        modeloJuego.empezarJuego();
     }
 }
