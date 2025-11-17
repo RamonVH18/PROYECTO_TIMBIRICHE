@@ -26,10 +26,12 @@ import interfaces.IModeloJuegoInicio;
 import interfaz.IReceptorPaquetes;
 import estructurasDatos.ListaLineas;
 import estructurasDatos.MatrizPuntos;
+import eventos.LineaPintadaEvent;
 import java.util.List;
 import manejadores.ManejadorTurnos;
 import objetosModeloJuego.TamañoTablero;
 import interfaces.ObservadorJuego;
+import objetosModeloJuego.Punto;
 
 /**
  *
@@ -141,28 +143,47 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
     
     @Override
-    public MatrizPuntos obtenerMatriz() {
-        return estadoJuego.getMatriz();
+    public Punto[][] obtenerMatriz() {
+        return estadoJuego.getMatriz().obtenerMatriz();
     }
     
-    private void actualizarLineas(Linea linea) {
+    @Override
+    public List<Linea> obtenerLineas() {
+        return estadoJuego.getLineas().obtenerListaLinea();
+    }
+    
+    @Override
+    public void actualizarLineasCuadros(Linea linea) {
         estadoJuego.getLineas().marcarLinea(linea);
+        Jugador jugador = manejoTurnos.mostrarJugadorActual();
+        verificarCuadrosCompletados(jugador);
+        notificarCambioTurno();
     }
 
     @Override
     public void realizarJugada(Linea linea) {
-        actualizarLineas(linea);
-        Jugador jugador = manejoTurnos.mostrarJugadorActual();
-        if(verificarCuadrosCompletados(jugador)) {
-            
-        }
+        actualizarLineasCuadros(linea);
+        transmitirNuevaJugada(linea);
         manejoTurnos.siguienteTurno();
         manejoTurnos.iniciarTurno();
-//        observador.cambiarTurno();
+        notificarCambioTurno();
+    }
+    
+    public void notificarCambioTurno() {
+        observador.cambiarTurno();
     }
 
-    public void notificarCambioLinea() {
-
+    private void transmitirNuevaJugada(Linea linea) {
+        LineaPintadaEvent lpEvent = new LineaPintadaEvent(linea);
+        PaqueteDTO paquete;
+        try {
+            paquete = serializador.serializarLineaPintadaEvent("nuevaLineaPintada", lpEvent);
+            enviarPaqueteATodos(paquete);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean verificarCuadrosCompletados(Jugador j) {

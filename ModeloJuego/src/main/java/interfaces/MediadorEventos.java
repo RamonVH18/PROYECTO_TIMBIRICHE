@@ -6,6 +6,7 @@ package interfaces;
 
 import DTOs.DireccionDTO;
 import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Linea;
 
 /**
  *
@@ -19,5 +20,6 @@ public interface MediadorEventos {
     
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion);
     
+    public void actualizarLineasCuadros(Linea linea);
     
 }

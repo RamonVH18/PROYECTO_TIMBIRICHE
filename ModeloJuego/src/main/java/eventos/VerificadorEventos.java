@@ -31,4 +31,9 @@ public class VerificadorEventos {
         modeloJuego.registrarNuevoJugador(njEvent.getJugador(), njEvent.getDireccion());
     }
     
+    public void eventoLineaPintada(LineaPintadaEvent lpEvent) {
+        modeloJuego.actualizarLineasCuadros(lpEvent.getLinea());
+        
+    }
+    
 }

@@ -27,6 +27,7 @@ public class ControlJuegoIniciado implements IControlJuegoIniciado {
     public void realizarJugada(LineaTablero lineaSeleccionada) {
         if (lineaSeleccionada == null) {
             MensajeError.mostrarError("Debe de seleccionar una linea antes de continuar");
+            return;
         }
         
         modelo.realizarJugada(lineaSeleccionada);

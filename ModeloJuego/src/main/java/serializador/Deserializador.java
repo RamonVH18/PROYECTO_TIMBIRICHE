@@ -8,11 +8,13 @@ import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
 import excepciones.PaqueteVacioAlDeserializarException;
 import interfaces.Mediador;
 import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Linea;
 
 /**
  *
@@ -46,6 +48,10 @@ public class Deserializador {
                 verificadorEventos.eventoNuevoJugador(njEvent);
                 
             }
+            case ("nuevaLineaPintada") -> {
+                LineaPintadaEvent lpEvent = deserializarLineaPintadaEvent(paquete.getMensaje());
+                verificadorEventos.eventoLineaPintada(lpEvent);
+            }
         }
     }
 
@@ -60,6 +66,12 @@ public class Deserializador {
         Jugador j = gson.fromJson(json.get("jugador"), Jugador.class);
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(j, d);
         return njEvent;
+    }
+    
+    private LineaPintadaEvent deserializarLineaPintadaEvent(JsonObject json) {
+        Linea l = gson.fromJson(json.get("linea"), Linea.class);
+        LineaPintadaEvent lpEvent = new LineaPintadaEvent(l);
+        return lpEvent;
     }
 
     private boolean validarDeserializacion(String tipo, JsonObject jason) throws PaqueteVacioAlDeserializarException {

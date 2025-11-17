@@ -56,6 +56,7 @@ public class Ensamblador {
     public static void iniciarPresentacion() {
         
         ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
+        modeloJuego.suscribirObservador(modelo);
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
         modelo.setObserverTablero(tablero);

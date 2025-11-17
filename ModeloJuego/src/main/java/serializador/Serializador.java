@@ -7,11 +7,14 @@ package serializador;
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.JsonObject;
+import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
 import excepciones.PaqueteVacioAlSerializarException;
 import interfaces.Mediador;
 import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Linea;
+import objetosModeloJuego.Punto;
 
 /**
  *
@@ -39,14 +42,43 @@ public class Serializador {
             JsonObject jsonJugador = serializarJugador(njEvent.getJugador());
             JsonObject jsonDireccion = serializarDireccion(njEvent.getDireccion());
             
-            JsonObject jason = new JsonObject();
-            jason.add("jugador", jsonJugador);
-            jason.add("direccion", jsonDireccion);
-            return new PaqueteDTO(tipoPaquete, jason);
+            JsonObject jsonEvent = new JsonObject();
+            jsonEvent.add("jugador", jsonJugador);
+            jsonEvent.add("direccion", jsonDireccion);
+            return new PaqueteDTO(tipoPaquete, jsonEvent);
         }
         return null;
     }
-
+    
+    public PaqueteDTO serializarLineaPintadaEvent(String tipoPaquete, LineaPintadaEvent lpEvent) throws PaqueteVacioAlSerializarException {
+        if (validarSerializacion(tipoPaquete, lpEvent)) {
+            
+            JsonObject jsonLinea = serializarLinea(lpEvent.getLinea());
+            
+            JsonObject jsonEvent = new JsonObject();
+            jsonEvent.add("linea", jsonLinea);
+            return new PaqueteDTO(tipoPaquete, jsonEvent);
+        } 
+        return null;
+    }
+    
+    private JsonObject serializarLinea(Linea l) {
+        JsonObject jsonLinea = new JsonObject();
+        JsonObject jsonPuntoA = serializarPunto(l.getPuntoA());
+        JsonObject jsonPuntoB = serializarPunto(l.getPuntoB());
+        jsonLinea.add("puntoA", jsonPuntoA);
+        jsonLinea.add("puntoB", jsonPuntoB);
+        jsonLinea.addProperty("estadoLinea", l.getEstadoLinea());
+        return jsonLinea;
+    }
+    
+    private JsonObject serializarPunto(Punto p) {
+        JsonObject jsonPunto = new JsonObject();
+        jsonPunto.addProperty("coordenadaX", p.getCoordenadaX());
+        jsonPunto.addProperty("coordenadaY", p.getCoordenadaY());
+        return jsonPunto;
+    }
+    
     private JsonObject serializarJugador(Jugador j) {
         JsonObject jsonJugador = new JsonObject();
         jsonJugador.addProperty("idJugador", j.getIdJugador());

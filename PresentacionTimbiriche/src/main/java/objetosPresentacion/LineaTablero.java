@@ -41,8 +41,8 @@ public class LineaTablero extends JComponent {
     }
     //revisar el desacoplo del estado de la línea en el constructor
     //setLibre, setOcupado, setSeleccionado
-    @Override
-    public void paintComponent(Graphics g) {
+    
+    public void paintComponent(Graphics g, Integer distanciaEntrePuntos) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         switch (estado) {
@@ -56,7 +56,10 @@ public class LineaTablero extends JComponent {
             }
         }
         g2.setStroke(new BasicStroke(grosorLinea));
-        g2.drawLine(puntoA.x, puntoA.y, puntoB.x, puntoB.y);
+        g2.drawLine((puntoA.x + 1) * distanciaEntrePuntos ,
+                (puntoA.y + 1) * distanciaEntrePuntos,
+                (puntoB.x + 1) * distanciaEntrePuntos,
+                (puntoB.y + 1) * distanciaEntrePuntos);
     }
 
     public OrientacionLinea getOrientacion() {

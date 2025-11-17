@@ -12,6 +12,18 @@ import objetosModeloJuego.Linea;
  */
 public class LineaPintadaEvent {
     private Linea linea;
-    private String nombreJugador;
+
+    public LineaPintadaEvent(Linea linea) {
+        this.linea = linea;
+    }
+
+    public Linea getLinea() {
+        return linea;
+    }
+
+    public void setLinea(Linea linea) {
+        this.linea = linea;
+    }
+    
     
 }

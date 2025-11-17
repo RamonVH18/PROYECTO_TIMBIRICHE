@@ -1,9 +1,9 @@
 package interfaces;
 
 import objetosModeloJuego.Linea;
-import estructurasDatos.MatrizPuntos;
 import java.util.List;
 import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Punto;
 import objetosModeloJuego.TamañoTablero;
 
 /*
@@ -18,7 +18,9 @@ public interface IModeloJuegoIniciado {
     
     public void crearMatriz(TamañoTablero tamaño);
     
-    public MatrizPuntos obtenerMatriz();
+    public Punto[][] obtenerMatriz();
+    
+    public List<Linea> obtenerLineas();
     
     public List<Jugador> obtenerJugadores();
     

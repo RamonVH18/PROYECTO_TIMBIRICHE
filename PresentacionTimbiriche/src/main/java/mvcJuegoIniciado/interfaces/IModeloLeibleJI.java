@@ -4,9 +4,10 @@
  */
 package mvcJuegoIniciado.interfaces;
 
-import java.awt.Point;
+
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
+import objetosPresentacion.PuntoTablero;
 import objetosPresentacion.TamañosTablero;
 
 /**
@@ -26,7 +27,7 @@ public interface IModeloLeibleJI {
     
     public boolean isMostrandoMenuDeOpciones();
 
-    public Point[][] getMatriz();
+    public PuntoTablero[][] getMatriz();
     
     public List getLineas();
 

@@ -15,9 +15,11 @@ import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import objetosPresentacion.EstadoLinea;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
+import objetosPresentacion.PuntoTablero;
 
 /**
  *
@@ -29,6 +31,7 @@ public class TableroJuego extends JPanel implements IVista {
     private Integer largo;  
     private Integer ancho;
     private LineaTablero lineaSeleccionada;
+    private Integer distanciaPunto;
     private IModeloLeibleJI modelo;
     private IControlJuegoIniciado control;
 
@@ -41,10 +44,10 @@ public class TableroJuego extends JPanel implements IVista {
 
     // esto es lo que fija el tablero 
     private void generarTablero() {
-        Point[][] matriz = modelo.getMatriz(); 
-        Integer distanciaPuntos = modelo.getTamañoTablero().getDistanciaPuntos();
-        largo = (matriz.length * distanciaPuntos) + distanciaPuntos;
-        ancho = (matriz[0].length * distanciaPuntos) + distanciaPuntos;
+        PuntoTablero[][] matriz = modelo.getMatriz(); 
+        distanciaPunto = modelo.getTamañoTablero().getDistanciaPuntos();
+        largo = (matriz.length * distanciaPunto) + distanciaPunto;
+        ancho = (matriz[0].length * distanciaPunto) + distanciaPunto;
         dimensionTablero = new Dimension(ancho, largo);
         setSize(dimensionTablero);
         setPreferredSize(dimensionTablero);
@@ -57,19 +60,26 @@ public class TableroJuego extends JPanel implements IVista {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // limpia el fondo
         
-        ArrayList <LineaTablero> lineas = (ArrayList <LineaTablero>) modelo.getLineas();
-        Point[][] matriz = modelo.getMatriz();
+        List<LineaTablero> lineas =  modelo.getLineas();
+        PuntoTablero[][] matriz = modelo.getMatriz();
         Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
         
         for (LineaTablero l : lineas) {
-            l.paintComponent(g); // usamos el paintComponent de cada línea
+            if(l.equals(lineaSeleccionada)) {
+                l.setEstado(EstadoLinea.SELECCIONADA);
+            }
+            l.paintComponent(g, distanciaPunto); // usamos el paintComponent de cada línea
         }
 
         g.setColor(Color.BLACK); // color de los puntos
         for (Point[] matriz1 : matriz) {
             for (Point p : matriz1) {
                 // Dibuja un círculo centrado en la coordenada del Point
-                g.fillOval(p.x - (tamañoPunto / 2), p.y - (tamañoPunto / 2), tamañoPunto, tamañoPunto);
+                g.fillOval(
+                        ((p.x + 1) * distanciaPunto) - (tamañoPunto / 2),
+                        ((p.y + 1) * distanciaPunto) - (tamañoPunto / 2),
+                        tamañoPunto,
+                        tamañoPunto);
             }
         }
 
@@ -88,7 +98,7 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
-                ArrayList <LineaTablero> lineas = (ArrayList <LineaTablero>) modelo.getLineas();
+                List<LineaTablero> lineas =  modelo.getLineas();
                 for (LineaTablero linea : lineas) {
                     if (estaSobreLinea(click, linea)) {
                         if (lineaSeleccionada != null) {
@@ -97,8 +107,9 @@ public class TableroJuego extends JPanel implements IVista {
                         if (linea.estado == EstadoLinea.OCUPADA) {
                             return;
                         }
+                        linea.setEstado(EstadoLinea.OCUPADA); 
                         lineaSeleccionada = linea;
-                        lineaSeleccionada.estado = EstadoLinea.SELECCIONADA;
+                        
                         repaint();
                         break;
                     }
@@ -113,10 +124,10 @@ public class TableroJuego extends JPanel implements IVista {
     }
 
     private double distanciaPuntoALinea(Point p, Point a, Point b) {
-        double A = p.x - a.x;
-        double B = p.y - a.y;
-        double C = b.x - a.x;
-        double D = b.y - a.y;
+        double A = p.x - ((a.x + 1) * distanciaPunto) ;
+        double B = p.y - ((a.y + 1) * distanciaPunto);
+        double C = ((b.x + 1) * distanciaPunto) - ((a.x + 1) * distanciaPunto);
+        double D = ((b.y + 1) * distanciaPunto) - ((a.y + 1) * distanciaPunto);
 
         double dot = A * C + B * D;
         double lenSq = C * C + D * D;
@@ -125,14 +136,14 @@ public class TableroJuego extends JPanel implements IVista {
         double xx, yy;
 
         if (param < 0) {
-            xx = a.x;
-            yy = a.y;
+            xx = ((a.x + 1) * distanciaPunto);
+            yy = ((a.y + 1) * distanciaPunto);
         } else if (param > 1) {
-            xx = b.x;
-            yy = b.y;
+            xx = ((b.x + 1) * distanciaPunto);
+            yy = ((b.y + 1) * distanciaPunto);
         } else {
-            xx = a.x + param * C;
-            yy = a.y + param * D;
+            xx = ((a.x + 1) * distanciaPunto) + param * C;
+            yy = ((a.y + 1) * distanciaPunto) + param * D;
         }
 
         double dx = p.x - xx;
@@ -146,11 +157,11 @@ public class TableroJuego extends JPanel implements IVista {
 
     @Override
     public void actualizar() {
-        if(lineaSeleccionada == null) {
-            return;
-        }
-        lineaSeleccionada.estado = EstadoLinea.OCUPADA;
-        lineaSeleccionada = null;
+//        if(lineaSeleccionada == null) {
+//            return;
+//        }
+//        lineaSeleccionada.estado = EstadoLinea.OCUPADA;
+//        lineaSeleccionada = null;
         repaint();
     }
 
