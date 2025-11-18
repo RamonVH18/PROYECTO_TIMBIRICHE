@@ -175,28 +175,18 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         return mostrandoMenuDeOpciones;
     }
 
-//    @Override
-//    public List<JugadorVisual> obtenerJugadores() {
-//        
-//        List<Jugador> jugadores = modeloJuego.obtenerJugadores();
-//        for (Jugador j : jugadores) {
-//            listaJugadores.add(
-//                    JugadorAdapter.toJVisual(j)
-//            );
-//        }
-//        return listaJugadores;
-//    }
-
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-
-        List<JugadorVisual> resultado = new ArrayList<>();
-        for (Jugador j : modeloJuego.obtenerJugadores()) {
-            resultado.add(JugadorAdapter.toJVisual(j));
+        
+        List<Jugador> jugadores = modeloJuego.obtenerJugadores();
+        for (Jugador j : jugadores) {
+            listaJugadores.add(
+                    JugadorAdapter.toJVisual(j)
+            );
         }
-
-        return resultado;
+        return listaJugadores;
     }
+
 
     @Override
     public TamañosTablero getTamañoTablero() {
