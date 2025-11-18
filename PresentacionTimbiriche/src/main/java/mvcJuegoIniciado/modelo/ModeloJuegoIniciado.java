@@ -36,11 +36,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private final IModeloJuegoIniciado modeloJuego;
     private PuntoTablero[][] matriz;
     private List<LineaTablero> lineas;
-    
+
     //
     private List<CuadroTablero> cuadros;
     //
-    
+
     private final TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
@@ -64,7 +64,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         this.lineas = generarLineas();
         generarLineas();
         this.listaJugadores = new ArrayList<>();
-        
+
         //
         this.cuadros = generarCuadros();
         //
@@ -73,7 +73,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         mostrandoTablaJugadores = false;
         mostrandoTableroDeJuego = false;
         mostrandoMenuDeOpciones = false;
-        
+
         this.vistas = new ArrayList<>();
         this.pantallas = new ArrayList<>();
     }
@@ -175,15 +175,27 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         return mostrandoMenuDeOpciones;
     }
 
+//    @Override
+//    public List<JugadorVisual> obtenerJugadores() {
+//        
+//        List<Jugador> jugadores = modeloJuego.obtenerJugadores();
+//        for (Jugador j : jugadores) {
+//            listaJugadores.add(
+//                    JugadorAdapter.toJVisual(j)
+//            );
+//        }
+//        return listaJugadores;
+//    }
+
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-        List<Jugador> jugadores = modeloJuego.obtenerJugadores();
-        for (Jugador j : jugadores) {
-            listaJugadores.add(
-                    JugadorAdapter.toJVisual(j)
-            );
+
+        List<JugadorVisual> resultado = new ArrayList<>();
+        for (Jugador j : modeloJuego.obtenerJugadores()) {
+            resultado.add(JugadorAdapter.toJVisual(j));
         }
-        return listaJugadores;
+
+        return resultado;
     }
 
     @Override
@@ -208,7 +220,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public List getLineas() {
         return this.lineas;
     }
-    
+
     //
     @Override
     public List<CuadroTablero> getCuadros() {
@@ -226,27 +238,27 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         }
         return lineasTablero;
     }
-    
+
     //
     private List<CuadroTablero> generarCuadros() {
         List<Cuadro> cuadrosOriginales = modeloJuego.obtenerCuadros();
         List<CuadroTablero> cuadrosTableros = new ArrayList<>();
-        
+
         int distancia = tamaño.getDistanciaPuntos();
-        
+
         for (Cuadro c : cuadrosOriginales) {
             int x = c.getLineaIzquierda().getPuntoA().getCoordenadaX() * distancia;
             int y = c.getLineaSuperior().getPuntoA().getCoordenadaY() * distancia;
-            
+
             CuadroTablero cuadro = CuadroAdapter.toCuadroTablero(c, new Point(x, y), distancia);
-            
+
             cuadrosTableros.add(cuadro);
         }
         return cuadrosTableros;
-        
+
     }
     //
-    
+
     private PuntoTablero[][] generarMatriz() {
         if (matrizVacia) {
             modeloJuego.crearMatriz(TamañoTablero.PEQUEÑO);
@@ -256,9 +268,9 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         Punto[][] matrizPuntos = modeloJuego.obtenerMatriz();
         int filas = matrizPuntos.length;
         int columnas = matrizPuntos[0].length;
-        
+
         PuntoTablero[][] matrizTablero = new PuntoTablero[filas][columnas];
-        
+
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
 
@@ -275,10 +287,10 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         lineas = generarLineas();
         cuadros = generarCuadros();
         if (turno) {
-            
+
         }
         observadorPantallaJuego.actualizar();
-        
+
     }
 
 }
