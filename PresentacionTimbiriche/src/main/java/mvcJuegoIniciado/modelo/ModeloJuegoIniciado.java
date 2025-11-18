@@ -4,10 +4,12 @@
  */
 package mvcJuegoIniciado.modelo;
 
+import adapters.CuadroAdapter;
 import adapters.JugadorAdapter;
 import adapters.LineaAdapter;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.ObservadorJuego;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
@@ -17,10 +19,12 @@ import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
+import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 import objetosModeloJuego.Punto;
 import objetosModeloJuego.TamañoTablero;
+import objetosPresentacion.CuadroTablero;
 import objetosPresentacion.PuntoTablero;
 
 /**
@@ -32,6 +36,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private final IModeloJuegoIniciado modeloJuego;
     private PuntoTablero[][] matriz;
     private List<LineaTablero> lineas;
+    
+    //
+    private List<CuadroTablero> cuadros;
+    //
+    
     private final TamañosTablero tamaño;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
@@ -55,6 +64,10 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         this.lineas = generarLineas();
         generarLineas();
         this.listaJugadores = new ArrayList<>();
+        
+        //
+        this.cuadros = generarCuadros();
+        //
 
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
@@ -183,6 +196,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         Linea linea = LineaAdapter.toLinea(lineaSelecionada);
         modeloJuego.realizarJugada(linea);
         lineas = generarLineas();
+        cuadros = generarCuadros();
     }
 
     @Override
@@ -194,6 +208,13 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public List getLineas() {
         return this.lineas;
     }
+    
+    //
+    @Override
+    public List<CuadroTablero> getCuadros() {
+        return this.cuadros;
+    }
+    //
 
     private List<LineaTablero> generarLineas() {
         List<Linea> lineasOriginales = modeloJuego.obtenerLineas();
@@ -205,6 +226,26 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         }
         return lineasTablero;
     }
+    
+    //
+    private List<CuadroTablero> generarCuadros() {
+        List<Cuadro> cuadrosOriginales = modeloJuego.obtenerCuadros();
+        List<CuadroTablero> cuadrosTableros = new ArrayList<>();
+        
+        int distancia = tamaño.getDistanciaPuntos();
+        
+        for (Cuadro c : cuadrosOriginales) {
+            int x = c.getLineaIzquierda().getPuntoA().getCoordenadaX() * distancia;
+            int y = c.getLineaSuperior().getPuntoA().getCoordenadaY() * distancia;
+            
+            CuadroTablero cuadro = CuadroAdapter.toCuadroTablero(c, new Point(x, y), distancia);
+            
+            cuadrosTableros.add(cuadro);
+        }
+        return cuadrosTableros;
+        
+    }
+    //
     
     private PuntoTablero[][] generarMatriz() {
         if (matrizVacia) {
@@ -232,6 +273,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     @Override
     public void cambiarTurno(boolean turno) {
         lineas = generarLineas();
+        cuadros = generarCuadros();
         if (turno) {
             
         }

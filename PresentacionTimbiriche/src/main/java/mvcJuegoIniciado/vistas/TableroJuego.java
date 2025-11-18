@@ -19,6 +19,8 @@ import java.util.List;
 import objetosPresentacion.EstadoLinea;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
+import objetosModeloJuego.Linea;
+import objetosPresentacion.CuadroTablero;
 import objetosPresentacion.PuntoTablero;
 
 /**
@@ -62,6 +64,9 @@ public class TableroJuego extends JPanel implements IVista {
         
         List<LineaTablero> lineas =  modelo.getLineas();
         PuntoTablero[][] matriz = modelo.getMatriz();
+        
+        List<CuadroTablero> cuadros = modelo.getCuadros();
+        
         Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
         
         for (LineaTablero l : lineas) {
@@ -69,6 +74,10 @@ public class TableroJuego extends JPanel implements IVista {
                 l.setEstado(EstadoLinea.SELECCIONADA);
             }
             l.paintComponent(g, distanciaPunto); // usamos el paintComponent de cada línea
+        }
+        
+        for (CuadroTablero c : cuadros) {
+            c.paintComponents(g);
         }
 
         g.setColor(Color.BLACK); // color de los puntos
@@ -154,7 +163,7 @@ public class TableroJuego extends JPanel implements IVista {
     public LineaTablero getLineaSeleccionada() {
         return lineaSeleccionada;
     }
-
+    
     @Override
     public void actualizar() {
 //        if(lineaSeleccionada == null) {

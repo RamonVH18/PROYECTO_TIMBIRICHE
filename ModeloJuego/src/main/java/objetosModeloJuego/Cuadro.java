@@ -65,4 +65,31 @@ public class Cuadro {
     public int hashCode() {
         return Set.of(lineaSuperior, lineaInferior, lineaIzquierda, lineaDerecha).hashCode();
     }
+
+    // Getters
+    
+    public Linea getLineaSuperior() {
+        return lineaSuperior;
+    }
+
+    public Linea getLineaInferior() {
+        return lineaInferior;
+    }
+
+    public Linea getLineaIzquierda() {
+        return lineaIzquierda;
+    }
+
+    public Linea getLineaDerecha() {
+        return lineaDerecha;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
 }

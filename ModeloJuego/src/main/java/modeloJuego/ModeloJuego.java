@@ -31,6 +31,7 @@ import java.util.List;
 import manejadores.ManejadorTurnos;
 import objetosModeloJuego.TamañoTablero;
 import interfaces.ObservadorJuego;
+import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Punto;
 
 /**
@@ -161,6 +162,13 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     public List<Linea> obtenerLineas() {
         return estadoJuego.getLineas().obtenerListaLinea();
     }
+    
+    //
+    @Override
+    public List<Cuadro> obtenerCuadros() {
+        return estadoJuego.getCuadros().obtenerListaCuadros();
+    }
+    //
 
     @Override
     public void actualizarLineasCuadros(Linea linea) {

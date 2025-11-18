@@ -71,4 +71,8 @@ public class ListaCuadros {
         return huboCambios;
     }
     
+    public List<Cuadro> obtenerListaCuadros() {
+        return cuadros;
+    }
+    
 }

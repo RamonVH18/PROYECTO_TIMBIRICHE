@@ -30,6 +30,8 @@ public interface IModeloLeibleJI {
     public PuntoTablero[][] getMatriz();
     
     public List getLineas();
+    
+    public List getCuadros();
 
     public TamañosTablero getTamañoTablero();
 }
