@@ -8,6 +8,7 @@ import java.util.List;
 
 import DTOs.DireccionDTO;
 import interfaces.MediadorEventos;
+import objetosModeloJuego.Jugador;
 
 /**
  *
@@ -39,7 +40,12 @@ public class VerificadorEventos {
     }
 
     public void eventoListaDirecciones(List<DireccionDTO> direcciones) {
-        modeloJuego.actualizarDireccionesPeers(direcciones);
+       for (DireccionDTO direccion : direcciones) {
+          // Jugador jugador = modeloJuego.solicitarInfoNuevoJugadorJugador(direccion);
+           //modeloJuego.registrarNuevoJugador(jugador, direccion);
+       }
     }
+
+
     
 }

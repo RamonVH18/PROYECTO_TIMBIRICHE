@@ -38,7 +38,8 @@ import objetosModeloJuego.Punto;
  *
  * @author Ramon Valencia
  */
-public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
+public class ModeloJuego
+        implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
 
     private ManejadorPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
@@ -121,8 +122,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
         manejoTurnos.iniciarTurno();
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
         observador.cambiarTurno(
-                manejoTurnos.esMiTurno(jugadorLocal)
-        );
+                manejoTurnos.esMiTurno(jugadorLocal));
     }
 
     @Override
@@ -162,7 +162,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     public List<Linea> obtenerLineas() {
         return estadoJuego.getLineas().obtenerListaLinea();
     }
-    
+
     //
     @Override
     public List<Cuadro> obtenerCuadros() {
@@ -189,8 +189,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
 
     public void notificarCambioTurno() {
         observador.cambiarTurno(
-                manejoTurnos.esMiTurno(jugadorLocal)
-        );
+                manejoTurnos.esMiTurno(jugadorLocal));
     }
 
     private void transmitirNuevaJugada(Linea linea) {
@@ -211,7 +210,7 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     /*
-    INICIO DEL FLUJO PARA AGREGAR NUEVO JUGADOR
+     * INICIO DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
     @Override
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
@@ -248,17 +247,44 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     }
 
     @Override
-    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador, String colorJugador) {
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador,
+            String colorJugador) {
         jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
     }
     /*
-    FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
+     * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
 
-    @Override
-    public void actualizarDireccionesPeers(List<DireccionDTO> direcciones) {
-        
-    }
+    /*
+     * @Override
+     * public void actualizarDireccionesPeers(List<DireccionDTO> direcciones) {
+     * 
+     * }
+     */
 
+    /*
+     * @Override
+     * public Jugador solicitarInfoNuevoJugadorJugador(DireccionDTO direccion) {
+     * // TODO Auto-generated method stub
+     * throw new
+     * UnsupportedOperationException("Unimplemented method 'solicitarInfoNuevoJugadorJugador'"
+     * );
+     * }
+     */
+
+    /*
+     * public Jugador solicitarInfoNuevoJugadorJugador(DireccionDTO direccion) {
+     * PaqueteDTO paquete;
+     * try {
+     * paquete = serializador.serializarDireccionAPaquete("infoJugador",
+     * direccionLocal);
+     * enviarPaqueteA(paquete, direccion);
+     * 
+     * } catch (PaqueteVacioAlSerializarException ex) {
+     * Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+     * } catch (ErrorAlEnviarPaqueteException ex) {
+     * Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+     * }
+     */
 }

@@ -62,6 +62,7 @@ public class Deserializador {
             /*
             case("listaDirecciones") -> {
                 List<DireccionDTO> direcciones = deserializarListaDirecciones(paquete.getMensaje());
+                
                 verificadorEventos.eventoListaDirecciones(direcciones);
                 break;
             }

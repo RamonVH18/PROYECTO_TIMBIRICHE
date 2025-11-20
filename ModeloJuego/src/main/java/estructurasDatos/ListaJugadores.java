@@ -25,7 +25,9 @@ public class ListaJugadores {
     }
     
     public void agregarJugador(Jugador jugador) {
-        jugadores.add(jugador);
+       if (!jugadores.contains(jugador)) {
+           jugadores.add(jugador);
+       }
     }
     
     public void eliminarJugador(Jugador jugador) {
