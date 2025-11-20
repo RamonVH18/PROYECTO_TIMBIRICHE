@@ -4,6 +4,8 @@
  */
 package eventos;
 
+import java.util.List;
+
 import DTOs.DireccionDTO;
 import interfaces.MediadorEventos;
 
@@ -34,6 +36,10 @@ public class VerificadorEventos {
     public void eventoLineaPintada(LineaPintadaEvent lpEvent) {
         modeloJuego.actualizarLineasCuadros(lpEvent.getLinea());
         
+    }
+
+    public void eventoListaDirecciones(List<DireccionDTO> direcciones) {
+        modeloJuego.actualizarDireccionesPeers(direcciones);
     }
     
 }

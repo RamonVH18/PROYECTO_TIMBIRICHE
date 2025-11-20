@@ -4,7 +4,9 @@
  */
 package interfaces;
 
+import java.util.List;
 
+import DTOs.DireccionDTO;
 
 /**
  *
@@ -13,4 +15,5 @@ package interfaces;
 public interface IModeloJuegoInicio {
     
     public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador, String colorJugador);
+
 }

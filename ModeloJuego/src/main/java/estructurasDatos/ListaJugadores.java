@@ -35,4 +35,8 @@ public class ListaJugadores {
     public List<Jugador> obtenerJugadores() {
         return jugadores;
     }
+
+    public void actualizarDireccionesPeers(List<Jugador> jugadoresActualizados) {
+        jugadores = new ArrayList<>(jugadoresActualizados);
+    }
 }

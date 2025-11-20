@@ -256,4 +256,9 @@ public class ModeloJuego implements IReceptorPaquetes, IModeloJuegoInicio, IMode
     FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
 
+    @Override
+    public void actualizarDireccionesPeers(List<DireccionDTO> direcciones) {
+        
+    }
+
 }
