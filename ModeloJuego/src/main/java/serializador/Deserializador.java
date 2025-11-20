@@ -38,19 +38,23 @@ public class Deserializador {
             case ("direccionPeer") -> {
                 DireccionDTO direccion = deserializarDireccionPeer(paquete.getMensaje());
                 verificadorEventos.eventoNuevaDireccion(direccion);
+                break;
             }
             case ("solicitudInfoJugador") -> {
                 DireccionDTO direccion = deserializarDireccionPeer(paquete.getMensaje());
                 verificadorEventos.eventoSolicitudNuevoJugador(direccion);
+                break;
             }
             case ("nuevaInfoJugador") -> {
                 NuevoJugadorEvent njEvent = deserializarNuevoJugadorEvent(paquete.getMensaje());
                 verificadorEventos.eventoNuevoJugador(njEvent);
+                break;
 
             }
             case ("nuevaLineaPintada") -> {
                 LineaPintadaEvent lpEvent = deserializarLineaPintadaEvent(paquete.getMensaje());
                 verificadorEventos.eventoLineaPintada(lpEvent);
+                break;
             }
         }
     }
