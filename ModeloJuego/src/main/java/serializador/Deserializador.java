@@ -6,6 +6,9 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import eventos.LineaPintadaEvent;
@@ -56,6 +59,13 @@ public class Deserializador {
                 verificadorEventos.eventoLineaPintada(lpEvent);
                 break;
             }
+            /*
+            case("listaDirecciones") -> {
+                List<DireccionDTO> direcciones = deserializarListaDirecciones(paquete.getMensaje());
+                verificadorEventos.eventoListaDirecciones(direcciones);
+                break;
+            }
+            */
         }
     }
 
@@ -86,5 +96,10 @@ public class Deserializador {
             throw new PaqueteVacioAlDeserializarException("No se puede deserializar el paquete porque no tiene contenido");
         }
         return true;
+    }
+
+    private List<DireccionDTO> deserializarListaDirecciones(JsonObject json) {
+        List<DireccionDTO> direcciones = gson.fromJson(json.get("direcciones"), List.class);
+        return direcciones;
     }
 }
