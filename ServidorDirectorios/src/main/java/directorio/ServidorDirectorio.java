@@ -29,7 +29,6 @@ public class ServidorDirectorio {
     private final int port;
     private final Gson gson;
     private boolean finalizarProceso;
-    
 
     public ServidorDirectorio(int port) {
         this.direcciones = new ArrayList<>();
@@ -50,17 +49,18 @@ public class ServidorDirectorio {
                         continue;
                     }
 
-                    //Verifica si el mensaje es para apagar el servidor
+                    // Verifica si el mensaje es para apagar el servidor
                     verificarApagadoServidor(mensaje);
                     if (finalizarProceso) {
                         return;
                     }
-                    //Verifica si el mensaje es un registro de peer
+                    // Verifica si el mensaje es un registro de peer
                     if (!esRegistroPeer(mensaje)) {
                         continue;
-                    }else{
+                    } else {
                         DireccionDTO direccion = obtenerDireccionDePeer(mensaje);
                         registrarDireccion(direccion);
+                        // enviarDireccionesAPeerNuevo(direccion);
                         continue;
                     }
                 }
@@ -86,7 +86,7 @@ public class ServidorDirectorio {
 
         PaqueteDTO paquete = gson.fromJson(mensaje, PaqueteDTO.class);
         DireccionDTO direccion = gson.fromJson(paquete.getMensaje(), DireccionDTO.class);
-        
+
         return direccion;
     }
 
@@ -97,6 +97,9 @@ public class ServidorDirectorio {
                 return;
             }
         }
+
+        // Si Gibrán mete cocazo, eliminar esto y añadir al else del método principal
+        // "enviarDireccionesAPeerNuevo"
         direcciones.add(direccion);
         if (direcciones.size() > 1) {
             enviarNuevaDireccionASockets(direccion);
@@ -135,6 +138,27 @@ public class ServidorDirectorio {
             out.println(direccion);
         } catch (IOException ex) {
             throw new ErrorEnviarMensajesException("Error al enviar mensajes: " + ex.getMessage());
+        }
+    }
+
+    private void enviarDireccionesAPeerNuevo(DireccionDTO direccionNueva) {
+        //Crear una lista temporal sin la direccion nueva
+        List<DireccionDTO> direcciones = new ArrayList<>(this.direcciones);
+        direcciones.remove(direccionNueva);
+
+        //Crear el mensaje con la lista de direcciones para el peer nuevo
+        JsonObject json = new JsonObject();
+        json.addProperty("direcciones", gson.toJson(direcciones));
+        String mensaje = gson.toJson(new PaqueteDTO("listaDirecciones", json));
+
+        //Enviar el mensaje al peer nuevo
+        try (Socket socketCliente = new Socket(direccionNueva.getHost(), direccionNueva.getPort());
+                PrintWriter out = new PrintWriter(socketCliente.getOutputStream(), true)) {
+            out.println(mensaje);
+        } catch (IOException ex) {
+            System.err.println(
+                    "No se encontro el peer con el host " + direccionNueva.getHost() + " en el puerto "
+                            + direccionNueva.getPort());
         }
     }
 
