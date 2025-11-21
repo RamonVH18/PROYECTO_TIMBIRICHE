@@ -6,13 +6,10 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
-import eventos.VerificadorEventos;
 import excepciones.PaqueteVacioAlSerializarException;
-import interfaces.Mediador;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 import objetosModeloJuego.Punto;
@@ -23,10 +20,9 @@ import objetosModeloJuego.Punto;
  */
 public class Serializador {
 
-    private final Mediador modeloJuego;
 
-    public Serializador(Mediador modeloJuego, VerificadorEventos verificadorEventos) {
-        this.modeloJuego = modeloJuego;
+
+    public Serializador() {
     }
 
     public PaqueteDTO serializarDireccionAPaquete(String tipoPaquete, DireccionDTO direccion) throws PaqueteVacioAlSerializarException {

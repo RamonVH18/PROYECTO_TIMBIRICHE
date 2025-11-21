@@ -15,7 +15,6 @@ import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
 import excepciones.PaqueteVacioAlDeserializarException;
-import interfaces.Mediador;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 
@@ -25,12 +24,10 @@ import objetosModeloJuego.Linea;
  */
 public class Deserializador {
 
-    private final Mediador modeloJuego;
     private final VerificadorEventos verificadorEventos;
     private final Gson gson;
 
-    public Deserializador(Mediador modeloJuego, VerificadorEventos verificadorEventos) {
-        this.modeloJuego = modeloJuego;
+    public Deserializador(VerificadorEventos verificadorEventos) {
         this.verificadorEventos = verificadorEventos;
         this.gson = new Gson();
     }

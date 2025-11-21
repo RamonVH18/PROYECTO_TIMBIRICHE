@@ -20,10 +20,6 @@ public class ListaJugadores {
         jugadores = new ArrayList<>();
     }
     
-    public void crearOrdenJugadores() {
-        jugadores.sort(Comparator.comparing(j -> j.getIdJugador()));
-    }
-    
     public void agregarJugador(Jugador jugador) {
        if (!jugadores.contains(jugador)) {
            jugadores.add(jugador);
@@ -38,7 +34,4 @@ public class ListaJugadores {
         return jugadores;
     }
 
-    public void actualizarDireccionesPeers(List<Jugador> jugadoresActualizados) {
-        jugadores = new ArrayList<>(jugadoresActualizados);
-    }
 }

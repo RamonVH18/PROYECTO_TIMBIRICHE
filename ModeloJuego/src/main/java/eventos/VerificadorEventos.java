@@ -8,7 +8,6 @@ import java.util.List;
 
 import DTOs.DireccionDTO;
 import interfaces.MediadorEventos;
-import objetosModeloJuego.Jugador;
 
 /**
  *

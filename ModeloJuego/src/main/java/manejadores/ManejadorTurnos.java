@@ -5,7 +5,7 @@
 package manejadores;
 
 import estructurasDatos.ListaJugadores;
-import interfaces.Mediador;
+import java.util.Comparator;
 import objetosModeloJuego.Jugador;
 
 /**
@@ -16,13 +16,11 @@ public class ManejadorTurnos {
 
     private Jugador jugadorEnTurno;
     private int indiceTurno;
-    private Mediador modelo;
     private ListaJugadores listaJugadores;
 
-    public ManejadorTurnos(Mediador modelo, ListaJugadores listaJugadores) {
+    public ManejadorTurnos(ListaJugadores listaJugadores) {
         this.listaJugadores = listaJugadores;
         this.indiceTurno = 0;
-        this.modelo = modelo;
     }
 
     public Jugador mostrarJugadorActual() {
@@ -42,10 +40,11 @@ public class ManejadorTurnos {
     }
     
     public boolean esMiTurno(Jugador jugadorLocal) {
-        if (jugadorEnTurno.equals(jugadorLocal)) {
-            return true;
-        }
-        return false;
+        return jugadorEnTurno.equals(jugadorLocal);
     }
-
+    
+    public void crearTurnos() {
+        listaJugadores.obtenerJugadores().sort(Comparator.comparing(j -> j.getIdJugador()));
+    
+    }
 }

@@ -23,7 +23,6 @@ import serializador.Deserializador;
 import serializador.Serializador;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.IModeloJuegoInicio;
-import interfaz.IReceptorPaquetes;
 import estructurasDatos.ListaLineas;
 import estructurasDatos.MatrizPuntos;
 import eventos.LineaPintadaEvent;
@@ -39,7 +38,7 @@ import objetosModeloJuego.Punto;
  * @author Ramon Valencia
  */
 public class ModeloJuego
-        implements IReceptorPaquetes, IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
+        implements IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
 
     private ManejadorPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
@@ -53,6 +52,7 @@ public class ModeloJuego
     private ObservadorJuego observador;
 
     public ModeloJuego() {
+        manejoTurnos = new ManejadorTurnos(listaJugadores);
         estadoJuego = new EstadoJuego();
         listaJugadores = new ListaJugadores();
         jugadorLocal = new Jugador();
@@ -61,11 +61,9 @@ public class ModeloJuego
 
     public void inicializarModeloJuego() {
         manejoPaquetes = new ManejadorPaquetes(this);
-        manejoTurnos = new ManejadorTurnos(this, listaJugadores);
         verificadorEventos = new VerificadorEventos(this);
-        serializador = new Serializador(this, verificadorEventos);
-        deserializador = new Deserializador(this, verificadorEventos);
-
+        serializador = new Serializador();
+        deserializador = new Deserializador(verificadorEventos);
     }
 
     public void suscribirObservador(ObservadorJuego observador) {
@@ -97,11 +95,6 @@ public class ModeloJuego
     }
 
     @Override
-    public void recibirPaquete(PaqueteDTO paquete) {
-        revisarPaqueteRecibido(paquete);
-    }
-
-    @Override
     public void revisarPaqueteRecibido(PaqueteDTO paquete) {
         try {
             deserializador.deserializarPaquete(paquete);
@@ -118,7 +111,7 @@ public class ModeloJuego
      *
      */
     public void empezarJuego() {
-        listaJugadores.crearOrdenJugadores();
+        manejoTurnos.crearTurnos();
         manejoTurnos.iniciarTurno();
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
         observador.cambiarTurno(
@@ -256,35 +249,4 @@ public class ModeloJuego
      * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
 
-    /*
-     * @Override
-     * public void actualizarDireccionesPeers(List<DireccionDTO> direcciones) {
-     * 
-     * }
-     */
-
-    /*
-     * @Override
-     * public Jugador solicitarInfoNuevoJugadorJugador(DireccionDTO direccion) {
-     * // TODO Auto-generated method stub
-     * throw new
-     * UnsupportedOperationException("Unimplemented method 'solicitarInfoNuevoJugadorJugador'"
-     * );
-     * }
-     */
-
-    /*
-     * public Jugador solicitarInfoNuevoJugadorJugador(DireccionDTO direccion) {
-     * PaqueteDTO paquete;
-     * try {
-     * paquete = serializador.serializarDireccionAPaquete("infoJugador",
-     * direccionLocal);
-     * enviarPaqueteA(paquete, direccion);
-     * 
-     * } catch (PaqueteVacioAlSerializarException ex) {
-     * Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-     * } catch (ErrorAlEnviarPaqueteException ex) {
-     * Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-     * }
-     */
 }
