@@ -12,7 +12,6 @@ import excepciones.ErrorAlEnviarPaqueteException;
 import interfaces.Mediador;
 import interfaz.IEmisor;
 import interfaz.IReceptorPaquetes;
-import objetosModeloJuego.Jugador;
 
 import java.util.HashMap;
 import java.util.Map;
