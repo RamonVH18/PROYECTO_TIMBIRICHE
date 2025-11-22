@@ -87,7 +87,7 @@ public class ServidorDirectorio {
     }
 
     private void registrarDireccion(DireccionDTO direccion) {
-        // for para comprobar que una no se repitan las direcciones
+        // Verificar que no se encuentre la dirección ya registrada
         if(direcciones.contains(direccion)){
             return;
         }
