@@ -24,4 +24,6 @@ public interface MediadorEventos {
     
     public void actualizarLineasCuadros(Linea linea);
 
+    public void registrarJugadores(List<DireccionDTO> direcciones);
+
 }

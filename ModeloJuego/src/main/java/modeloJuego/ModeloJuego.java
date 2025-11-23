@@ -249,4 +249,11 @@ public class ModeloJuego
      * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
 
+    @Override
+    public void registrarJugadores(List<DireccionDTO> direcciones) {
+        for (DireccionDTO direccion : direcciones) {
+            solicitarInfoNuevoJugador(direccion);
+        }
+    }
+    
 }

@@ -39,8 +39,6 @@ public class VerificadorEventos {
     }
 
     public void eventoListaDirecciones(List<DireccionDTO> direcciones) {
-       for (DireccionDTO direccion : direcciones) {
-          modeloJuego.solicitarInfoNuevoJugador(direccion);
-       }
+       modeloJuego.registrarJugadores(direcciones);
     }
 }
