@@ -6,6 +6,7 @@ package ensamblador;
 import DTOs.DireccionDTO;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
+import manejadores.ManejadorPaquetes;
 import modeloJuego.ModeloJuego;
 import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
 import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
@@ -29,6 +30,7 @@ public class Ensamblador {
     public static Receptor receptor;
     public static ServerTCP servidor;
     public static ColaRecepcion colaRecepcion;
+    public static ManejadorPaquetes manejoPaquetes;
 
     public static void main(String[] args) throws FalloCreacionServerException {
 
@@ -40,7 +42,7 @@ public class Ensamblador {
         receptor = new Receptor();
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
-        receptor.inyectarManejador(modeloJuego);
+        receptor.inyectarManejador(manejoPaquetes);
         servidor = new ServerTCP(8080);
 
         
@@ -55,7 +57,8 @@ public class Ensamblador {
     }
     public static void iniciarModelo() {
         modeloJuego = new ModeloJuego();
-        modeloJuego.inicializarModeloJuego();
+        manejoPaquetes = new ManejadorPaquetes(modeloJuego);
+        modeloJuego.inicializarModeloJuego(manejoPaquetes);
         iniciarComponenteRed();
         
 //        modeloJuego.conectarseAServidor();

@@ -58,12 +58,12 @@ public class ModeloJuego
         jugadorLocal = new Jugador();
         direccionLocal = new DireccionDTO("192.168.1.71", 8080);
         serializador = new Serializador();
-        deserializador = new Deserializador(verificadorEventos);
     }
 
     public void inicializarModeloJuego(ManejadorPaquetes manejadorPaquetes) {
         manejoPaquetes = new ManejadorPaquetes(this);
         verificadorEventos = new VerificadorEventos(this);
+        deserializador = new Deserializador(verificadorEventos);
     }
 
     public void suscribirObservador(ObservadorJuego observador) {
