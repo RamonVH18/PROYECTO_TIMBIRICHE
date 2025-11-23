@@ -114,7 +114,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-
+    
     private void pantallaJuego() {
         setTitle("Timbiriche - Partida");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

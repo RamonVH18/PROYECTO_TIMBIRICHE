@@ -41,6 +41,9 @@ public class TableroJuego extends JPanel implements IVista {
         this.modelo = modelo;
         this.control = control;
         generarTablero();
+        
+        cargarCuadrosEnPanel();
+        
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
     }
 
@@ -65,8 +68,6 @@ public class TableroJuego extends JPanel implements IVista {
         List<LineaTablero> lineas =  modelo.getLineas();
         PuntoTablero[][] matriz = modelo.getMatriz();
         
-        List<CuadroTablero> cuadros = modelo.getCuadros();
-        
         Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
         
         for (LineaTablero l : lineas) {
@@ -74,10 +75,6 @@ public class TableroJuego extends JPanel implements IVista {
                 l.setEstado(EstadoLinea.SELECCIONADA);
             }
             l.paintComponent(g, distanciaPunto); // usamos el paintComponent de cada línea
-        }
-        
-        for (CuadroTablero c : cuadros) {
-            c.paintComponents(g);
         }
 
         g.setColor(Color.BLACK); // color de los puntos
@@ -125,6 +122,14 @@ public class TableroJuego extends JPanel implements IVista {
                 }
             }
         });
+    }
+    
+    private void cargarCuadrosEnPanel() {
+        List<CuadroTablero> cuadros = modelo.getCuadros();
+
+        for (CuadroTablero c : cuadros) {
+            this.add(c);
+        }
     }
 
     private boolean estaSobreLinea(Point p, LineaTablero linea) {

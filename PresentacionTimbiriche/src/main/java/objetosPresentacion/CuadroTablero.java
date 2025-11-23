@@ -25,6 +25,9 @@ public class CuadroTablero extends JComponent {
         this.tamanio = tamanio;
         this.colorJugador = null;
         this.completado = false;
+        
+        setOpaque(false);
+        setBounds(esquina.x, esquina.y, tamanio, tamanio);
     }
     
     public void actualizarEstado(Color color, boolean completado) {
@@ -34,10 +37,10 @@ public class CuadroTablero extends JComponent {
     }
     
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (completado || colorJugador == null) {
+        if (!completado || colorJugador == null) {
             return;
         }
         
@@ -51,12 +54,7 @@ public class CuadroTablero extends JComponent {
         );
         
         g2d.setColor(color);
-        g2d.fillRect(
-                esquinaSuperiorIzquierda.x,
-                esquinaSuperiorIzquierda.y,
-                tamanio,
-                tamanio
-        );
+        g2d.fillRect(0, 0, tamanio, tamanio);
     }
     
 }
