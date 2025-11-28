@@ -15,10 +15,10 @@ import javax.swing.JComponent;
  * @author Ximena
  */
 public class CuadroTablero extends JComponent {
-    public Point esquinaSuperiorIzquierda;
-    public int tamanio;
-    public Color colorJugador;
-    public boolean completado;
+    private Point esquinaSuperiorIzquierda;
+    private int tamanio;
+    private Color colorJugador;
+    private boolean completado;
 
     public CuadroTablero(Point esquina, int tamanio) {
         this.esquinaSuperiorIzquierda = esquina;
@@ -33,7 +33,7 @@ public class CuadroTablero extends JComponent {
     public void actualizarEstado(Color color, boolean completado) {
         this.colorJugador = color;
         this.completado = completado;
-        repaint();
+    
     }
     
     @Override
@@ -54,7 +54,11 @@ public class CuadroTablero extends JComponent {
         );
         
         g2d.setColor(color);
-        g2d.fillRect(0, 0, tamanio, tamanio);
+        g2d.fillRect(esquinaSuperiorIzquierda.x + tamanio, esquinaSuperiorIzquierda.y + tamanio, tamanio, tamanio);
+    }
+    
+    public boolean estaCompleto() {
+        return completado;
     }
     
 }
