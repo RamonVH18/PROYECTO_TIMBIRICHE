@@ -7,6 +7,7 @@ package mvcJuegoIniciado.interfaces;
 
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
+import objetosPresentacion.PuntajeVisual;
 import objetosPresentacion.PuntoTablero;
 import objetosPresentacion.TamañosTablero;
 
@@ -18,6 +19,7 @@ public interface IModeloLeibleJI {
     
     public List<JugadorVisual> obtenerJugadores();
     
+    public List<PuntajeVisual> obtenerPuntajes();
     
     public boolean isMostrandoPantallaDeJuego();
     

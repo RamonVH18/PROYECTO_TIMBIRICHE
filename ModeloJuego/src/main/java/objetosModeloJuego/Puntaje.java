@@ -9,14 +9,29 @@ package objetosModeloJuego;
  * @author Ximena
  */
 public class Puntaje {
+
+    private String idJugador;
     private int puntuacion;
 
+    public Puntaje(String idJugador) {
+        this.idJugador = idJugador;
+        this.puntuacion = 0;
+    }
+
     public void sumarPuntos(int puntos) {
-        
+        puntuacion = puntuacion + puntos;
     }
-    
-    public void mostrarPuntaje() {
-        
+
+    public int mostrarPuntaje() {
+        return puntuacion;
     }
-    
+
+    public String getIdJugador() {
+        return idJugador;
+    }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
 }

@@ -4,24 +4,37 @@
  */
 package manejadores;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import objetosModeloJuego.Puntaje;
+
 
 /**
  *
  * @author Ximena
  */
 public class ManejadorPuntajes {
+    private List<Puntaje> puntajes = new ArrayList<>();
     
-//    public Puntaje mostrarPuntajes() {
-//        
-//    }
-    
-    public void ordenarMayorAMenor() {
-        
+    public void agregarNuevoPuntaje(Puntaje p) {
+        this.puntajes.add(p);
     }
     
-    public void sumarPunto(int punto) {
-        
+    public List<Puntaje> mostrarPuntajes() {
+        return puntajes;
+    }
+    
+    public void ordenarMayorAMenor() {
+        puntajes.sort(Comparator.comparing(p -> p.getPuntuacion()));
+    }
+    
+    public void sumarPunto(int punto, String idJugador) {
+        for (Puntaje p : puntajes) {
+            if (p.getIdJugador().equals(idJugador)) {
+                p.sumarPuntos(punto);
+            }
+        }
     }
     
 }

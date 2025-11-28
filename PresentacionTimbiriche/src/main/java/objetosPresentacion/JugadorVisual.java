@@ -10,7 +10,7 @@ package objetosPresentacion;
  */
 public class JugadorVisual {
 
-    private Integer identificador;
+    private String identificador;
     private String nombre;
     private String imagen;
     private String color;
@@ -21,11 +21,11 @@ public class JugadorVisual {
         this.color = color;
     }
 
-    public Integer getIdentificador() {
+    public String getIdentificador() {
         return identificador;
     }
 
-    public void setIdentificador(Integer identificador) {
+    public void setIdentificador(String identificador) {
         this.identificador = identificador;
     }
 

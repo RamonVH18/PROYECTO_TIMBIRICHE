@@ -62,7 +62,7 @@ public class Ensamblador {
         iniciarComponenteRed();
         
 //        modeloJuego.conectarseAServidor();
-        modeloJuego.guardarInformacionJugador("2", "Yizbin", "1", "1");
+        modeloJuego.guardarInformacionJugador("1", "Yizbin", "1", "1");
 //        modeloJuego.registrarNuevoJugador(
 //                new Jugador("1", "Pollo Jalado", "1", "1"),
 //                new DireccionDTO("", )
@@ -76,7 +76,6 @@ public class Ensamblador {
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
         modelo.setObserverTablero(tablero);
-
         PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
         MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
 

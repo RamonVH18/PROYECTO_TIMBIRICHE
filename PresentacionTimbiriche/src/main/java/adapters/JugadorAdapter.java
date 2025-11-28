@@ -14,11 +14,13 @@ import objetosPresentacion.JugadorVisual;
 public class JugadorAdapter {
     
     public static JugadorVisual toJVisual(Jugador j) {
-        return new JugadorVisual(
+        JugadorVisual jv = new JugadorVisual(
                 j.getNombre(),
                 j.getImagen(),
                 j.getColor()
         );
+        jv.setIdentificador(j.getIdJugador());
+        return jv;
     }
     
 }

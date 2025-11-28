@@ -22,9 +22,11 @@ import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
+import objetosModeloJuego.Puntaje;
 import objetosModeloJuego.Punto;
 import objetosModeloJuego.TamañoTablero;
 import objetosPresentacion.CuadroTablero;
+import objetosPresentacion.PuntajeVisual;
 import objetosPresentacion.PuntoTablero;
 
 /**
@@ -48,6 +50,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private boolean mostrandoMenuDeOpciones;
 
     private final List<JugadorVisual> listaJugadores;
+    private final List<PuntajeVisual> listaPuntajes;
     private boolean estoyJugando;
 
     private final List<IVista> pantallas;
@@ -62,9 +65,8 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         this.tamaño = tamaño;
         this.matriz = generarMatriz();
         this.lineas = generarLineas();
-        generarLineas();
         this.listaJugadores = new ArrayList<>();
-
+        this.listaPuntajes = new ArrayList<>();
         //
         this.cuadros = generarCuadros();
         //
@@ -177,8 +179,9 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-        
+
         List<Jugador> jugadores = modeloJuego.obtenerJugadores();
+        listaJugadores.clear();
         for (Jugador j : jugadores) {
             listaJugadores.add(
                     JugadorAdapter.toJVisual(j)
@@ -186,7 +189,6 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         }
         return listaJugadores;
     }
-
 
     @Override
     public TamañosTablero getTamañoTablero() {
@@ -281,6 +283,23 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         }
         observadorPantallaJuego.actualizar();
 
+    }
+    
+    @Override
+    public List<PuntajeVisual> obtenerPuntajes() {
+        obtenerJugadores();
+        listaPuntajes.clear();
+        List<Puntaje> puntajes = modeloJuego.obtenerPuntajes();
+        for (Puntaje p : puntajes) {
+            for (JugadorVisual j : listaJugadores) {
+                if (p.getIdJugador().equals(j.getIdentificador())) {
+                    listaPuntajes.add(
+                            new PuntajeVisual(j.getNombre(), p.getPuntuacion())
+                    );
+                }
+            }
+        }
+        return listaPuntajes;
     }
 
 }

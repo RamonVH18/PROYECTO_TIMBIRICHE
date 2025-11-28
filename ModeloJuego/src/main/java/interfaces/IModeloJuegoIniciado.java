@@ -4,6 +4,7 @@ import objetosModeloJuego.Linea;
 import java.util.List;
 import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Jugador;
+import objetosModeloJuego.Puntaje;
 import objetosModeloJuego.Punto;
 import objetosModeloJuego.TamañoTablero;
 
@@ -26,6 +27,8 @@ public interface IModeloJuegoIniciado {
     public List<Cuadro> obtenerCuadros();
     
     public List<Jugador> obtenerJugadores();
+    
+    public List<Puntaje> obtenerPuntajes();
     
     public Jugador obtenerJugadorEnTurno();
     

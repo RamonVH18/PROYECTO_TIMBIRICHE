@@ -30,7 +30,9 @@ import java.util.List;
 import manejadores.ManejadorTurnos;
 import objetosModeloJuego.TamañoTablero;
 import interfaces.ObservadorJuego;
+import manejadores.ManejadorPuntajes;
 import objetosModeloJuego.Cuadro;
+import objetosModeloJuego.Puntaje;
 import objetosModeloJuego.Punto;
 import utilidades.Configuracion;
 
@@ -43,6 +45,7 @@ public class ModeloJuego
 
     private ManejadorPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
+    private ManejadorPuntajes manejoPuntajes;
     private VerificadorEventos verificadorEventos;
     private Serializador serializador;
     private Deserializador deserializador;
@@ -53,9 +56,10 @@ public class ModeloJuego
     private ObservadorJuego observador;
 
     public ModeloJuego() {
-        
+
         listaJugadores = new ListaJugadores();
         manejoTurnos = new ManejadorTurnos(listaJugadores);
+        manejoPuntajes = new ManejadorPuntajes();
         estadoJuego = new EstadoJuego();
         jugadorLocal = new Jugador();
         direccionLocal = new DireccionDTO(
@@ -65,7 +69,7 @@ public class ModeloJuego
     }
 
     public void inicializarModeloJuego(ManejadorPaquetes manejadorPaquetes) {
-        manejoPaquetes = new ManejadorPaquetes(this);
+        manejoPaquetes = manejadorPaquetes;
         verificadorEventos = new VerificadorEventos(this);
         deserializador = new Deserializador(verificadorEventos);
     }
@@ -77,7 +81,6 @@ public class ModeloJuego
     /**
      * INICIO METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
      */
-
     public void conectarseAServidor() {
         PaqueteDTO paquete;
         try {
@@ -112,7 +115,6 @@ public class ModeloJuego
     /**
      * FIN METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
      */
-
     /**
      *
      */
@@ -127,6 +129,11 @@ public class ModeloJuego
     @Override
     public List<Jugador> obtenerJugadores() {
         return listaJugadores.obtenerJugadores();
+    }
+    
+    @Override
+    public List<Puntaje> obtenerPuntajes() {
+        return manejoPuntajes.mostrarPuntajes();
     }
 
     @Override
@@ -173,7 +180,9 @@ public class ModeloJuego
     public void actualizarLineasCuadros(Linea linea) {
         estadoJuego.getLineas().marcarLinea(linea);
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
-        verificarCuadrosCompletados(jugador);
+        if (verificarCuadrosCompletados(jugador)) {
+            manejoPuntajes.sumarPunto(10, jugador.getIdJugador());
+        }
         notificarCambioTurno();
     }
 
@@ -243,6 +252,9 @@ public class ModeloJuego
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion) {
         manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
         listaJugadores.agregarJugador(jugador);
+        manejoPuntajes.agregarNuevoPuntaje(
+                new Puntaje(jugador.getIdJugador())
+        );
     }
 
     @Override
@@ -250,7 +262,11 @@ public class ModeloJuego
             String colorJugador) {
         jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
+        manejoPuntajes.agregarNuevoPuntaje(
+                new Puntaje(idJugador)
+        );
     }
+
     /*
      * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
@@ -261,5 +277,5 @@ public class ModeloJuego
             solicitarInfoNuevoJugador(direccion);
         }
     }
-    
+
 }

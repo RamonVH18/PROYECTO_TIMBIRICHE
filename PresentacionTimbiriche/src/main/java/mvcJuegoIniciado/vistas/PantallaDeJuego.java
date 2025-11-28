@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -23,7 +24,7 @@ import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
-import objetosPresentacion.JugadorVisual;
+import objetosPresentacion.PuntajeVisual;
 
 /**
  *
@@ -176,18 +177,17 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     private void actualizarPanelJugadores() {
         panelJugadores.removeAll();
-
         JLabel titulo = new JLabel("Jugadores en partida");
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
         panelJugadores.add(titulo);
 
         panelJugadores.add(Box.createVerticalStrut(10));
 
-        var jugadores = modelo.obtenerJugadores();
-
-        for (int i = 0; i < jugadores.size(); i++) {
-            JugadorVisual jug = jugadores.get(i);
-            JPanel card = crearCartaJugador(jug, i);
+        List<PuntajeVisual> puntajes = modelo.obtenerPuntajes();
+        
+        
+        for (PuntajeVisual p : puntajes) {
+            JPanel card = crearCartaJugador(p, 0);
             panelJugadores.add(card);
             panelJugadores.add(Box.createVerticalStrut(10));
         }
@@ -196,7 +196,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         panelJugadores.revalidate();
     }
 
-    private JPanel crearCartaJugador(JugadorVisual j, int index) {
+    private JPanel crearCartaJugador(PuntajeVisual p, int index) {
         JPanel card = new JPanel();
         card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(220, 80));
@@ -206,11 +206,11 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
-        JLabel lblNombre = new JLabel(j.getNombre());
+        JLabel lblNombre = new JLabel(p.getNombreJugador());
         lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblNombre.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
 
-        JLabel lblScore = new JLabel("0");
+        JLabel lblScore = new JLabel(String.valueOf(p.getPuntuacion()));
         lblScore.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lblScore.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
