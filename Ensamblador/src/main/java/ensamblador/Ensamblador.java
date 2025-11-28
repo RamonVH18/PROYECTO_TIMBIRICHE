@@ -62,11 +62,11 @@ public class Ensamblador {
         iniciarComponenteRed();
         
 //        modeloJuego.conectarseAServidor();
-        modeloJuego.guardarInformacionJugador("2", "PolloJalado", "1", "1");
-        modeloJuego.registrarNuevoJugador(
-                new Jugador("1", "Yizbin", "1", "1"),
-                new DireccionDTO("192.168.1.75", 5000)
-        );
+        modeloJuego.guardarInformacionJugador("2", "Yizbin", "1", "1");
+//        modeloJuego.registrarNuevoJugador(
+//                new Jugador("1", "Pollo Jalado", "1", "1"),
+//                new DireccionDTO("", )
+//        );
     }
 
     public static void iniciarPresentacion() {

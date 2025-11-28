@@ -32,6 +32,7 @@ import objetosModeloJuego.TamañoTablero;
 import interfaces.ObservadorJuego;
 import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Punto;
+import utilidades.Configuracion;
 
 /**
  *
@@ -52,11 +53,14 @@ public class ModeloJuego
     private ObservadorJuego observador;
 
     public ModeloJuego() {
+        
+        listaJugadores = new ListaJugadores();
         manejoTurnos = new ManejadorTurnos(listaJugadores);
         estadoJuego = new EstadoJuego();
-        listaJugadores = new ListaJugadores();
         jugadorLocal = new Jugador();
-        direccionLocal = new DireccionDTO("192.168.1.71", 8080);
+        direccionLocal = new DireccionDTO(
+                Configuracion.get("local.host"),
+                Configuracion.getInt("local.port"));
         serializador = new Serializador();
     }
 
@@ -78,7 +82,9 @@ public class ModeloJuego
         PaqueteDTO paquete;
         try {
             paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
-            enviarPaqueteA(paquete, new DireccionDTO("192.168.1.71", 8000));
+            enviarPaqueteA(paquete, new DireccionDTO(
+                    Configuracion.get("server.host"),
+                    Configuracion.getInt("server.port")));
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {
