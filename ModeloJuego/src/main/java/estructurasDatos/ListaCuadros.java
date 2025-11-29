@@ -60,15 +60,15 @@ public class ListaCuadros {
         return nuevaLista;
     }
     
-    public boolean revisarCuadrosCompletos(Jugador j) {
-        boolean huboCambios = false;
+    public int revisarCuadrosCompletos(Jugador j) {
+        int cuadrosCompletados = 0;
         for (Cuadro c : cuadros) {
             if (c.estaCompleto() && c.obtenerEstado().equals("VACIO")) {
                 c.asignarCuadro(j);
-                huboCambios = true;
+                cuadrosCompletados++;
             }
         }
-        return huboCambios;
+        return cuadrosCompletados;
     }
     
     public List<Cuadro> obtenerListaCuadros() {

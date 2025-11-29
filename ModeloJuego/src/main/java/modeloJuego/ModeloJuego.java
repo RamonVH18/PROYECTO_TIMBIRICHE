@@ -180,16 +180,13 @@ public class ModeloJuego
     public void actualizarLineasCuadros(Linea linea) {
         estadoJuego.getLineas().marcarLinea(linea);
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
-        if (verificarCuadrosCompletados(jugador)) {
-            manejoPuntajes.sumarPunto(10, jugador.getIdJugador());
-            manejoPuntajes.ordenarMayorAMenor();
-        } else {
+        if (!verificarCuadrosCompletados(jugador)) {
+            manejoTurnos.siguienteTurno();
             /*
-            Este else es muy importante ya que gracias a este 
+            Este if es muy importante ya que gracias a este 
             esta toda la logica de lo de que un jugador tenga
             permitido seguir jugando luego de hacer un cuadro.
             */
-            manejoTurnos.siguienteTurno();
         }
         manejoTurnos.iniciarTurno();
         notificarCambioTurno();
@@ -220,7 +217,14 @@ public class ModeloJuego
     }
 
     public boolean verificarCuadrosCompletados(Jugador j) {
-        return estadoJuego.getCuadros().revisarCuadrosCompletos(j);
+        int cuadrosCompletados = estadoJuego.getCuadros().revisarCuadrosCompletos(j);
+        if (cuadrosCompletados > 0) {
+            int puntosTotal = Configuracion.getInt("punto.cuadro") * cuadrosCompletados;
+            manejoPuntajes.sumarPunto(puntosTotal, j.getIdJugador());
+            manejoPuntajes.ordenarMayorAMenor();
+            return true;
+        }
+        return false;
     }
 
     /*
