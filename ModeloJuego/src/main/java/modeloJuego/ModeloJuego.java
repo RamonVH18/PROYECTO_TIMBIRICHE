@@ -130,7 +130,7 @@ public class ModeloJuego
     public List<Jugador> obtenerJugadores() {
         return listaJugadores.obtenerJugadores();
     }
-    
+
     @Override
     public List<Puntaje> obtenerPuntajes() {
         return manejoPuntajes.mostrarPuntajes();
@@ -183,8 +183,14 @@ public class ModeloJuego
         if (verificarCuadrosCompletados(jugador)) {
             manejoPuntajes.sumarPunto(10, jugador.getIdJugador());
             manejoPuntajes.ordenarMayorAMenor();
+        } else {
+            /*
+            Este else es muy importante ya que gracias a este 
+            esta toda la logica de lo de que un jugador tenga
+            permitido seguir jugando luego de hacer un cuadro.
+            */
+            manejoTurnos.siguienteTurno();
         }
-        manejoTurnos.siguienteTurno();
         manejoTurnos.iniciarTurno();
         notificarCambioTurno();
     }
@@ -270,7 +276,6 @@ public class ModeloJuego
     /*
      * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
-
     @Override
     public void registrarJugadores(List<DireccionDTO> direcciones) {
         for (DireccionDTO direccion : direcciones) {
