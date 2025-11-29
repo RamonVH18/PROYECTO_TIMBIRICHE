@@ -252,7 +252,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     private Color getColorPorIndice(int index) {
         Color[] colores = {
-            new Color(180, 255, 180),
+            
             new Color(255, 245, 180),
             new Color(220, 180, 255),
             new Color(255, 200, 220),

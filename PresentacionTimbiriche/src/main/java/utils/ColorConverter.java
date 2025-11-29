@@ -20,6 +20,9 @@ public class ColorConverter {
             case "rojo" -> {
                 return new Color(255, 180, 180);
             }
+            case "verde" -> {
+                return new Color(180, 255, 180);
+            }
             default -> throw new AssertionError();
         }
     }
