@@ -168,6 +168,10 @@ public class TableroJuego extends JPanel implements IVista {
     public LineaTablero getLineaSeleccionada() {
         return lineaSeleccionada;
     }
+    
+    public void desocuparLineaSeleccionada() {
+        lineaSeleccionada = null;
+    }
 
     @Override
     public void actualizar() {

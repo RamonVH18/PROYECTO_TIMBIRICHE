@@ -227,6 +227,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
                     case "Realizar Jugada" -> {
                         LineaTablero lineaSeleccionada = tablero.getLineaSeleccionada();
                         control.realizarJugada(lineaSeleccionada);
+                        tablero.desocuparLineaSeleccionada();
                     }
                     case "Menú de opciones" ->
                         control.mostrarMenuDeOpciones();

@@ -5,6 +5,7 @@
 package manejadores;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import objetosModeloJuego.Puntaje;
@@ -26,7 +27,19 @@ public class ManejadorPuntajes {
     }
     
     public void ordenarMayorAMenor() {
-        puntajes.sort(Comparator.comparing(p -> p.getPuntuacion()));
+        int n = puntajes.size();
+        
+        for (int i = 0; i < n - 1; i++) {
+            int indiceDelMayor = i;
+            for (int j = i + 1; j < n; j++) {
+                if (puntajes.get(j).getPuntuacion() > puntajes.get(indiceDelMayor).getPuntuacion()) {
+                    indiceDelMayor = j;
+                }
+            }
+            if (indiceDelMayor != i) {
+                Collections.swap(puntajes, i, indiceDelMayor);
+            }
+        }
     }
     
     public void sumarPunto(int punto, String idJugador) {

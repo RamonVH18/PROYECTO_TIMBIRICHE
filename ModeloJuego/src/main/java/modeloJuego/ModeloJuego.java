@@ -182,6 +182,7 @@ public class ModeloJuego
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
         if (verificarCuadrosCompletados(jugador)) {
             manejoPuntajes.sumarPunto(10, jugador.getIdJugador());
+            manejoPuntajes.ordenarMayorAMenor();
         }
         manejoTurnos.siguienteTurno();
         manejoTurnos.iniciarTurno();
