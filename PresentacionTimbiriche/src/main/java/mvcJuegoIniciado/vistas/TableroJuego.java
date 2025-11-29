@@ -28,9 +28,10 @@ import objetosPresentacion.PuntoTablero;
  * @author Ramon Valencia
  */
 public class TableroJuego extends JPanel implements IVista {
+
     private Dimension dimensionTablero;
 
-    private Integer largo;  
+    private Integer largo;
     private Integer ancho;
     private LineaTablero lineaSeleccionada;
     private Integer distanciaPunto;
@@ -41,13 +42,13 @@ public class TableroJuego extends JPanel implements IVista {
         this.modelo = modelo;
         this.control = control;
         generarTablero();
-        
+
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
     }
 
     // esto es lo que fija el tablero 
     private void generarTablero() {
-        PuntoTablero[][] matriz = modelo.getMatriz(); 
+        PuntoTablero[][] matriz = modelo.getMatriz();
         distanciaPunto = modelo.getTamañoTablero().getDistanciaPuntos();
         largo = (matriz.length * distanciaPunto) + distanciaPunto;
         ancho = (matriz[0].length * distanciaPunto) + distanciaPunto;
@@ -62,22 +63,22 @@ public class TableroJuego extends JPanel implements IVista {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // limpia el fondo
-        
-        List<LineaTablero> lineas =  modelo.getLineas();
+
+        List<LineaTablero> lineas = modelo.getLineas();
         List<CuadroTablero> cuadros = modelo.getCuadros();
         PuntoTablero[][] matriz = modelo.getMatriz();
-        
+
         Integer tamañoPunto = modelo.getTamañoTablero().getTamañoPunto();
-        
+
         for (LineaTablero l : lineas) {
-            if(l.equals(lineaSeleccionada)) {
+            if (l.equals(lineaSeleccionada)) {
                 l.setEstado(EstadoLinea.SELECCIONADA);
             }
             l.paintComponent(g, distanciaPunto); // usamos el paintComponent de cada línea
         }
-        
+
         for (CuadroTablero c : cuadros) {
-            if(c.estaCompleto()) {
+            if (c.estaCompleto()) {
                 c.paintComponent(g);
             }
         }
@@ -109,20 +110,22 @@ public class TableroJuego extends JPanel implements IVista {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Point click = e.getPoint();
-                List<LineaTablero> lineas =  modelo.getLineas();
-                for (LineaTablero linea : lineas) {
-                    if (estaSobreLinea(click, linea)) {
-                        if (lineaSeleccionada != null) {
-                            lineaSeleccionada.estado = EstadoLinea.LIBRE;
+                List<LineaTablero> lineas = modelo.getLineas();
+                if (modelo.estoyJugando()) {
+                    for (LineaTablero linea : lineas) {
+                        if (estaSobreLinea(click, linea)) {
+                            if (lineaSeleccionada != null) {
+                                lineaSeleccionada.estado = EstadoLinea.LIBRE;
+                            }
+                            if (linea.estado == EstadoLinea.OCUPADA) {
+                                return;
+                            }
+                            linea.setEstado(EstadoLinea.OCUPADA);
+                            lineaSeleccionada = linea;
+
+                            repaint();
+                            break;
                         }
-                        if (linea.estado == EstadoLinea.OCUPADA) {
-                            return;
-                        }
-                        linea.setEstado(EstadoLinea.OCUPADA); 
-                        lineaSeleccionada = linea;
-                        
-                        repaint();
-                        break;
                     }
                 }
             }
@@ -135,7 +138,7 @@ public class TableroJuego extends JPanel implements IVista {
     }
 
     private double distanciaPuntoALinea(Point p, Point a, Point b) {
-        double A = p.x - ((a.x + 1) * distanciaPunto) ;
+        double A = p.x - ((a.x + 1) * distanciaPunto);
         double B = p.y - ((a.y + 1) * distanciaPunto);
         double C = ((b.x + 1) * distanciaPunto) - ((a.x + 1) * distanciaPunto);
         double D = ((b.y + 1) * distanciaPunto) - ((a.y + 1) * distanciaPunto);
@@ -165,7 +168,7 @@ public class TableroJuego extends JPanel implements IVista {
     public LineaTablero getLineaSeleccionada() {
         return lineaSeleccionada;
     }
-    
+
     @Override
     public void actualizar() {
 //        if(lineaSeleccionada == null) {

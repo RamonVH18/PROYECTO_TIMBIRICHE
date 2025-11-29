@@ -38,6 +38,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     private JPanel panelJugadores;
     private JLabel lblTitulo;
+    private JButton btnJugada;
 
     /**
      * Creates new form pantallaDeJuego
@@ -115,7 +116,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-    
+
     private void pantallaJuego() {
         setTitle("Timbiriche - Partida");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +154,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         JPanel panelBotones = new JPanel(new FlowLayout());
         panelBotones.setBackground(Color.WHITE);
 
-        JButton btnJugada = new JButton("Realizar Jugada");
+        btnJugada = new JButton("Realizar Jugada");
         btnJugada.setBackground(new Color(30, 150, 80));
         btnJugada.setForeground(Color.WHITE);
         btnJugada.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -184,8 +185,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         panelJugadores.add(Box.createVerticalStrut(10));
 
         List<PuntajeVisual> puntajes = modelo.obtenerPuntajes();
-        
-        
+
         for (PuntajeVisual p : puntajes) {
             JPanel card = crearCartaJugador(p);
             panelJugadores.add(card);
@@ -200,7 +200,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         JPanel card = new JPanel();
         card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(220, 80));
-        
+
         card.setBackground(p.getColorJugador());
 
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -240,6 +240,9 @@ public class PantallaDeJuego extends JFrame implements IVista {
         actualizarPanelJugadores();
         repaint();
         revalidate();
+        btnJugada.setEnabled(
+                modelo.estoyJugando()
+        );
     }
 
     @Override

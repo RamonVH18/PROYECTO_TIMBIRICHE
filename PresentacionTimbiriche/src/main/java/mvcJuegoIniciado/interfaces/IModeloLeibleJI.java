@@ -17,6 +17,8 @@ import objetosPresentacion.TamañosTablero;
  */
 public interface IModeloLeibleJI {
     
+    public boolean estoyJugando();
+    
     public List<JugadorVisual> obtenerJugadores();
     
     public List<PuntajeVisual> obtenerPuntajes();

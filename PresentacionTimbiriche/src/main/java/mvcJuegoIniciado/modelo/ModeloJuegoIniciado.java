@@ -78,8 +78,15 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
         this.vistas = new ArrayList<>();
         this.pantallas = new ArrayList<>();
+        
+        this.estoyJugando = false;
     }
-
+    
+    @Override
+    public boolean estoyJugando() {
+        return estoyJugando;
+    }
+    
     //Metodos Observers
     public void añadirObserverPantallaDeJuego(IVista tablero) {
         this.observadorPantallaJuego = tablero;
@@ -278,9 +285,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public void cambiarTurno(boolean turno) {
         lineas = generarLineas();
         cuadros = generarCuadros();
-        if (turno) {
-
-        }
+        estoyJugando = turno;
         observadorPantallaJuego.actualizar();
 
     }

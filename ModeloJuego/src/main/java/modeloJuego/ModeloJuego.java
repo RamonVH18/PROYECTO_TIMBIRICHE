@@ -178,7 +178,6 @@ public class ModeloJuego
 
     @Override
     public void actualizarLineasCuadros(Linea linea) {
-        
         estadoJuego.getLineas().marcarLinea(linea);
         Jugador jugador = manejoTurnos.mostrarJugadorActual();
         if (verificarCuadrosCompletados(jugador)) {
@@ -193,7 +192,6 @@ public class ModeloJuego
     public void realizarJugada(Linea linea) {
         actualizarLineasCuadros(linea);
         transmitirNuevaJugada(linea);
-        notificarCambioTurno();
     }
 
     public void notificarCambioTurno() {
