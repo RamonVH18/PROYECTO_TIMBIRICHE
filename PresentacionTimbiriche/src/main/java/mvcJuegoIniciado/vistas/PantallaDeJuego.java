@@ -187,7 +187,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
         
         
         for (PuntajeVisual p : puntajes) {
-            JPanel card = crearCartaJugador(p, 0);
+            JPanel card = crearCartaJugador(p);
             panelJugadores.add(card);
             panelJugadores.add(Box.createVerticalStrut(10));
         }
@@ -196,13 +196,12 @@ public class PantallaDeJuego extends JFrame implements IVista {
         panelJugadores.revalidate();
     }
 
-    private JPanel crearCartaJugador(PuntajeVisual p, int index) {
+    private JPanel crearCartaJugador(PuntajeVisual p) {
         JPanel card = new JPanel();
         card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(220, 80));
-
-        Color bg = getColorPorIndice(index);
-        card.setBackground(bg);
+        
+        card.setBackground(p.getColorJugador());
 
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
@@ -250,8 +249,6 @@ public class PantallaDeJuego extends JFrame implements IVista {
 
     private Color getColorPorIndice(int index) {
         Color[] colores = {
-            new Color(180, 200, 255),
-            new Color(255, 180, 180),
             new Color(180, 255, 180),
             new Color(255, 245, 180),
             new Color(220, 180, 255),

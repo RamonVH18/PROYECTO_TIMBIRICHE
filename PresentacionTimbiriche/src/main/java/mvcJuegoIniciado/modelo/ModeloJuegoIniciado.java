@@ -294,7 +294,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             for (JugadorVisual j : listaJugadores) {
                 if (p.getIdJugador().equals(j.getIdentificador())) {
                     listaPuntajes.add(
-                            new PuntajeVisual(j.getNombre(), p.getPuntuacion())
+                            new PuntajeVisual(j.getNombre(), p.getPuntuacion(), j.getColor())
                     );
                 }
             }

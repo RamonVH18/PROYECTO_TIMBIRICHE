@@ -4,8 +4,10 @@
  */
 package adapters;
 
+import java.awt.Color;
 import objetosModeloJuego.Jugador;
 import objetosPresentacion.JugadorVisual;
+import utils.ColorConverter;
 
 /**
  *
@@ -17,10 +19,9 @@ public class JugadorAdapter {
         JugadorVisual jv = new JugadorVisual(
                 j.getNombre(),
                 j.getImagen(),
-                j.getColor()
+                ColorConverter.obtenerColorJugador(j.getColor())
         );
         jv.setIdentificador(j.getIdJugador());
         return jv;
     }
-    
 }

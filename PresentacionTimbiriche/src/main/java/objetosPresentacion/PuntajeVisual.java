@@ -4,6 +4,8 @@
  */
 package objetosPresentacion;
 
+import java.awt.Color;
+
 /**
  *
  * @author Ramon Valencia
@@ -11,10 +13,12 @@ package objetosPresentacion;
 public class PuntajeVisual {
     private String nombreJugador;
     private int puntuacion;
+    private Color colorJugador;
 
-    public PuntajeVisual(String nombreJugador, int puntuacion) {
+    public PuntajeVisual(String nombreJugador, int puntuacion, Color color) {
         this.nombreJugador = nombreJugador;
         this.puntuacion = puntuacion;
+        this.colorJugador = color;
     }
 
     public String getNombreJugador() {
@@ -23,6 +27,10 @@ public class PuntajeVisual {
 
     public int getPuntuacion() {
         return puntuacion;
+    }
+    
+    public Color getColorJugador() {
+        return colorJugador;
     }
     
 }

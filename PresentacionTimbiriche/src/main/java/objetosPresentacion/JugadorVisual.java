@@ -4,6 +4,8 @@
  */
 package objetosPresentacion;
 
+import java.awt.Color;
+
 /**
  *
  * @author Ramon Valencia
@@ -13,9 +15,9 @@ public class JugadorVisual {
     private String identificador;
     private String nombre;
     private String imagen;
-    private String color;
+    private Color color;
 
-    public JugadorVisual(String nombre, String imagen, String color) {
+    public JugadorVisual(String nombre, String imagen, Color color) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.color = color;
@@ -46,11 +48,11 @@ public class JugadorVisual {
         this.imagen = imagen;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

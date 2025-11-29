@@ -10,6 +10,7 @@ import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 import objetosPresentacion.CuadroTablero;
+import utils.ColorConverter;
 
 /**
  *
@@ -20,7 +21,7 @@ public class CuadroAdapter {
         CuadroTablero ct = new CuadroTablero(esquina, distancia);
         
         if (c.estaCompleto()) {
-            Color color = c.getJugador() != null ? Color.BLUE : Color.GRAY;
+            Color color = ColorConverter.obtenerColorJugador(c.getJugador().getColor());
             ct.actualizarEstado(color, true);
         }
         
