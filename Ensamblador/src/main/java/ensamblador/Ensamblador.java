@@ -3,18 +3,18 @@
  */
 package ensamblador;
 
-import DTOs.DireccionDTO;
+
+import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
 import manejadores.ManejadorPaquetes;
 import modeloJuego.ModeloJuego;
 import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
 import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
-import mvcJuegoIniciado.vistas.MenuDeOpciones;
 import mvcJuegoIniciado.vistas.PantallaDeJuego;
 import mvcJuegoIniciado.vistas.TableroJuego;
-import objetosModeloJuego.Jugador;
-import objetosPresentacion.TamañosTablero;
+import enums.TamañosTablero;
+import mvcJuegoIniciado.vistas.MenuDeOpciones;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -34,7 +34,7 @@ public class Ensamblador {
 
     public static void main(String[] args) throws FalloCreacionServerException {
 
-        iniciarPresentacion();
+            iniciarPresentacion();
 
     }
     
@@ -62,11 +62,7 @@ public class Ensamblador {
         iniciarComponenteRed();
         
 //        modeloJuego.conectarseAServidor();
-        modeloJuego.guardarInformacionJugador("1", "Yizbin", "1", "1");
-//        modeloJuego.registrarNuevoJugador(
-//                new Jugador("1", "Pollo Jalado", "1", "1"),
-//                new DireccionDTO("", )
-//        );
+       
     }
 
     public static void iniciarPresentacion() {
@@ -75,16 +71,16 @@ public class Ensamblador {
         modeloJuego.suscribirObservador(modelo);
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
-        modelo.setObserverTablero(tablero);
-        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
         MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
+        
+        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
+        
+        modelo.añadirObserver(tablero, ObserverType.TABLERO);
+        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
+        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLAS);
+        modelo.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
 
-        modelo.añadirObserverPantallaDeJuego(pantallaDeJuego);
-        modelo.añadirObservadorPantallas(pantallaDeJuego);
-
-        modelo.añadirObservadorPantallas(menuDeOpciones);
-
-        control.mostrarPantallaDeJuego();
+        control.mostrarVista(ObserverType.PANTALLA_JUEGO);
         modeloJuego.empezarJuego();
     }
 }
