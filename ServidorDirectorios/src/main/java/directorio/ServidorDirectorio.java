@@ -51,13 +51,12 @@ public class ServidorDirectorio {
                         return;
                     }
                     // Verifica si el mensaje es un registro de peer
-                    if (!esRegistroPeer(mensaje)) {
-                        continue;
-                    } else {
+                    if (esRegistroPeer(mensaje)) {
                         DireccionDTO direccion = obtenerDireccionDePeer(mensaje);
                         registrarDireccion(direccion);
-                        enviarDireccionesAPeerNuevo(direccion);
-                        continue;
+                        if (direcciones.size() > 1) {
+                            enviarDireccionesAPeerNuevo(direccion);
+                        }
                     }
                 }
             }
