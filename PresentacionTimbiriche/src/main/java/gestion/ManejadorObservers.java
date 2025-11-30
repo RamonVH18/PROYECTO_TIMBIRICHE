@@ -4,6 +4,7 @@
  */
 package gestion;
 
+import enums.ObserverType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,25 +17,34 @@ import mvcJuegoIniciado.interfaces.IVista;
  */
 public class ManejadorObservers {
 
-    private final Map<String, List<IVista>> vistas;
+    private final Map<ObserverType, List<IVista>> vistas;
 
     public ManejadorObservers() {
         vistas = new HashMap<>();
     }
 
-    public void agregarObserver(String lista, IVista v) {
+    public void agregarObserver(ObserverType lista, IVista v) {
         vistas.computeIfAbsent(lista, k -> new ArrayList<>()).add(v);
     }
 
-    public void eliminarObserver(String lista, IVista v) {
+    public void eliminarObserver(ObserverType lista, IVista v) {
         vistas.getOrDefault(lista, new ArrayList<>()).remove(v);
     }
 
-    public void notificar(String lista) {
+    public void notificar(ObserverType lista) {
         List<IVista> listaObservers = vistas.get(lista);
         if (listaObservers != null) {
             for (IVista v : listaObservers) {
                 v.actualizar();
+            }
+        }
+    }
+    
+    public void mostrarObservers(ObserverType lista) {
+        List<IVista> listaObservers = vistas.get(lista);
+        if (listaObservers != null) {
+            for (IVista v : listaObservers) {
+                v.mostrar();
             }
         }
     }

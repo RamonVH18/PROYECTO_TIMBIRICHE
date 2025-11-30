@@ -7,14 +7,17 @@ package mvcJuegoIniciado.modelo;
 import adapters.CuadroAdapter;
 import adapters.JugadorAdapter;
 import adapters.LineaAdapter;
+import enums.ObserverType;
+import static enums.ObserverType.MENU_OPCIONES;
+import static enums.ObserverType.PANTALLA_JUEGO;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.ObservadorJuego;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
-import objetosPresentacion.TamañosTablero;
-import mvcJuegoIniciado.vistas.TableroJuego;
+import enums.TamañosTablero;
+import gestion.ManejadorObservers;
 import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
@@ -43,122 +46,86 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private List<CuadroTablero> cuadros;
     //
 
-    private final TamañosTablero tamaño;
+    private final TamañosTablero tamañoTablero;
     private boolean mostrandoPantallaDeJuego;
     private boolean mostrandoTablaJugadores;
-    private final boolean mostrandoTableroDeJuego;
     private boolean mostrandoMenuDeOpciones;
 
     private final List<JugadorVisual> listaJugadores;
     private final List<PuntajeVisual> listaPuntajes;
     private boolean estoyJugando;
-
-    private final List<IVista> pantallas;
-    private final List<IVista> vistas;
-    private IVista observadorTablero;
-    private IVista observadorPantallaJuego;
     private boolean matrizVacia;
+
+    private final ManejadorObservers manejoObservers;
 
     public ModeloJuegoIniciado(TamañosTablero tamaño, IModeloJuegoIniciado model) {
         this.matrizVacia = true;
         this.modeloJuego = model;
-        this.tamaño = tamaño;
-        this.matriz = generarMatriz();
-        this.lineas = generarLineas();
+        this.tamañoTablero = tamaño;
         this.listaJugadores = new ArrayList<>();
         this.listaPuntajes = new ArrayList<>();
-        //
+        this.matriz = generarMatriz();
+        this.lineas = generarLineas();
         this.cuadros = generarCuadros();
-        //
-
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
-        mostrandoTableroDeJuego = false;
         mostrandoMenuDeOpciones = false;
 
-        this.vistas = new ArrayList<>();
-        this.pantallas = new ArrayList<>();
-        
+        this.manejoObservers = new ManejadorObservers();
         this.estoyJugando = false;
     }
-    
+
     @Override
     public boolean estoyJugando() {
         return estoyJugando;
     }
-    
-    //Metodos Observers
-    public void añadirObserverPantallaDeJuego(IVista tablero) {
-        this.observadorPantallaJuego = tablero;
-    }
 
     @Override
-    public void añadirObserver(IVista v) {
-        vistas.add(v);
+    public void añadirObserver(IVista v, ObserverType tipo) {
+        manejoObservers.agregarObserver(tipo, v);
     }
 
-    public void eliminarObserver(IVista v) {
-        vistas.remove(v);
+    public void eliminarObserver(IVista v, ObserverType tipo) {
+        manejoObservers.agregarObserver(tipo, v);
     }
 
-    public void añadirObservadorPantallas(IVista v) {
-        pantallas.add(v);
-    }
-
-    public void eliminarObservadorPantallas(IVista v) {
-        pantallas.remove(v);
-    }
-
-    public void notificarObservadoresPantallas() {
-        for (IVista v : pantallas) {
-            v.mostrar();
-        }
-    }
-
-    public void notificarObservers() {
-        for (IVista v : vistas) {
-            v.actualizar();
-        }
-    }
-
-    //Metodos Leibles
-    @Override
-    public void setObserverTablero(TableroJuego tablero) {
-
-        observadorTablero = tablero;
+    public void notificar(ObserverType tipo) {
+        manejoObservers.notificar(tipo);
     }
 
     //Metodos Modificables
     @Override
-    public void mostrarPantallaDeJuego() {
-        mostrandoPantallaDeJuego = true;
-        notificarObservadoresPantallas();
+    public void mostrarPantalla(ObserverType tipo) {
+        activarPantallas(tipo);
+        manejoObservers.mostrarObservers(tipo);
+    }
+
+    private void activarPantallas(ObserverType tipo) {
+        switch (tipo) {
+            case PANTALLA_JUEGO -> {
+                this.mostrandoPantallaDeJuego = true;
+            }
+            case MENU_OPCIONES -> {
+                this.mostrandoMenuDeOpciones = true;
+            }  
+        }
     }
 
     @Override
-    public void ocultarPantallaDeJuego() {
-        mostrandoPantallaDeJuego = false;
-        notificarObservadoresPantallas();
+    public void ocultarPantalla(ObserverType tipo) {
+        desactivarPantallas(tipo);
+        manejoObservers.mostrarObservers(tipo);
     }
-
-    @Override
-    public void mostrarMenuDeOpciones() {
-        mostrandoMenuDeOpciones = true;
-        notificarObservadoresPantallas();
-    }
-
-    @Override
-    public void ocultarMenuDeOpciones() {
-        mostrandoMenuDeOpciones = false;
-        notificarObservadoresPantallas();
-    }
-
-    public void mostrarTablaJugadores() {
-
-    }
-
-    public void mostrarTableroJuego() {
-
+    
+    public void desactivarPantallas(ObserverType tipo) {
+        switch (tipo) {
+            case PANTALLA_JUEGO -> {
+                this.mostrandoPantallaDeJuego = false;
+            }
+            case MENU_OPCIONES -> {
+                this.mostrandoMenuDeOpciones = false;
+            }  
+        }
     }
 
     @Override
@@ -166,17 +133,9 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         return mostrandoPantallaDeJuego;
     }
 
-    public void setMostrandoPantallaDeJuego(boolean mostrandoPantallaDeJuego) {
-        this.mostrandoPantallaDeJuego = mostrandoPantallaDeJuego;
-    }
-
     @Override
     public boolean isMostrandoTablaJugadores() {
         return mostrandoTablaJugadores;
-    }
-
-    public void setMostrandoTablaJugadores(boolean mostrandoTablaJugadores) {
-        this.mostrandoTablaJugadores = mostrandoTablaJugadores;
     }
 
     @Override
@@ -199,7 +158,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     @Override
     public TamañosTablero getTamañoTablero() {
-        return this.tamaño;
+        return this.tamañoTablero;
     }
 
     @Override
@@ -232,7 +191,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         List<LineaTablero> lineasTablero = new ArrayList<>();
         for (Linea l : lineasOriginales) {
             LineaTablero linea = LineaAdapter.toLineaTablero(l);
-            linea.setGrosorLinea(tamaño.getGrosorLinea());
+            linea.setGrosorLinea(tamañoTablero.getGrosorLinea());
             lineasTablero.add(linea);
         }
         return lineasTablero;
@@ -243,7 +202,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         List<Cuadro> cuadrosOriginales = modeloJuego.obtenerCuadros();
         List<CuadroTablero> cuadrosTableros = new ArrayList<>();
 
-        int distancia = tamaño.getDistanciaPuntos();
+        int distancia = tamañoTablero.getDistanciaPuntos();
 
         for (Cuadro c : cuadrosOriginales) {
             int x = c.getLineaIzquierda().getPuntoA().getCoordenadaX() * distancia;
@@ -260,7 +219,8 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     private PuntoTablero[][] generarMatriz() {
         if (matrizVacia) {
-            modeloJuego.crearMatriz(TamañoTablero.PEQUEÑO);
+            TamañoTablero tamaño = TamañoTablero.valueOf(tamañoTablero.name());
+            modeloJuego.crearMatriz(tamaño);
             matrizVacia = false;
         }
 
@@ -286,10 +246,10 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         lineas = generarLineas();
         cuadros = generarCuadros();
         estoyJugando = turno;
-        observadorPantallaJuego.actualizar();
+        manejoObservers.notificar(ObserverType.PANTALLA_JUEGO);
 
     }
-    
+
     @Override
     public List<PuntajeVisual> obtenerPuntajes() {
         obtenerJugadores();

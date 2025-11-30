@@ -4,6 +4,7 @@
  */
 package mvcJuegoIniciado.vistas;
 
+import enums.ObserverType;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -128,7 +129,7 @@ public class PantallaDeJuego extends JFrame implements IVista {
                         tablero.desocuparLineaSeleccionada();
                     }
                     case "Menú de opciones" ->
-                        control.mostrarMenuDeOpciones();
+                        control.mostrarVista(ObserverType.MENU_OPCIONES);
                 }
             }
         });

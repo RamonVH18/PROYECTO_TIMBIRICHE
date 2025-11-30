@@ -14,7 +14,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.PuntajeVisual;
@@ -42,17 +41,17 @@ public class TablaPuntajes extends JPanel implements IVista {
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setBackground(Color.WHITE);
 
-        generarCardJugador();
+        generarCards();
     }
 
-    private void generarCardJugador() {
+    private void generarCards() {
         removeAll();
         add(Box.createVerticalStrut(10));
 
         List<PuntajeVisual> puntajes = modelo.obtenerPuntajes();
 
         for (PuntajeVisual p : puntajes) {
-            add(crearCartaJugador(p));
+            add(crearCardsJugador(p));
             add(Box.createVerticalStrut(10));
         }
 
@@ -60,7 +59,7 @@ public class TablaPuntajes extends JPanel implements IVista {
         revalidate();
     }
 
-    private JPanel crearCartaJugador(PuntajeVisual p) {
+    private JPanel crearCardsJugador(PuntajeVisual p) {
         JPanel card = new JPanel();
         card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(220, 80));
@@ -85,7 +84,7 @@ public class TablaPuntajes extends JPanel implements IVista {
 
     @Override
     public void actualizar() {
-        generarCardJugador();
+        generarCards();
     }
 
     @Override

@@ -4,6 +4,7 @@
  */
 package mvcJuegoIniciado.interfaces;
 
+import enums.ObserverType;
 import objetosPresentacion.LineaTablero;
 
 /**
@@ -14,11 +15,7 @@ public interface IControlJuegoIniciado {
 
     public void realizarJugada(LineaTablero lineaSeleccionada);
     
-    public void mostrarPantallaDeJuego();
+    public void mostrarVista(ObserverType tipo);
     
-    public void ocultarPantallaDeJuego();
-    
-    public void mostrarMenuDeOpciones();
-    
-    public void ocultarMenuDeOpciones();
+    public void ocultarVista(ObserverType tipo);
 }

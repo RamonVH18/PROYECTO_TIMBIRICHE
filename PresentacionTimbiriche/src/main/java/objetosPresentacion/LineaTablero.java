@@ -4,6 +4,8 @@
  */
 package objetosPresentacion;
 
+import enums.OrientacionLinea;
+import enums.EstadoLinea;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;

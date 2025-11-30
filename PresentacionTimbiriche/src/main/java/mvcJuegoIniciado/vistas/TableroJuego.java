@@ -16,7 +16,7 @@ import mvcJuegoIniciado.interfaces.IVista;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import objetosPresentacion.EstadoLinea;
+import enums.EstadoLinea;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import objetosModeloJuego.Linea;

@@ -1,5 +1,6 @@
 package mvcJuegoIniciado.vistas;
 
+import enums.ObserverType;
 import java.awt.Color;
 import java.util.ResourceBundle.Control;
 import javax.swing.JFrame;
@@ -139,7 +140,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        control.ocultarMenuDeOpciones();
+        control.ocultarVista(ObserverType.MENU_OPCIONES);
     }//GEN-LAST:event_formWindowClosed
 
     private void jLabelCambiarPaletaDeColoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCambiarPaletaDeColoresMouseEntered

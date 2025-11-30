@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package objetosPresentacion;
+package enums;
 
 /**
  *
  * @author Ramon Valencia
  */
-public enum OrientacionLinea {
+public enum ObserverType {
     
-    HORIZONTAL,
-    VERTICAL;
+    PANTALLA_JUEGO,
+    MENU_OPCIONES,
+    TABLERO,
+    PANTALLAS
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import objetosPresentacion.JugadorVisual;
 import objetosPresentacion.PuntajeVisual;
 import objetosPresentacion.PuntoTablero;
-import objetosPresentacion.TamañosTablero;
+import enums.TamañosTablero;
 
 /**
  *

@@ -7,7 +7,7 @@ package adapters;
 import java.awt.Point;
 import objetosModeloJuego.Linea;
 import objetosModeloJuego.Punto;
-import objetosPresentacion.EstadoLinea;
+import enums.EstadoLinea;
 import objetosPresentacion.LineaTablero;
 
 /**

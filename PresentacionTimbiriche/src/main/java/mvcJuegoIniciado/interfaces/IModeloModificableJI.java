@@ -4,8 +4,8 @@
  */
 package mvcJuegoIniciado.interfaces;
 
+import enums.ObserverType;
 import objetosPresentacion.LineaTablero;
-import mvcJuegoIniciado.vistas.TableroJuego;
 
 /**
  *
@@ -13,17 +13,11 @@ import mvcJuegoIniciado.vistas.TableroJuego;
  */
 public interface IModeloModificableJI {
 
-    public void añadirObserver(IVista v);
-    
-    public void setObserverTablero(TableroJuego tablero);
+    public void añadirObserver(IVista v, ObserverType tipo);
     
     public void realizarJugada(LineaTablero lineaSelecionada);
     
-    public void mostrarPantallaDeJuego();
+    public void mostrarPantalla(ObserverType tipo);
     
-    public void ocultarPantallaDeJuego();
-    
-    public void mostrarMenuDeOpciones();
-    
-    public void ocultarMenuDeOpciones();
+    public void ocultarPantalla(ObserverType tipo);
 }

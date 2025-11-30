@@ -6,6 +6,7 @@ package mvcJuegoIniciado.controlador;
 
 
 
+import enums.ObserverType;
 import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.vistas.MensajeError;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
@@ -34,23 +35,13 @@ public class ControlJuegoIniciado implements IControlJuegoIniciado {
     }
 
     @Override
-    public void mostrarPantallaDeJuego() {
-        modelo.mostrarPantallaDeJuego();
+    public void mostrarVista(ObserverType tipo) {
+        modelo.mostrarPantalla(tipo);
     }
 
     @Override
-    public void ocultarPantallaDeJuego() {
-        modelo.ocultarPantallaDeJuego();
-    }
-
-    @Override
-    public void mostrarMenuDeOpciones() {
-        modelo.mostrarMenuDeOpciones();
-    }
-
-    @Override
-    public void ocultarMenuDeOpciones() {
-        modelo.ocultarMenuDeOpciones();
+    public void ocultarVista(ObserverType tipo) {
+        modelo.ocultarPantalla(tipo);
     }
 
 }
