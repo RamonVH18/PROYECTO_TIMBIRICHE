@@ -23,6 +23,18 @@ public class ColorConverter {
             case "verde" -> {
                 return new Color(180, 255, 180);
             }
+            case "amarillo" -> {
+                return new Color(180, 255, 180);
+            }
+            case "lavanda" -> {
+                return new Color(180, 255, 180);
+            }
+            case "rosa" -> {
+                return new Color(180, 255, 180);
+            }
+            case "gris" -> {
+                return new Color(180, 255, 180);
+            }
             default -> throw new AssertionError();
         }
     }
