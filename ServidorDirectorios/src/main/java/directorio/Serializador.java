@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import com.google.gson.JsonElement;
 
 public class Serializador {
 
@@ -23,8 +24,9 @@ public class Serializador {
     }
 
     public static String serializarDirecciones(List<DireccionDTO> direcciones) {
+        JsonElement jsonDirecc = gson.toJsonTree(direcciones);
         JsonObject json = new JsonObject();
-        json.addProperty("direcciones", gson.toJson(direcciones));
+        json.add("direcciones", jsonDirecc);
         String mensaje = gson.toJson(new PaqueteDTO("listaDirecciones", json));
         return mensaje;
     }

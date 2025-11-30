@@ -186,7 +186,7 @@ public class ModeloJuego
             Este if es muy importante ya que gracias a este 
             esta toda la logica de lo de que un jugador tenga
             permitido seguir jugando luego de hacer un cuadro.
-            */
+             */
         }
         manejoTurnos.iniciarTurno();
         notificarCambioTurno();
@@ -260,11 +260,14 @@ public class ModeloJuego
 
     @Override
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion) {
-        manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
-        listaJugadores.agregarJugador(jugador);
-        manejoPuntajes.agregarNuevoPuntaje(
-                new Puntaje(jugador.getIdJugador())
-        );
+        if (!manejoPaquetes.isDireccionRegistrada(direccion)) {
+            manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
+            listaJugadores.agregarJugador(jugador);
+            manejoPuntajes.agregarNuevoPuntaje(
+                    new Puntaje(jugador.getIdJugador())
+            );
+            transmitirInfoANuevoJugador(direccion);
+        }
     }
 
     @Override

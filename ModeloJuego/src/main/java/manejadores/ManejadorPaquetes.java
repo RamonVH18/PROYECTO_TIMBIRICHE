@@ -79,5 +79,10 @@ public class ManejadorPaquetes implements IReceptorPaquetes {
         }
         modeloJuego.revisarPaqueteRecibido(paquete);
     }
+    
+    public boolean isDireccionRegistrada(DireccionDTO direccion) {
+        return direcciones.containsValue(direccion);
+    }
+    
 
 }
