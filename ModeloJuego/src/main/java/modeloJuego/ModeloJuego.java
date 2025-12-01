@@ -54,6 +54,7 @@ public class ModeloJuego
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
     private ObservadorJuego observador;
+    private boolean matrizVacia;
 
     public ModeloJuego() {
 
@@ -69,6 +70,7 @@ public class ModeloJuego
     }
 
     public void inicializarModeloJuego(ManejadorPaquetes manejadorPaquetes) {
+        matrizVacia = true;
         manejoPaquetes = manejadorPaquetes;
         verificadorEventos = new VerificadorEventos(this);
         deserializador = new Deserializador(verificadorEventos);
@@ -143,9 +145,12 @@ public class ModeloJuego
 
     @Override
     public void crearMatriz(TamañoTablero tamaño) {
-        MatrizPuntos matriz = new MatrizPuntos(tamaño);
-        crearLineas(matriz);
-        estadoJuego.setMatriz(matriz);
+        if (matrizVacia) {
+            MatrizPuntos matriz = new MatrizPuntos(tamaño);
+            crearLineas(matriz);
+            estadoJuego.setMatriz(matriz);
+        }
+
     }
 
     private void crearLineas(MatrizPuntos matriz) {

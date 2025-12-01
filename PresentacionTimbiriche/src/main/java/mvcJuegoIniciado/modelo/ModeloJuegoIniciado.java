@@ -7,6 +7,7 @@ package mvcJuegoIniciado.modelo;
 import adapters.CuadroAdapter;
 import adapters.JugadorAdapter;
 import adapters.LineaAdapter;
+import adapters.PuntajeAdapter;
 import enums.ObserverType;
 import static enums.ObserverType.MENU_OPCIONES;
 import static enums.ObserverType.PANTALLA_JUEGO;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
 import enums.TamañosTablero;
+import factorys.TableroFactory;
 import gestion.ManejadorObservers;
 import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.LineaTablero;
@@ -64,9 +66,13 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         this.tamañoTablero = tamaño;
         this.listaJugadores = new ArrayList<>();
         this.listaPuntajes = new ArrayList<>();
-        this.matriz = generarMatriz();
-        this.lineas = generarLineas();
-        this.cuadros = generarCuadros();
+        
+        modeloJuego.crearMatriz(
+                TamañoTablero.valueOf(tamaño.name())
+        );
+        this.matriz = TableroFactory.crearMatriz(modeloJuego.obtenerMatriz());
+        this.lineas = TableroFactory.crearLineas(modeloJuego.obtenerLineas(), tamañoTablero);
+        this.cuadros = getCuadros();
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
         mostrandoMenuDeOpciones = false;
@@ -145,15 +151,8 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     @Override
     public List<JugadorVisual> obtenerJugadores() {
-
-        List<Jugador> jugadores = modeloJuego.obtenerJugadores();
-        listaJugadores.clear();
-        for (Jugador j : jugadores) {
-            listaJugadores.add(
-                    JugadorAdapter.toJVisual(j)
-            );
-        }
-        return listaJugadores;
+        return JugadorAdapter
+                .mapeoJugadores(modeloJuego.obtenerJugadores(), listaJugadores);
     }
 
     @Override
@@ -165,17 +164,17 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public void realizarJugada(LineaTablero lineaSelecionada) {
         Linea linea = LineaAdapter.toLinea(lineaSelecionada);
         modeloJuego.realizarJugada(linea);
-        lineas = generarLineas();
-        cuadros = generarCuadros();
+        lineas = TableroFactory.crearLineas(modeloJuego.obtenerLineas(), tamañoTablero);;
+        cuadros = TableroFactory.crearCuadros(modeloJuego.obtenerCuadros(), tamañoTablero);
     }
 
     @Override
     public PuntoTablero[][] getMatriz() {
-        return generarMatriz();
+        return TableroFactory.crearMatriz(modeloJuego.obtenerMatriz());
     }
 
     @Override
-    public List getLineas() {
+    public List<LineaTablero> getLineas() {
         return this.lineas;
     }
 
@@ -184,67 +183,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     public List<CuadroTablero> getCuadros() {
         return this.cuadros;
     }
-    //
-
-    private List<LineaTablero> generarLineas() {
-        List<Linea> lineasOriginales = modeloJuego.obtenerLineas();
-        List<LineaTablero> lineasTablero = new ArrayList<>();
-        for (Linea l : lineasOriginales) {
-            LineaTablero linea = LineaAdapter.toLineaTablero(l);
-            linea.setGrosorLinea(tamañoTablero.getGrosorLinea());
-            lineasTablero.add(linea);
-        }
-        return lineasTablero;
-    }
-
-    //
-    private List<CuadroTablero> generarCuadros() {
-        List<Cuadro> cuadrosOriginales = modeloJuego.obtenerCuadros();
-        List<CuadroTablero> cuadrosTableros = new ArrayList<>();
-
-        int distancia = tamañoTablero.getDistanciaPuntos();
-
-        for (Cuadro c : cuadrosOriginales) {
-            int x = c.getLineaIzquierda().getPuntoA().getCoordenadaX() * distancia;
-            int y = c.getLineaSuperior().getPuntoA().getCoordenadaY() * distancia;
-
-            CuadroTablero cuadro = CuadroAdapter.toCuadroTablero(c, new Point(x, y), distancia);
-
-            cuadrosTableros.add(cuadro);
-        }
-        return cuadrosTableros;
-
-    }
-    //
-
-    private PuntoTablero[][] generarMatriz() {
-        if (matrizVacia) {
-            TamañoTablero tamaño = TamañoTablero.valueOf(tamañoTablero.name());
-            modeloJuego.crearMatriz(tamaño);
-            matrizVacia = false;
-        }
-
-        Punto[][] matrizPuntos = modeloJuego.obtenerMatriz();
-        int filas = matrizPuntos.length;
-        int columnas = matrizPuntos[0].length;
-
-        PuntoTablero[][] matrizTablero = new PuntoTablero[filas][columnas];
-
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-
-                Punto p = matrizPuntos[i][j];
-                matrizTablero[i][j] = new PuntoTablero(p.getCoordenadaX(), p.getCoordenadaY());
-            }
-        }
-
-        return matrizTablero;
-    }
 
     @Override
     public void cambiarTurno(boolean turno) {
-        lineas = generarLineas();
-        cuadros = generarCuadros();
+        lineas = TableroFactory.crearLineas(modeloJuego.obtenerLineas(), tamañoTablero);
+        cuadros = TableroFactory.crearCuadros(modeloJuego.obtenerCuadros(), tamañoTablero);
         estoyJugando = turno;
         manejoObservers.notificar(ObserverType.PANTALLA_JUEGO);
 
@@ -252,19 +195,11 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
 
     @Override
     public List<PuntajeVisual> obtenerPuntajes() {
-        obtenerJugadores();
-        listaPuntajes.clear();
-        List<Puntaje> puntajes = modeloJuego.obtenerPuntajes();
-        for (Puntaje p : puntajes) {
-            for (JugadorVisual j : listaJugadores) {
-                if (p.getIdJugador().equals(j.getIdentificador())) {
-                    listaPuntajes.add(
-                            new PuntajeVisual(j.getNombre(), p.getPuntuacion(), j.getColor())
-                    );
-                }
-            }
-        }
-        return listaPuntajes;
+        return PuntajeAdapter.mapeoPuntajes(
+                listaPuntajes,
+                obtenerJugadores(), 
+                modeloJuego.obtenerPuntajes()
+        );
     }
 
 }

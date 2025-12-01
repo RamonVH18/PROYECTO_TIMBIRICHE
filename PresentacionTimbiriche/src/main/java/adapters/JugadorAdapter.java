@@ -4,7 +4,8 @@
  */
 package adapters;
 
-import java.awt.Color;
+
+import java.util.List;
 import objetosModeloJuego.Jugador;
 import objetosPresentacion.JugadorVisual;
 import utils.ColorConverter;
@@ -15,7 +16,7 @@ import utils.ColorConverter;
  */
 public class JugadorAdapter {
     
-    public static JugadorVisual toJVisual(Jugador j) {
+    private static JugadorVisual toJVisual(Jugador j) {
         JugadorVisual jv = new JugadorVisual(
                 j.getNombre(),
                 j.getImagen(),
@@ -24,4 +25,16 @@ public class JugadorAdapter {
         jv.setIdentificador(j.getIdJugador());
         return jv;
     }
+    
+    public static List<JugadorVisual> mapeoJugadores(List<Jugador> jugadores, List<JugadorVisual> listaJugadores) {
+        listaJugadores.clear();
+        for (Jugador j : jugadores) {
+            listaJugadores.add(
+                    JugadorAdapter.toJVisual(j)
+            );
+        }
+        return listaJugadores;
+    }
+    
+    
 }
