@@ -15,6 +15,9 @@ public enum ColorJugador {
     AMARILLO,
     LAVANDA,
     ROSA,
-    GRIS
+    GRIS,
+    NARANJA,
+    TURQUESA,
+    CELESTE
     
 }

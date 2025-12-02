@@ -12,7 +12,7 @@ import java.awt.Color;
  * @author Ramon Valencia
  */
 public class ColorConverter {
-    
+
     public static Color obtenerColorJugador(ColorJugador color) {
         switch (color) {
             case AZUL -> {
@@ -36,7 +36,17 @@ public class ColorConverter {
             case GRIS -> {
                 return new Color(230, 230, 230);
             }
-            default -> throw new AssertionError();
+            case NARANJA -> {
+                return new Color(255, 205, 160); // naranja pastel suave
+            }
+            case TURQUESA -> {
+                return new Color(180, 255, 240); // turquesa pastel
+            }
+            case CELESTE -> {
+                return new Color(190, 235, 255); // celeste pastel suave
+            }
+            default ->
+                throw new AssertionError();
         }
     }
 }

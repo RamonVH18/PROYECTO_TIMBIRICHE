@@ -9,5 +9,15 @@ package Enums;
  * @author Ramon Valencia
  */
 public enum ImagenJugador {
-    IMAGEN
+    ARDILLA,
+    CAFE,
+    CHEVES,
+    DIESEL,
+    GATO,
+    GOLDEN,
+    MAOMAO,
+    PELON, 
+    STUART,
+    PERRO,
+    DEFAULT
 }
