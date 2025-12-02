@@ -26,10 +26,6 @@ public class GeneradorImagen {
                 ruta = "img/CAFE.jpg";
                 return cargarIconoDesdeResources(ruta, ancho, alto);
             }
-            case CHEVES -> {
-                ruta = "img/CHEVES.JPG";
-                return cargarIconoDesdeResources(ruta, ancho, alto);
-            }
             case DIESEL -> {
                 ruta = "img/DIESEL.jpg";
                 return cargarIconoDesdeResources(ruta, ancho, alto);
@@ -50,22 +46,26 @@ public class GeneradorImagen {
                 ruta = "img/PELON.jpg";
                 return cargarIconoDesdeResources(ruta, ancho, alto);
             }
-            case PERRO -> {
-                ruta = "img/PERRO.JPG";
-                return cargarIconoDesdeResources(ruta, ancho, alto);
-            }
             case STUART -> {
                 ruta = "img/STUART.jpg";
                 return cargarIconoDesdeResources(ruta, ancho, alto);
             }
+            case PANDA -> {
+                ruta = "img/PANDA.png";
+                return cargarIconoDesdeResources(ruta, ancho, alto);
+            }
+            case JOHN -> {
+                ruta = "img/JOHN.png";
+                return cargarIconoDesdeResources(ruta, ancho, alto);
+            }
             default -> {
-                ruta = "img/DEFECTO.JPG";
+                ruta = "img/USUARIO.png";
                 return cargarIconoDesdeResources(ruta, ancho, alto);
             }
         }
     }
 
-    public static ImageIcon cargarIconoDesdeResources(String ruta, int ancho, int alto) {
+    private static ImageIcon cargarIconoDesdeResources(String ruta, int ancho, int alto) {
 
         URL url = GeneradorImagen.class.getResource("/" + ruta);
         ImageIcon iconoOriginal = new ImageIcon(url);

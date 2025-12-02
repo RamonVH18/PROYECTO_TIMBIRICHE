@@ -11,13 +11,13 @@ package Enums;
 public enum ImagenJugador {
     ARDILLA,
     CAFE,
-    CHEVES,
     DIESEL,
     GATO,
     GOLDEN,
     MAOMAO,
     PELON, 
     STUART,
-    PERRO,
-    DEFAULT
+    PANDA,
+    JOHN,
+    USUARIO
 }

@@ -122,7 +122,6 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
     }
     
     private void generarLabelImagen() {
-        // Avatar
         int ancho = 120;
         int alto = 120;
         
@@ -136,7 +135,6 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
         lblAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                
             }
         });
     }

@@ -1,5 +1,6 @@
 
 import mvcJuegoInicio.vistas.PantallaRegistrarJugador;
+import mvcJuegoInicio.vistas.PantallaSeleccionImagen;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,6 +19,7 @@ public class Pruebas {
     public static void main(String[] args) {
         // TODO code application logic here
         PantallaRegistrarJugador pantalla = new PantallaRegistrarJugador();
+        
         pantalla.setVisible(true);
     }
     
