@@ -116,8 +116,6 @@ public class PantallaDeJuego extends JFrame implements IVista {
         pack();
     }
 
-    
-
     private void configurarBotonClick(JButton boton) {
         boton.addMouseListener(new MouseAdapter() {
             @Override

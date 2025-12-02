@@ -19,7 +19,7 @@ public class JugadorAdapter {
     private static JugadorVisual toJVisual(Jugador j) {
         JugadorVisual jv = new JugadorVisual(
                 j.getNombre(),
-                j.getImagen(),
+                j.getImagen().name(),
                 ColorConverter.obtenerColorJugador(j.getColor())
         );
         jv.setIdentificador(j.getIdJugador());

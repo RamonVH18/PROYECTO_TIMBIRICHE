@@ -4,7 +4,6 @@
  */
 package mvcJuegoIniciado.modelo;
 
-import adapters.CuadroAdapter;
 import adapters.JugadorAdapter;
 import adapters.LineaAdapter;
 import adapters.PuntajeAdapter;
@@ -13,7 +12,6 @@ import static enums.ObserverType.MENU_OPCIONES;
 import static enums.ObserverType.PANTALLA_JUEGO;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.ObservadorJuego;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import objetosPresentacion.JugadorVisual;
@@ -24,12 +22,8 @@ import mvcJuegoIniciado.interfaces.IVista;
 import objetosPresentacion.LineaTablero;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
-import objetosModeloJuego.Cuadro;
-import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
-import objetosModeloJuego.Puntaje;
-import objetosModeloJuego.Punto;
-import objetosModeloJuego.TamañoTablero;
+import Enums.TamañoTablero;
 import objetosPresentacion.CuadroTablero;
 import objetosPresentacion.PuntajeVisual;
 import objetosPresentacion.PuntoTablero;
@@ -56,23 +50,21 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private final List<JugadorVisual> listaJugadores;
     private final List<PuntajeVisual> listaPuntajes;
     private boolean estoyJugando;
-    private boolean matrizVacia;
 
     private final ManejadorObservers manejoObservers;
 
     public ModeloJuegoIniciado(TamañosTablero tamaño, IModeloJuegoIniciado model) {
-        this.matrizVacia = true;
         this.modeloJuego = model;
         this.tamañoTablero = tamaño;
         this.listaJugadores = new ArrayList<>();
         this.listaPuntajes = new ArrayList<>();
-        
+
         modeloJuego.crearMatriz(
                 TamañoTablero.valueOf(tamaño.name())
         );
         this.matriz = TableroFactory.crearMatriz(modeloJuego.obtenerMatriz());
         this.lineas = TableroFactory.crearLineas(modeloJuego.obtenerLineas(), tamañoTablero);
-        this.cuadros = getCuadros();
+        this.cuadros = TableroFactory.crearCuadros(modeloJuego.obtenerCuadros(), tamañoTablero);
         mostrandoPantallaDeJuego = false;
         mostrandoTablaJugadores = false;
         mostrandoMenuDeOpciones = false;
@@ -113,7 +105,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             }
             case MENU_OPCIONES -> {
                 this.mostrandoMenuDeOpciones = true;
-            }  
+            }
         }
     }
 
@@ -122,7 +114,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         desactivarPantallas(tipo);
         manejoObservers.mostrarObservers(tipo);
     }
-    
+
     public void desactivarPantallas(ObserverType tipo) {
         switch (tipo) {
             case PANTALLA_JUEGO -> {
@@ -130,7 +122,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
             }
             case MENU_OPCIONES -> {
                 this.mostrandoMenuDeOpciones = false;
-            }  
+            }
         }
     }
 
@@ -178,7 +170,6 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         return this.lineas;
     }
 
-    //
     @Override
     public List<CuadroTablero> getCuadros() {
         return this.cuadros;
@@ -190,16 +181,14 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
         cuadros = TableroFactory.crearCuadros(modeloJuego.obtenerCuadros(), tamañoTablero);
         estoyJugando = turno;
         manejoObservers.notificar(ObserverType.PANTALLA_JUEGO);
-
     }
 
     @Override
     public List<PuntajeVisual> obtenerPuntajes() {
         return PuntajeAdapter.mapeoPuntajes(
                 listaPuntajes,
-                obtenerJugadores(), 
+                obtenerJugadores(),
                 modeloJuego.obtenerPuntajes()
         );
     }
-
 }

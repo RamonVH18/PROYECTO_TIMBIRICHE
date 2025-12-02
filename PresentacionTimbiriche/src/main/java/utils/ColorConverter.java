@@ -4,6 +4,7 @@
  */
 package utils;
 
+import Enums.ColorJugador;
 import java.awt.Color;
 
 /**
@@ -12,27 +13,27 @@ import java.awt.Color;
  */
 public class ColorConverter {
     
-    public static Color obtenerColorJugador(String color) {
+    public static Color obtenerColorJugador(ColorJugador color) {
         switch (color) {
-            case "azul" -> {
+            case AZUL -> {
                 return new Color(180, 200, 255);
             }
-            case "rojo" -> {
+            case ROJO -> {
                 return new Color(255, 180, 180);
             }
-            case "verde" -> {
+            case VERDE -> {
                 return new Color(180, 255, 180);
             }
-            case "amarillo" -> {
+            case AMARILLO -> {
                 return new Color(255, 245, 180);
             }
-            case "lavanda" -> {
+            case LAVANDA -> {
                 return new Color(220, 180, 255);
             }
-            case "rosa" -> {
+            case ROSA -> {
                 return new Color(255, 200, 220);
             }
-            case "gris" -> {
+            case GRIS -> {
                 return new Color(230, 230, 230);
             }
             default -> throw new AssertionError();

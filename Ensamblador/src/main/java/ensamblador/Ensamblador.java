@@ -3,7 +3,8 @@
  */
 package ensamblador;
 
-
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
 import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
@@ -33,11 +34,9 @@ public class Ensamblador {
     public static ManejadorPaquetes manejoPaquetes;
 
     public static void main(String[] args) throws FalloCreacionServerException {
-
-            iniciarPresentacion();
-
+        iniciarPresentacion();
     }
-    
+
     public static void iniciarComponenteRed() {
         receptor = new Receptor();
         colaRecepcion = ColaRecepcion.getInstancia();
@@ -45,7 +44,6 @@ public class Ensamblador {
         receptor.inyectarManejador(manejoPaquetes);
         servidor = new ServerTCP(8080);
 
-        
         Thread hiloServidor = new Thread(() -> {
             try {
                 servidor.iniciarServidor();  // método bloqueante que escucha sockets
@@ -55,14 +53,19 @@ public class Ensamblador {
         }, "Hilo-Servidor");
         hiloServidor.start();
     }
+
     public static void iniciarModelo() {
         modeloJuego = new ModeloJuego();
         manejoPaquetes = new ManejadorPaquetes(modeloJuego);
         modeloJuego.inicializarModeloJuego(manejoPaquetes);
         iniciarComponenteRed();
-        
-//        modeloJuego.conectarseAServidor();
-       
+
+        modeloJuego.conectarseAServidor();
+        modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.IMAGEN, ColorJugador.AZUL);
+//        modeloJuego.registrarNuevoJugador(
+//                new Jugador("2", "Pollo Jalado", "2", "rojo"),
+//                new DireccionDTO("192.168.1.70", 5000)
+//        );
     }
 
     public static void iniciarPresentacion() {
@@ -72,9 +75,9 @@ public class Ensamblador {
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
         MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
-        
+
         PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
-        
+
         modelo.añadirObserver(tablero, ObserverType.TABLERO);
         modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
         modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLAS);

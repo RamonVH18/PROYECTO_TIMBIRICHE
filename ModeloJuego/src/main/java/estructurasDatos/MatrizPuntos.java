@@ -5,7 +5,7 @@
 package estructurasDatos;
 
 import objetosModeloJuego.Punto;
-import objetosModeloJuego.TamañoTablero;
+import Enums.TamañoTablero;
 
 /**
  *

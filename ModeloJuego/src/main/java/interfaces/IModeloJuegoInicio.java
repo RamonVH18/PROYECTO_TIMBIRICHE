@@ -4,9 +4,8 @@
  */
 package interfaces;
 
-import java.util.List;
-
-import DTOs.DireccionDTO;
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
 
 /**
  *
@@ -14,6 +13,8 @@ import DTOs.DireccionDTO;
  */
 public interface IModeloJuegoInicio {
     
-    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador, String colorJugador);
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador);
+    
+    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador);
 
 }

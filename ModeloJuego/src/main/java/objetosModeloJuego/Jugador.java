@@ -4,7 +4,8 @@
  */
 package objetosModeloJuego;
 
-import DTOs.DireccionDTO;
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
 import java.util.Objects;
 
 /**
@@ -15,20 +16,20 @@ public class Jugador {
 
     private String idJugador;
     private String nombre;
-    private String imagen;
-    private String color;
+    private ImagenJugador imagen;
+    private ColorJugador color;
 
     public Jugador() {
 
     }
 
-    public Jugador(String nombre, String imagen, String color) {
+    public Jugador(String nombre, ImagenJugador imagen, ColorJugador color) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.color = color;
     }
 
-    public Jugador(String idJugador, String nombre, String imagen, String color) {
+    public Jugador(String idJugador, String nombre, ImagenJugador imagen, ColorJugador color) {
         this.idJugador = idJugador;
         this.nombre = nombre;
         this.imagen = imagen;
@@ -39,11 +40,11 @@ public class Jugador {
         this.idJugador = idJugador;
     }
 
-    public void cambiarImagen(String imagen) {
+    public void cambiarImagen(ImagenJugador imagen) {
         this.imagen = imagen;
     }
 
-    public void cambiarColor(String color) {
+    public void cambiarColor(ColorJugador color) {
         this.color = color;
     }
 
@@ -59,11 +60,11 @@ public class Jugador {
         return nombre;
     }
 
-    public String getImagen() {
+    public ImagenJugador getImagen() {
         return imagen;
     }
 
-    public String getColor() {
+    public ColorJugador getColor() {
         return color;
     }
 

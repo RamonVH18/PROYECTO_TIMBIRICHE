@@ -6,7 +6,7 @@ import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Puntaje;
 import objetosModeloJuego.Punto;
-import objetosModeloJuego.TamañoTablero;
+import Enums.TamañoTablero;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

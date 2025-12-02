@@ -71,6 +71,15 @@ public class ListaCuadros {
         return cuadrosCompletados;
     }
     
+    public boolean revisarTodosLosCuadrosCompletos() {
+        for (Cuadro c: cuadros) {
+            if (c.obtenerEstado().equals("VACIO")) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public List<Cuadro> obtenerListaCuadros() {
         return cuadros;
     }

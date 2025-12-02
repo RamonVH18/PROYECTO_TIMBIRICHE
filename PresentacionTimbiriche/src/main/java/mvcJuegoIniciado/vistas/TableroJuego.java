@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import objetosPresentacion.LineaTablero;
@@ -19,7 +18,6 @@ import java.util.List;
 import enums.EstadoLinea;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
-import objetosModeloJuego.Linea;
 import objetosPresentacion.CuadroTablero;
 import objetosPresentacion.PuntoTablero;
 
@@ -175,11 +173,6 @@ public class TableroJuego extends JPanel implements IVista {
 
     @Override
     public void actualizar() {
-//        if(lineaSeleccionada == null) {
-//            return;
-//        }
-//        lineaSeleccionada.estado = EstadoLinea.OCUPADA;
-//        lineaSeleccionada = null;
         repaint();
     }
 

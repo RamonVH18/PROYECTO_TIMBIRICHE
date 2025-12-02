@@ -80,8 +80,8 @@ public class Serializador {
         JsonObject jsonJugador = new JsonObject();
         jsonJugador.addProperty("idJugador", j.getIdJugador());
         jsonJugador.addProperty("nombre", j.getNombre());
-        jsonJugador.addProperty("imagen", j.getImagen());
-        jsonJugador.addProperty("color", j.getColor());
+        jsonJugador.addProperty("imagen", j.getImagen().name());
+        jsonJugador.addProperty("color", j.getColor().name());
         return jsonJugador;
     }
 

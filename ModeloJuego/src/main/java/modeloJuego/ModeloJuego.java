@@ -6,6 +6,8 @@ package modeloJuego;
 import estructurasDatos.ListaJugadores;
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
 import estructurasDatos.ListaCuadros;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
@@ -28,7 +30,7 @@ import estructurasDatos.MatrizPuntos;
 import eventos.LineaPintadaEvent;
 import java.util.List;
 import manejadores.ManejadorTurnos;
-import objetosModeloJuego.TamañoTablero;
+import Enums.TamañoTablero;
 import interfaces.ObservadorJuego;
 import manejadores.ManejadorPuntajes;
 import objetosModeloJuego.Cuadro;
@@ -123,7 +125,6 @@ public class ModeloJuego
     public void empezarJuego() {
         manejoTurnos.crearTurnos();
         manejoTurnos.iniciarTurno();
-        Jugador jugador = manejoTurnos.mostrarJugadorActual();
         observador.cambiarTurno(
                 manejoTurnos.esMiTurno(jugadorLocal));
     }
@@ -262,6 +263,13 @@ public class ModeloJuego
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Override
+    public void registrarJugadores(List<DireccionDTO> direcciones) {
+        for (DireccionDTO direccion : direcciones) {
+            solicitarInfoNuevoJugador(direccion);
+        }
+    }
 
     @Override
     public void registrarNuevoJugador(Jugador jugador, DireccionDTO direccion) {
@@ -275,24 +283,31 @@ public class ModeloJuego
         }
     }
 
+    /*
+     * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
+     */
+    
+    /*
+     *INICIO DE LOS METODOS DEL CASO DE USO REGISTRAR JUGADOR 
+     */
+    
     @Override
-    public void guardarInformacionJugador(String idJugador, String nombreJugador, String imagenJugador,
-            String colorJugador) {
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador,
+            ColorJugador colorJugador) {
         jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
         manejoPuntajes.agregarNuevoPuntaje(
                 new Puntaje(idJugador)
         );
     }
-
-    /*
-     * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
-     */
+    
     @Override
-    public void registrarJugadores(List<DireccionDTO> direcciones) {
-        for (DireccionDTO direccion : direcciones) {
-            solicitarInfoNuevoJugador(direccion);
-        }
+    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) {
+        
+        jugadorLocal.cambiarNombre(nombreJugador);
+        jugadorLocal.cambiarImagen(imagenJugador);
+        jugadorLocal.cambiarColor(colorJugador);
+        
     }
 
 }
