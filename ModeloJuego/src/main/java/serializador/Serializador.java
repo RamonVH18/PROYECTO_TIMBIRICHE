@@ -7,6 +7,7 @@ package serializador;
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.JsonObject;
+import eventos.CambioJugadorEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import excepciones.PaqueteVacioAlSerializarException;
@@ -54,6 +55,21 @@ public class Serializador {
 
             JsonObject jsonEvent = new JsonObject();
             jsonEvent.add("linea", jsonLinea);
+            return new PaqueteDTO(tipoPaquete, jsonEvent);
+        }
+        return null;
+    }
+    
+    public PaqueteDTO serializarCambioJugadorEvent(String tipoPaquete, CambioJugadorEvent cjEvent) throws PaqueteVacioAlSerializarException {
+        if (validarSerializacion(tipoPaquete, cjEvent)) {
+            JsonObject jsonEvent = new JsonObject();
+            jsonEvent.addProperty("idJugador", cjEvent.getIdJugador());
+            jsonEvent.addProperty("nombreAnterior", cjEvent.getNombreAnterior());
+            jsonEvent.addProperty("nombreNuevo", cjEvent.getNombreNuevo());
+            jsonEvent.addProperty("imagenAnterior", cjEvent.getImagenAnterior().name());
+            jsonEvent.addProperty("imagenNueva", cjEvent.getImagenNueva().name());
+            jsonEvent.addProperty("colorAnterior", cjEvent.getColorAnterior().name());
+            jsonEvent.addProperty("colorNuevo", cjEvent.getColorNuevo().name());
             return new PaqueteDTO(tipoPaquete, jsonEvent);
         }
         return null;

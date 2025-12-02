@@ -15,6 +15,9 @@ import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
 import mvcJuegoIniciado.vistas.PantallaDeJuego;
 import mvcJuegoIniciado.vistas.TableroJuego;
 import enums.TamañosTablero;
+import excepciones.DatosJugadorInvalidosException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mvcJuegoIniciado.vistas.MenuDeOpciones;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
@@ -61,11 +64,15 @@ public class Ensamblador {
         iniciarComponenteRed();
 
         modeloJuego.conectarseAServidor();
-        modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.IMAGEN, ColorJugador.AZUL);
+        try {
+            modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.IMAGEN, ColorJugador.AZUL);
 //        modeloJuego.registrarNuevoJugador(
 //                new Jugador("2", "Pollo Jalado", "2", "rojo"),
 //                new DireccionDTO("192.168.1.70", 5000)
 //        );
+        } catch (DatosJugadorInvalidosException ex) {
+            Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void iniciarPresentacion() {

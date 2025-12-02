@@ -8,14 +8,13 @@ package excepciones;
  *
  * @author Ramon Valencia
  */
-public class ImagenJugadorInexistenteException extends Exception{
+public class DatosJugadorInvalidosException extends Exception{
 
-    public ImagenJugadorInexistenteException(String message) {
+    public DatosJugadorInvalidosException(String message) {
         super(message);
     }
 
-    public ImagenJugadorInexistenteException(String message, Throwable cause) {
+    public DatosJugadorInvalidosException(String message, Throwable cause) {
         super(message, cause);
     }
-    
 }

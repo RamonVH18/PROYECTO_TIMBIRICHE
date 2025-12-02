@@ -6,6 +6,7 @@ package interfaces;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
+import excepciones.DatosJugadorInvalidosException;
 
 /**
  *
@@ -13,8 +14,8 @@ import Enums.ImagenJugador;
  */
 public interface IModeloJuegoInicio {
     
-    public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador);
+    public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) throws DatosJugadorInvalidosException;
     
-    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador);
+    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) throws DatosJugadorInvalidosException;
 
 }

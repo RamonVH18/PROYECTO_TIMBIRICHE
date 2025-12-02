@@ -12,6 +12,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import eventos.CambioJugadorEvent;
 import java.lang.reflect.Type;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
@@ -58,11 +59,14 @@ public class Deserializador {
                 verificadorEventos.eventoLineaPintada(lpEvent);
                 break;
             }
-            case("listaDirecciones") -> {
+            case ("listaDirecciones") -> {
                 List<DireccionDTO> direcciones = deserializarListaDirecciones(paquete.getMensaje());
-                
+
                 verificadorEventos.eventoListaDirecciones(direcciones);
                 break;
+            }
+            case ("CambioDatosJugador") -> {
+//                CambioJugadorEvent cjEvent = 
             }
         }
     }
@@ -97,7 +101,8 @@ public class Deserializador {
     }
 
     private List<DireccionDTO> deserializarListaDirecciones(JsonObject json) {
-        Type listType = new TypeToken<List<DireccionDTO>>() {}.getType();
+        Type listType = new TypeToken<List<DireccionDTO>>() {
+        }.getType();
         List<DireccionDTO> direcciones = gson.fromJson(json.get("direcciones"), listType);
         return direcciones;
     }

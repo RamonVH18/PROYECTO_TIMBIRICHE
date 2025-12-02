@@ -31,12 +31,15 @@ import eventos.LineaPintadaEvent;
 import java.util.List;
 import manejadores.ManejadorTurnos;
 import Enums.TamañoTablero;
+import eventos.CambioJugadorEvent;
+import excepciones.DatosJugadorInvalidosException;
 import interfaces.ObservadorJuego;
 import manejadores.ManejadorPuntajes;
 import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Puntaje;
 import objetosModeloJuego.Punto;
 import utilidades.Configuracion;
+import validaciones.ValidacionesJugador;
 
 /**
  *
@@ -293,7 +296,8 @@ public class ModeloJuego
     
     @Override
     public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador,
-            ColorJugador colorJugador) {
+            ColorJugador colorJugador) throws DatosJugadorInvalidosException{
+        ValidacionesJugador.validarCreacionJugador(nombreJugador, imagenJugador, colorJugador);
         jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
         manejoPuntajes.agregarNuevoPuntaje(
@@ -302,12 +306,27 @@ public class ModeloJuego
     }
     
     @Override
-    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) {
-        
+    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) 
+            throws DatosJugadorInvalidosException {
+        ValidacionesJugador.validarCambiosJugador(jugadorLocal, nombreJugador, imagenJugador, colorJugador);
+        transmitirCambioDatosJugador(nombreJugador, imagenJugador, colorJugador);
         jugadorLocal.cambiarNombre(nombreJugador);
         jugadorLocal.cambiarImagen(imagenJugador);
         jugadorLocal.cambiarColor(colorJugador);
         
+    }
+    
+    private void transmitirCambioDatosJugador(String nombreNuevo, ImagenJugador imagenNueva, ColorJugador colorNuevo) {
+        PaqueteDTO paquete;
+        CambioJugadorEvent cjEvent = new CambioJugadorEvent(jugadorLocal, nombreNuevo, imagenNueva, colorNuevo);
+        try {
+            paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
+            enviarPaqueteATodos(paquete);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
