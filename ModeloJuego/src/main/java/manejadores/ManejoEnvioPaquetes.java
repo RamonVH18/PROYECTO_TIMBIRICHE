@@ -9,9 +9,7 @@ import DTOs.EnvioDTO;
 import DTOs.PaqueteDTO;
 import envio.DispatcherFactory;
 import excepciones.ErrorAlEnviarPaqueteException;
-import interfaces.Mediador;
 import interfaz.IEmisor;
-import interfaz.IReceptorPaquetes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,13 +18,12 @@ import java.util.Map;
  *
  * @author Ximena
  */
-public class ManejadorPaquetes implements IReceptorPaquetes {
+public class ManejoEnvioPaquetes {
+
     private final IEmisor emisor;
     private final Map<String, DireccionDTO> direcciones;
-    private final Mediador modeloJuego;
 
-    public ManejadorPaquetes(Mediador modeloJuego) {
-        this.modeloJuego = modeloJuego;
+    public ManejoEnvioPaquetes() {
         emisor = DispatcherFactory.createDispatcher();
         direcciones = new HashMap<>();
     }
@@ -72,17 +69,8 @@ public class ManejadorPaquetes implements IReceptorPaquetes {
         return true;
     }
 
-    @Override
-    public void recibirPaquete(PaqueteDTO paquete) {
-        if (paquete == null || paquete.getTipoPaquete().isBlank()) {
-            return;
-        }
-        modeloJuego.revisarPaqueteRecibido(paquete);
-    }
-    
     public boolean isDireccionRegistrada(DireccionDTO direccion) {
         return direcciones.containsValue(direccion);
     }
-    
 
 }

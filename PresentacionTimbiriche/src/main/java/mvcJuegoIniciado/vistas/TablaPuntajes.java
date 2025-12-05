@@ -84,7 +84,7 @@ public class TablaPuntajes extends JPanel implements IVista {
 
     @Override
     public void actualizar() {
-        generarCards();
+        generarTablaPuntajes();
     }
 
     @Override

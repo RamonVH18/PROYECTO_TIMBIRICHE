@@ -8,20 +8,23 @@ import Enums.ImagenJugador;
 import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
-import manejadores.ManejadorPaquetes;
+import manejadores.ManejoEnvioPaquetes;
 import modeloJuego.ModeloJuego;
 import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
 import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
 import mvcJuegoIniciado.vistas.PantallaDeJuego;
 import mvcJuegoIniciado.vistas.TableroJuego;
 import enums.TamañosTablero;
+import eventos.VerificadorEventos;
 import excepciones.DatosJugadorInvalidosException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import manejadores.ManejoRecepcionPaquetes;
 import mvcJuegoIniciado.vistas.MenuDeOpciones;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
+import serializador.Deserializador;
 
 /**
  *
@@ -34,7 +37,9 @@ public class Ensamblador {
     public static Receptor receptor;
     public static ServerTCP servidor;
     public static ColaRecepcion colaRecepcion;
-    public static ManejadorPaquetes manejoPaquetes;
+    public static VerificadorEventos verificador;
+    public static Deserializador deserializador;
+    public static ManejoRecepcionPaquetes manejoRecepcionPaquetes;
 
     public static void main(String[] args) throws FalloCreacionServerException {
         iniciarPresentacion();
@@ -44,7 +49,7 @@ public class Ensamblador {
         receptor = new Receptor();
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
-        receptor.inyectarManejador(manejoPaquetes);
+        receptor.inyectarManejador(manejoRecepcionPaquetes);
         servidor = new ServerTCP(8080);
 
         Thread hiloServidor = new Thread(() -> {
@@ -59,8 +64,9 @@ public class Ensamblador {
 
     public static void iniciarModelo() {
         modeloJuego = new ModeloJuego();
-        manejoPaquetes = new ManejadorPaquetes(modeloJuego);
-        modeloJuego.inicializarModeloJuego(manejoPaquetes);
+        verificador = new VerificadorEventos(modeloJuego);
+        deserializador = new Deserializador(verificador);
+        manejoRecepcionPaquetes = new ManejoRecepcionPaquetes(deserializador);
         iniciarComponenteRed();
 
         modeloJuego.conectarseAServidor();

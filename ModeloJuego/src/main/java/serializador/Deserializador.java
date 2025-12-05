@@ -12,7 +12,6 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import eventos.CambioJugadorEvent;
 import java.lang.reflect.Type;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;

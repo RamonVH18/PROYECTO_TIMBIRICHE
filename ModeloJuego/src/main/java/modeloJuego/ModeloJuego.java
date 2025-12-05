@@ -14,11 +14,10 @@ import eventos.VerificadorEventos;
 import excepciones.ErrorAlEnviarPaqueteException;
 import excepciones.PaqueteVacioAlDeserializarException;
 import excepciones.PaqueteVacioAlSerializarException;
-import interfaces.Mediador;
 import interfaces.MediadorEventos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import manejadores.ManejadorPaquetes;
+import manejadores.ManejoEnvioPaquetes;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 import serializador.Deserializador;
@@ -46,9 +45,9 @@ import validaciones.ValidacionesJugador;
  * @author Ramon Valencia
  */
 public class ModeloJuego
-        implements IModeloJuegoInicio, IModeloJuegoIniciado, Mediador, MediadorEventos {
+        implements IModeloJuegoInicio, IModeloJuegoIniciado, MediadorEventos {
 
-    private ManejadorPaquetes manejoPaquetes;
+    private ManejoEnvioPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
     private ManejadorPuntajes manejoPuntajes;
     private VerificadorEventos verificadorEventos;
@@ -72,13 +71,8 @@ public class ModeloJuego
                 Configuracion.get("local.host"),
                 Configuracion.getInt("local.port"));
         serializador = new Serializador();
-    }
-
-    public void inicializarModeloJuego(ManejadorPaquetes manejadorPaquetes) {
+        manejoPaquetes = new ManejoEnvioPaquetes();
         matrizVacia = true;
-        manejoPaquetes = manejadorPaquetes;
-        verificadorEventos = new VerificadorEventos(this);
-        deserializador = new Deserializador(verificadorEventos);
     }
 
     public void suscribirObservador(ObservadorJuego observador) {
@@ -108,15 +102,6 @@ public class ModeloJuego
 
     private void enviarPaqueteATodos(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
         manejoPaquetes.enviarPaqueteDTO(paquete);
-    }
-
-    @Override
-    public void revisarPaqueteRecibido(PaqueteDTO paquete) {
-        try {
-            deserializador.deserializarPaquete(paquete);
-        } catch (PaqueteVacioAlDeserializarException ex) {
-            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
