@@ -10,9 +10,7 @@ import Enums.ColorJugador;
 import Enums.ImagenJugador;
 import estructurasDatos.ListaCuadros;
 import eventos.NuevoJugadorEvent;
-import eventos.VerificadorEventos;
 import excepciones.ErrorAlEnviarPaqueteException;
-import excepciones.PaqueteVacioAlDeserializarException;
 import excepciones.PaqueteVacioAlSerializarException;
 import interfaces.MediadorEventos;
 import java.util.logging.Level;
@@ -20,7 +18,6 @@ import java.util.logging.Logger;
 import manejadores.ManejoEnvioPaquetes;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
-import serializador.Deserializador;
 import serializador.Serializador;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.IModeloJuegoInicio;
@@ -50,9 +47,6 @@ public class ModeloJuego
     private ManejoEnvioPaquetes manejoPaquetes;
     private ManejadorTurnos manejoTurnos;
     private ManejadorPuntajes manejoPuntajes;
-    private VerificadorEventos verificadorEventos;
-    private Serializador serializador;
-    private Deserializador deserializador;
     private ListaJugadores listaJugadores;
     private EstadoJuego estadoJuego;
     private Jugador jugadorLocal;
@@ -70,7 +64,6 @@ public class ModeloJuego
         direccionLocal = new DireccionDTO(
                 Configuracion.get("local.host"),
                 Configuracion.getInt("local.port"));
-        serializador = new Serializador();
         manejoPaquetes = new ManejoEnvioPaquetes();
         matrizVacia = true;
     }
@@ -83,10 +76,8 @@ public class ModeloJuego
      * INICIO METODOS PARA FLUJO DE ENVIO Y RECEPCION DE PAQUETES
      */
     public void conectarseAServidor() {
-        PaqueteDTO paquete;
         try {
-            paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
-            enviarPaqueteA(paquete, new DireccionDTO(
+            manejoPaquetes.conectarseAServidor(direccionLocal, new DireccionDTO(
                     Configuracion.get("server.host"),
                     Configuracion.getInt("server.port")));
         } catch (PaqueteVacioAlSerializarException ex) {
@@ -94,14 +85,6 @@ public class ModeloJuego
         } catch (ErrorAlEnviarPaqueteException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void enviarPaqueteA(PaqueteDTO paquete, DireccionDTO direccion) throws ErrorAlEnviarPaqueteException {
-        manejoPaquetes.enviarPaqueteDireccion(paquete, direccion);
-    }
-
-    private void enviarPaqueteATodos(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
-        manejoPaquetes.enviarPaqueteDTO(paquete);
     }
 
     /**
@@ -199,10 +182,8 @@ public class ModeloJuego
 
     private void transmitirNuevaJugada(Linea linea) {
         LineaPintadaEvent lpEvent = new LineaPintadaEvent(linea);
-        PaqueteDTO paquete;
         try {
-            paquete = serializador.serializarLineaPintadaEvent("nuevaLineaPintada", lpEvent);
-            enviarPaqueteATodos(paquete);
+            manejoPaquetes.transmitirNuevaJugada(lpEvent);
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {
@@ -226,10 +207,9 @@ public class ModeloJuego
      */
     @Override
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
-        PaqueteDTO paquete;
+        
         try {
-            paquete = serializador.serializarDireccionAPaquete("solicitudInfoJugador", direccionLocal);
-            enviarPaqueteA(paquete, direccion);
+            manejoPaquetes.solicitarInfoNuevoJugador(direccionLocal, direccion);
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {
@@ -241,10 +221,9 @@ public class ModeloJuego
     public void transmitirInfoANuevoJugador(DireccionDTO direccion) {
         Jugador j = jugadorLocal;
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(jugadorLocal, direccionLocal);
-        PaqueteDTO paquete;
+        
         try {
-            paquete = serializador.serializarNuevoJugadorEvent("nuevaInfoJugador", njEvent);
-            enviarPaqueteA(paquete, direccion);
+            manejoPaquetes.transmitirInfoANuevoJugador(direccion, njEvent);
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {
@@ -302,11 +281,9 @@ public class ModeloJuego
     }
     
     private void transmitirCambioDatosJugador(String nombreNuevo, ImagenJugador imagenNueva, ColorJugador colorNuevo) {
-        PaqueteDTO paquete;
         CambioJugadorEvent cjEvent = new CambioJugadorEvent(jugadorLocal, nombreNuevo, imagenNueva, colorNuevo);
         try {
-            paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
-            enviarPaqueteATodos(paquete);
+            manejoPaquetes.transmitirCambioDatosJugador(cjEvent);
         } catch (PaqueteVacioAlSerializarException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ErrorAlEnviarPaqueteException ex) {

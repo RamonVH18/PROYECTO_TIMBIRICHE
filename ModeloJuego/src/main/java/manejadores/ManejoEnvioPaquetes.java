@@ -8,11 +8,16 @@ import DTOs.DireccionDTO;
 import DTOs.EnvioDTO;
 import DTOs.PaqueteDTO;
 import envio.DispatcherFactory;
+import eventos.CambioJugadorEvent;
+import eventos.LineaPintadaEvent;
+import eventos.NuevoJugadorEvent;
 import excepciones.ErrorAlEnviarPaqueteException;
+import excepciones.PaqueteVacioAlSerializarException;
 import interfaz.IEmisor;
 
 import java.util.HashMap;
 import java.util.Map;
+import serializador.Serializador;
 
 /**
  *
@@ -22,10 +27,12 @@ public class ManejoEnvioPaquetes {
 
     private final IEmisor emisor;
     private final Map<String, DireccionDTO> direcciones;
+    private final Serializador serializador;
 
     public ManejoEnvioPaquetes() {
         emisor = DispatcherFactory.createDispatcher();
         direcciones = new HashMap<>();
+        serializador = new Serializador();
     }
 
     public boolean cambiarClaveDireccionJugador(String antiguoNombreJugador, String nuevoNombreJugador) {
@@ -46,7 +53,7 @@ public class ManejoEnvioPaquetes {
         return true;
     }
 
-    public boolean enviarPaqueteDTO(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
+    private boolean enviarPaqueteDTO(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
         for (Map.Entry<String, DireccionDTO> entrada : direcciones.entrySet()) {
             String nombreJugador = entrada.getKey();
             DireccionDTO direccion = entrada.getValue();
@@ -59,7 +66,7 @@ public class ManejoEnvioPaquetes {
         return true;
     }
 
-    public boolean enviarPaqueteDireccion(PaqueteDTO paquete, DireccionDTO direccion)
+    private boolean enviarPaqueteDireccion(PaqueteDTO paquete, DireccionDTO direccion)
             throws ErrorAlEnviarPaqueteException {
         try {
             emisor.enviarPaquete(new EnvioDTO(direccion.getHost(), direccion.getPort(), paquete));
@@ -72,5 +79,30 @@ public class ManejoEnvioPaquetes {
     public boolean isDireccionRegistrada(DireccionDTO direccion) {
         return direcciones.containsValue(direccion);
     }
-
+    
+    
+    public void conectarseAServidor(DireccionDTO direccionLocal, DireccionDTO direccionServidor) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
+        enviarPaqueteDireccion(paquete, direccionServidor);
+    }
+    
+    public void transmitirNuevaJugada(LineaPintadaEvent lpEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarLineaPintadaEvent("nuevaLineaPintada", lpEvent);
+        enviarPaqueteDTO(paquete);
+    }
+    
+    public void solicitarInfoNuevoJugador(DireccionDTO direccionLocal, DireccionDTO direccionJugador) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarDireccionAPaquete("solicitudInfoJugador", direccionLocal);
+        enviarPaqueteDireccion(paquete, direccionJugador);
+    }
+    
+    public void transmitirInfoANuevoJugador(DireccionDTO direccionJugador, NuevoJugadorEvent njEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarNuevoJugadorEvent("nuevaInfoJugador", njEvent);
+        enviarPaqueteDireccion(paquete, direccionJugador);
+    }
+    
+    public void transmitirCambioDatosJugador(CambioJugadorEvent cjEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
+        enviarPaqueteDTO(paquete);
+    }
 }
