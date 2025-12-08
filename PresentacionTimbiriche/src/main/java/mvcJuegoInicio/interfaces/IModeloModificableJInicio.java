@@ -4,10 +4,21 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import enums.ObserverType;
+import enums.TamañosTablero;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloModificableJInicio {
+    
+    public void crearPartida(String nombrePartida, int numJugadores, TamañosTablero tamaño);
+    
+    public void añadirObserver(IVista v, ObserverType tipo);
+    
+    public void mostrarPantalla(ObserverType tipo);
+    
+    public void ocultarPantalla(ObserverType tipo);
     
 }

@@ -15,7 +15,7 @@ import Enums.TamañoTablero;
  */
 public class EstadoJuego {
     
-
+    private String nombrePartida;
     private int numJugadores;
     private TamañoTablero tamañoTablero;
     private MatrizPuntos matriz;
@@ -23,6 +23,30 @@ public class EstadoJuego {
     private ListaCuadros cuadros;
     
     public EstadoJuego() {
+    }
+
+    public String getNombrePartida() {
+        return nombrePartida;
+    }
+
+    public void setNombrePartida(String nombrePartida) {
+        this.nombrePartida = nombrePartida;
+    }
+
+    public int getNumJugadores() {
+        return numJugadores;
+    }
+
+    public void setNumJugadores(int numJugadores) {
+        this.numJugadores = numJugadores;
+    }
+
+    public TamañoTablero getTamañoTablero() {
+        return tamañoTablero;
+    }
+
+    public void setTamañoTablero(TamañoTablero tamañoTablero) {
+        this.tamañoTablero = tamañoTablero;
     }
     
     public MatrizPuntos getMatriz() {

@@ -6,6 +6,8 @@ package interfaces;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
+import Enums.TamañoTablero;
+import excepciones.DatosIncompletosPartidaException;
 import excepciones.DatosJugadorInvalidosException;
 
 /**
@@ -18,4 +20,6 @@ public interface IModeloJuegoInicio {
     
     public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) throws DatosJugadorInvalidosException;
 
+    public void crearPartida(String nombrePartida, int numJugadores, TamañoTablero tamaño) throws DatosIncompletosPartidaException;
+    
 }

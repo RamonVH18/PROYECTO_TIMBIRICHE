@@ -28,6 +28,7 @@ import java.util.List;
 import manejadores.ManejadorTurnos;
 import Enums.TamañoTablero;
 import eventos.CambioJugadorEvent;
+import excepciones.DatosIncompletosPartidaException;
 import excepciones.DatosJugadorInvalidosException;
 import interfaces.ObservadorJuego;
 import manejadores.ManejadorPuntajes;
@@ -289,6 +290,31 @@ public class ModeloJuego
         } catch (ErrorAlEnviarPaqueteException ex) {
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void crearPartida(String nombrePartida, int numJugadores, TamañoTablero tamaño) throws DatosIncompletosPartidaException {
+        // Validar datos
+        if (nombrePartida == null || nombrePartida.isBlank()
+                || tamaño == null
+                || numJugadores < 2) {
+            throw new DatosIncompletosPartidaException("Datos incompletos");
+        }
+        
+        // Guardar datos en estado de juego
+        estadoJuego.setNombrePartida(nombrePartida);
+        estadoJuego.setNumJugadores(numJugadores);
+        estadoJuego.setTamañoTablero(tamaño);
+        
+        // Generar tablero
+        crearMatriz(tamaño);
+        matrizVacia = false;
+        
+        // Imprimir para pruebas
+        System.out.println("=== Partida Creada ===");
+        System.out.println("Nombre: " + nombrePartida);
+        System.out.println("Jugadores: " + numJugadores);
+        System.out.println("Tamaño: " + tamaño);
     }
 
 }
