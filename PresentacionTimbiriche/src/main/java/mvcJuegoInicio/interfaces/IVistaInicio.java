@@ -8,10 +8,10 @@ package mvcJuegoInicio.interfaces;
  *
  * @author Ramon Valencia
  */
-public interface IVista {
+public interface IVistaInicio {
     
-    public void actualizar();
-    
-    public void mostrar();
+//    public void actualizar();
+//    
+//    public void mostrar();
     
 }

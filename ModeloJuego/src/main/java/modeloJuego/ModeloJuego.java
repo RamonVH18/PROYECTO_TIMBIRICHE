@@ -310,6 +310,15 @@ public class ModeloJuego
         crearMatriz(tamaño);
         matrizVacia = false;
         
+        // Mandarlo al servidor
+        try {
+            DireccionDTO direccionServer = new DireccionDTO(Configuracion.get("server.host"), Configuracion.getInt("server.port"));
+            manejoPaquetes.registrarPartidaEnServidor(nombrePartida, numJugadores, direccionLocal, direccionServer);
+            System.out.println("La partida se registro en el servidor");
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        
         // Imprimir para pruebas
         System.out.println("=== Partida Creada ===");
         System.out.println("Nombre: " + nombrePartida);

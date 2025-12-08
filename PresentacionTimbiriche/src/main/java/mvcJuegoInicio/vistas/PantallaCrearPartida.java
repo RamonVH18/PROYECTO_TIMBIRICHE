@@ -7,9 +7,9 @@ package mvcJuegoInicio.vistas;
 import Enums.TamañoTablero;
 import enums.ObserverType;
 import enums.TamañosTablero;
+import mvcJuegoIniciado.interfaces.IVista;
 import mvcJuegoIniciado.vistas.PantallaInicio;
 import mvcJuegoInicio.interfaces.IControlJuegoInicio;
-import mvcJuegoInicio.interfaces.IVista;
 
 /**
  *
@@ -190,7 +190,6 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
         TamañosTablero tamaño = tablero.equals("Sin seleccionar") ? null : TamañosTablero.valueOf(tablero);
         
         control.crearPartida(nombrePartida, numJugadores, tamaño);
-        
     }
     
     private void atras() {

@@ -4,17 +4,42 @@
  */
 package mvcJuegoInicio.vistas;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoIniciado.vistas.TableroJuego;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
+
 /**
  *
  * @author multaslokas33
  */
-public class PantallaLobby extends javax.swing.JFrame {
+public class PantallaLobby extends JFrame implements IVista {
+    private final IModeloLeibleJInicio modelo;
+    private final IControlJuegoInicio control;
+    private TableroJuego tablero;
+    
+    private JLabel lblTitulo;
+    private JLabel lblEstadoJugadores;
+    private JPanel panelJugadores;
 
     /**
      * Creates new form PantallaLobby
      */
-    public PantallaLobby() {
-        initComponents();
+    public PantallaLobby(IModeloLeibleJInicio modelo, IControlJuegoInicio control, TableroJuego tablero) {
+        this.modelo = modelo;
+        this.control = control;
+        this.tablero = tablero;
+        inicializar();
     }
 
     /**
@@ -41,6 +66,68 @@ public class PantallaLobby extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void inicializar() {
+        setTitle("Timbiriche - Lobby");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLayout(new BorderLayout());
+        
+        // Panel superior
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setBackground(new Color(40, 40, 40));
+        panelSuperior.setPreferredSize(new Dimension(100, 70));
+        
+        lblTitulo = new JLabel("Esperando jugadores...");
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        panelSuperior.add(lblTitulo);
+        
+        add(panelSuperior, BorderLayout.NORTH);
+        
+        // Tablero
+        JPanel contenedorTablero = new JPanel(new BorderLayout());
+        contenedorTablero.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        JScrollPane scroll = new JScrollPane(tablero);
+        scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        contenedorTablero.add(scroll, BorderLayout.CENTER);
+        
+        // Panel inferior (info de los jugadores)
+        JPanel panelInferior = new JPanel();
+        panelInferior.setBackground(Color.WHITE);
+        panelInferior.setLayout(new BoxLayout(panelInferior, BoxLayout.Y_AXIS));
+        panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        lblEstadoJugadores = new JLabel("Jugadores conectados:");
+        lblEstadoJugadores.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        panelInferior.add(lblEstadoJugadores);
+        
+        panelJugadores = new JPanel();
+        panelJugadores.setLayout(new BoxLayout(panelJugadores, BoxLayout.Y_AXIS));
+        panelJugadores.setBackground(Color.WHITE);
+        
+        // datos de ejemplo
+        panelJugadores.add(new JLabel("Jugador 1 (ximegaymer)"));
+        panelJugadores.add(new JLabel("Jugador 2 (esperando...)"));
+
+        panelInferior.add(panelJugadores);
+
+        add(panelInferior, BorderLayout.SOUTH);
+
+        pack();
+    }
+    
+    @Override
+    public void actualizar() {
+        repaint();
+        revalidate();
+    }
+
+    @Override
+    public void mostrar() {
+        setVisible(true);
+    }
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,7 @@ package mvcJuegoInicio.interfaces;
 
 import enums.ObserverType;
 import enums.TamañosTablero;
+import mvcJuegoIniciado.interfaces.IVista;
 
 /**
  *

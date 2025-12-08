@@ -105,4 +105,12 @@ public class ManejoEnvioPaquetes {
         PaqueteDTO paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
         enviarPaqueteDTO(paquete);
     }
+    
+    public void registrarPartidaEnServidor(String nombrePartida, int numJugadores, DireccionDTO direccionLocal, DireccionDTO direccionServidor) 
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        
+        PaqueteDTO paquete = serializador.serializarPartidaAPaquete("registroPartida", nombrePartida, numJugadores, direccionLocal);
+        
+        enviarPaqueteDireccion(paquete, direccionServidor);
+    }
 }

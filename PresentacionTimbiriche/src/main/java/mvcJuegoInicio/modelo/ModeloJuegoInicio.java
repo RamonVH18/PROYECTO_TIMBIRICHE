@@ -12,9 +12,9 @@ import gestion.ManejadorObservers;
 import interfaces.IModeloJuegoInicio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mvcJuegoIniciado.interfaces.IVista;
 import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
-import mvcJuegoInicio.interfaces.IVista;
 
 /**
  *
@@ -78,8 +78,8 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     }
 
     @Override
-    public void añadirObserver(mvcJuegoInicio.interfaces.IVista v, ObserverType tipo) {
-        manejoObservers.agregarObserver(tipo, (mvcJuegoIniciado.interfaces.IVista) v);
+    public void añadirObserver(IVista v, ObserverType tipo) {
+        manejoObservers.agregarObserver(tipo, v);
     }
     
 }

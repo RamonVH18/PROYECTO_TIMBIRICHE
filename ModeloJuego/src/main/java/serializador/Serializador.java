@@ -117,5 +117,15 @@ public class Serializador {
         }
         return true;
     }
+    
+    public PaqueteDTO serializarPartidaAPaquete(String tipoPaquete, String nombrePartida, int numJugadores, DireccionDTO host) throws PaqueteVacioAlSerializarException {
+        JsonObject jsonPartida = new JsonObject();
+        jsonPartida.addProperty("nombrePartida", nombrePartida);
+        jsonPartida.addProperty("numJugadores", numJugadores);
+        
+        jsonPartida.add("host", serializarDireccion(host));
+
+        return new PaqueteDTO(tipoPaquete, jsonPartida);
+    }
 
 }

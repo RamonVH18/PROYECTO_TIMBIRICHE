@@ -58,6 +58,9 @@ public class ServidorDirectorio {
                             enviarDireccionesAPeerNuevo(direccion);
                         }
                     }
+                    if (esRegistroPartida(mensaje)) {
+                        System.out.println("Partida registrada.");
+                    }
                 }
             }
         } catch (IOException e) {
@@ -112,6 +115,11 @@ public class ServidorDirectorio {
                     "No se encontro el peer con el host " + direccionNueva.getHost() + " en el puerto "
                             + direccionNueva.getPort());
         }
+    }
+    
+    private boolean esRegistroPartida(String mensaje) {
+        PaqueteDTO paquete = Serializador.deserializar(mensaje);
+        return "registroPartida".equals(paquete.getTipoPaquete());
     }
 
 }
