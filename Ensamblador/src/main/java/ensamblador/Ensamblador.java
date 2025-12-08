@@ -5,6 +5,7 @@ package ensamblador;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
+import Enums.TamañoTablero;
 import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
@@ -109,7 +110,6 @@ public class Ensamblador {
 
 
         pantallaCrear.setVisible(true);
-        modeloJuego.empezarJuego();
         // Nota: modeloJuego.empezarJuego() ya NO se llama aquí.
         // Se llamará internamente cuando la partida realmente se cree y validemos los jugadores.
         
@@ -130,4 +130,5 @@ public class Ensamblador {
 //        control.mostrarVista(ObserverType.PANTALLA_JUEGO);
 //        modeloJuego.empezarJuego();
     }
+    
 }

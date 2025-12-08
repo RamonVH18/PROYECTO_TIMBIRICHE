@@ -325,5 +325,9 @@ public class ModeloJuego
         System.out.println("Jugadores: " + numJugadores);
         System.out.println("Tamaño: " + tamaño);
     }
+    
+    public TamañoTablero obtenerTamañoTablero() {
+        return estadoJuego.getTamañoTablero();
+    }
 
 }

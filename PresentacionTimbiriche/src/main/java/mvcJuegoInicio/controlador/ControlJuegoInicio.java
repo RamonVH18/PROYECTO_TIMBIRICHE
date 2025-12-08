@@ -42,7 +42,7 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
         modelo.crearPartida(nombrePartida, numJugadores, tamaño);
 
         // Notificar que se debe mostrar pantalla de juego
-        modelo.mostrarPantalla(ObserverType.PANTALLA_JUEGO);
+        modelo.mostrarPantalla(ObserverType.PANTALLA_LOBBY);
                 
     }
 

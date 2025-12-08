@@ -6,6 +6,8 @@ package directorio;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
+import com.google.gson.JsonObject;
 import excepciones.ErrorRecibirMensajesExcepction;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,11 +28,15 @@ public class ServidorDirectorio {
     List<DireccionDTO> direcciones;
     private final int port;
     private boolean finalizarProceso;
+    
+    private final List<PartidaDTO> partidasRegistradas;
 
     public ServidorDirectorio(int port) {
         this.direcciones = new ArrayList<>();
         this.port = port;
         finalizarProceso = false;
+        
+        this.partidasRegistradas = new ArrayList<>();
     }
 
     public void iniciarServidor() throws ErrorRecibirMensajesExcepction {
@@ -59,7 +65,9 @@ public class ServidorDirectorio {
                         }
                     }
                     if (esRegistroPartida(mensaje)) {
-                        System.out.println("Partida registrada.");
+                        PartidaDTO partida = obtenerPartidaDelMensaje(mensaje);
+                        registrarPartida(partida);
+                        System.out.println("Partida registrada: " + partida.getNombrePartida());
                     }
                 }
             }
@@ -120,6 +128,35 @@ public class ServidorDirectorio {
     private boolean esRegistroPartida(String mensaje) {
         PaqueteDTO paquete = Serializador.deserializar(mensaje);
         return "registroPartida".equals(paquete.getTipoPaquete());
+    }
+    
+    // Deserializa la partida que llega en el servidor
+    private PartidaDTO obtenerPartidaDelMensaje(String mensaje) {
+        PaqueteDTO paquete = Serializador.deserializar(mensaje);
+        JsonObject json = paquete.getMensaje().getAsJsonObject(mensaje);
+        
+        String nombre = json.get("nombrePartida").getAsString();
+        int numJugadores = json.get("numJugadores").getAsInt();
+        
+        DireccionDTO host = Serializador.deserializarDireccion((JsonObject) json.get("host"));
+        
+        String tamaño = json.has("tamañoTablero") ? json.get("tamañoTablero").getAsString() : null;
+        
+        return new PartidaDTO(nombre, numJugadores, host, tamaño);
+    }
+    
+    // Registra la partida en el servidor
+    private void registrarPartida(PartidaDTO partida) {
+        boolean yaExiste = partidasRegistradas.stream()
+                .anyMatch(p -> p.getNombrePartida().equals(partida.getNombrePartida()));
+        
+        if (yaExiste) {
+            System.out.println("Partida ya registrada.");
+            return;
+        }
+        
+        partidasRegistradas.add(partida);
+        System.out.println("Partida agregada al servidor.");
     }
 
 }
