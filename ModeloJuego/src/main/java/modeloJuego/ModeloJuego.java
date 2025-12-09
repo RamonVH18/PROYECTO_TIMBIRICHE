@@ -27,6 +27,7 @@ import manejadores.ManejadorTurnos;
 import Enums.TamañoTablero;
 import eventos.CambioJugadorEvent;
 import excepciones.DatosJugadorInvalidosException;
+import interfaces.ObservadorInicio;
 import interfaces.ObservadorJuego;
 import manejadores.ManejadorPuntajes;
 import objetosModeloJuego.Cuadro;
@@ -49,7 +50,8 @@ public class ModeloJuego
     private EstadoJuego estadoJuego;
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
-    private ObservadorJuego observador;
+    private ObservadorJuego observadorJuego;
+    private ObservadorInicio observadorInicio;
     private boolean matrizVacia;
 
     public ModeloJuego() {
@@ -66,8 +68,12 @@ public class ModeloJuego
         matrizVacia = true;
     }
 
-    public void suscribirObservador(ObservadorJuego observador) {
-        this.observador = observador;
+    public void suscribirObservadorJuego(ObservadorJuego observador) {
+        this.observadorJuego = observador;
+    }
+    
+    public void suscribirObservadorInicio(ObservadorInicio observador) {
+        this.observadorInicio = observador;
     }
 
     /**
@@ -95,7 +101,7 @@ public class ModeloJuego
         manejoTurnos.crearTurnos();
         manejoPuntajes.crearPuntajes(listaJugadores.obtenerJugadores());
         manejoTurnos.iniciarTurno();
-        observador.cambiarTurno(
+        observadorJuego.cambiarTurno(
                 manejoTurnos.esMiTurno(jugadorLocal));
     }
 
@@ -175,7 +181,7 @@ public class ModeloJuego
     }
 
     public void notificarCambioTurno() {
-        observador.cambiarTurno(
+        observadorJuego.cambiarTurno(
                 manejoTurnos.esMiTurno(jugadorLocal));
     }
 

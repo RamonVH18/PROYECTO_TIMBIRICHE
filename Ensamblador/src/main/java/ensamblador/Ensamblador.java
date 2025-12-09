@@ -3,25 +3,16 @@
  */
 package ensamblador;
 
-import Enums.ColorJugador;
-import Enums.ImagenJugador;
 import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
-import manejadores.ManejoEnvioPaquetes;
 import modeloJuego.ModeloJuego;
-import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
-import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
-import mvcJuegoIniciado.vistas.PantallaDeJuego;
-import mvcJuegoIniciado.vistas.TableroJuego;
-import enums.TamañosTablero;
 import eventos.VerificadorEventos;
-import excepciones.DatosJugadorInvalidosException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
-import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoInicio.controlador.ControlJuegoInicio;
 import mvcJuegoInicio.modelo.ModeloJuegoInicio;
+import mvcJuegoInicio.vistas.PantallaRegistrarJugador;
+import mvcJuegoInicio.vistas.PantallaSeleccionImagen;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -70,26 +61,19 @@ public class Ensamblador {
         manejoRecepcionPaquetes = new ManejoRecepcionPaquetes(deserializador);
         iniciarComponenteRed();
 
-        modeloJuego.conectarseAServidor();
+//        modeloJuego.conectarseAServidor();
     }
 
     public static void iniciarPresentacion() {
         iniciarModelo();
         ModeloJuegoInicio modeloInicio = new ModeloJuegoInicio(modeloJuego);
-        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
-        modeloJuego.suscribirObservador(modelo);
-        ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
-        TableroJuego tablero = new TableroJuego(modelo, control);
-        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
-        
-        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
+        modeloJuego.suscribirObservadorInicio(modeloInicio);
+        ControlJuegoInicio control = new ControlJuegoInicio(modeloInicio);
+        PantallaRegistrarJugador registarJugador = new PantallaRegistrarJugador(modeloInicio, control);
+        PantallaSeleccionImagen seleccionImagen = new PantallaSeleccionImagen(registarJugador, modeloInicio, control);
+        modeloInicio.añadirObserver(registarJugador, ObserverType.REGISTRAR_JUGADOR);
+        modeloInicio.añadirObserver(seleccionImagen, ObserverType.SELECCION_IMAGEN);
 
-        modelo.añadirObserver(tablero, ObserverType.TABLERO);
-        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
-        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLAS);
-        modelo.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
-
-        control.mostrarVista(ObserverType.PANTALLA_JUEGO);
-        modeloJuego.empezarJuego();
+        control.mostrarVista(ObserverType.REGISTRAR_JUGADOR);
     }
 }

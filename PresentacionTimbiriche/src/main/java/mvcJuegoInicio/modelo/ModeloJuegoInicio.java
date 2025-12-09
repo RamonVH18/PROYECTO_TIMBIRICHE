@@ -12,8 +12,9 @@ import static enums.ObserverType.SELECCION_IMAGEN;
 import excepciones.DatosJugadorInvalidosException;
 import gestion.ManejadorObservers;
 import interfaces.IModeloJuegoInicio;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import interfaces.ObservadorInicio;
+import javax.swing.JOptionPane;
+import mvcJuegoIniciado.interfaces.IVista;
 import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
 
@@ -21,7 +22,7 @@ import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
  *
  * @author Ramon Valencia
  */
-public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificableJInicio {
+public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificableJInicio, ObservadorInicio{
 
     private IModeloJuegoInicio modelo;
     private ImagenJugador imagenAlmacenada;
@@ -49,21 +50,20 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     @Override
     public void almacenarImagenYColorJugador(ImagenJugador imagen, ColorJugador color) {
-        desactivarPantallas(ObserverType.SELECCION_IMAGEN);
         this.imagenAlmacenada = imagen;
         this.colorAlmacenado = color;
-        mostrarVista(ObserverType.SELECCION_IMAGEN);
+        ocultarVista(ObserverType.SELECCION_IMAGEN);
+        manejadorObservers.notificar(ObserverType.REGISTRAR_JUGADOR);
     }
 
     @Override
-    public boolean registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color) {
+    public void registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color) {
         try {
             modelo.guardarInformacionJugador(nombre, imagen, color);
-            return true;
+            ocultarVista(REGISTRAR_JUGADOR);
         } catch (DatosJugadorInvalidosException ex) {
-            Logger.getLogger(ModeloJuegoInicio.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return false;
     }
 
     @Override
@@ -108,5 +108,17 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     @Override
     public boolean isMostrandoPantallaSeleccionarImagen() {
         return mostrandoPantallaSeleccionImagen;
+    }
+    
+    public void añadirObserver(IVista v, ObserverType tipo) {
+        manejadorObservers.agregarObserver(tipo, v);
+    }
+
+    public void eliminarObserver(IVista v, ObserverType tipo) {
+        manejadorObservers.agregarObserver(tipo, v);
+    }
+
+    public void notificar(ObserverType tipo) {
+        manejadorObservers.notificar(tipo);
     }
 }

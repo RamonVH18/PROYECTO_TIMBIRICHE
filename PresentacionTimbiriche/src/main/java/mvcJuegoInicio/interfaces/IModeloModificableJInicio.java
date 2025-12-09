@@ -16,7 +16,7 @@ public interface IModeloModificableJInicio {
     
     public void almacenarImagenYColorJugador(ImagenJugador imagen, ColorJugador color);
     
-    public boolean registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color);
+    public void registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color);
     
     public void mostrarVista(ObserverType tipo);
     
