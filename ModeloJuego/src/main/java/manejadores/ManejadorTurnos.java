@@ -5,7 +5,7 @@
 package manejadores;
 
 import estructurasDatos.ListaJugadores;
-import java.util.Comparator;
+import java.util.List;
 import objetosModeloJuego.Jugador;
 
 /**
@@ -44,7 +44,12 @@ public class ManejadorTurnos {
     }
     
     public void crearTurnos() {
-        listaJugadores.obtenerJugadores().sort(Comparator.comparing(j -> j.getIdJugador()));
-    
+        
+        List<Jugador> jugadores = listaJugadores.obtenerJugadores();//.sort(Comparator.comparing(j -> j.getIdJugador()));
+        int conta = 1;
+        for (Jugador j : jugadores) {
+            j.asignarIdJugador(String.valueOf(conta));
+            conta++;
+        }
     }
 }

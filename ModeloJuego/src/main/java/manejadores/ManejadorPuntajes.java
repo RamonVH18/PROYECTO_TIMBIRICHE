@@ -6,8 +6,8 @@ package manejadores;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Puntaje;
 
 
@@ -18,8 +18,12 @@ import objetosModeloJuego.Puntaje;
 public class ManejadorPuntajes {
     private List<Puntaje> puntajes = new ArrayList<>();
     
-    public void agregarNuevoPuntaje(Puntaje p) {
-        this.puntajes.add(p);
+    public void crearPuntajes(List<Jugador> jugadores) {
+        for (Jugador j: jugadores) {
+            puntajes.add(
+                    new Puntaje(j.getIdJugador())
+            );
+        }
     }
     
     public List<Puntaje> mostrarPuntajes() {

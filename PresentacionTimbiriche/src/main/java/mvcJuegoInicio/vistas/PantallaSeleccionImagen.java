@@ -20,6 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import utils.ColorConverter;
 import utils.GeneradorImagen;
 
@@ -27,18 +30,22 @@ import utils.GeneradorImagen;
  *
  * @author Ramon Valencia
  */
-public class PantallaSeleccionImagen extends JDialog {
+public class PantallaSeleccionImagen extends JDialog implements IVista {
+    
+    private IModeloLeibleJInicio modelo;
+    private IControlJuegoInicio control;
+    private ImagenJugador imagenSeleccionada;
+    private ColorJugador colorSeleccionado;
 
-    ImagenJugador imagenSeleccionada;
-    ColorJugador colorSeleccionado;
-
-    public PantallaSeleccionImagen(JFrame parent) {
+    public PantallaSeleccionImagen(JFrame parent, IModeloLeibleJInicio modelo, IControlJuegoInicio control) {
 
         super(parent, "Mi Diálogo Personalizado", true);
-
+        
         imagenSeleccionada = null;
         colorSeleccionado = null;
-
+        this.modelo = modelo;
+        this.control = control;
+        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(5, 0));
 
@@ -95,5 +102,15 @@ public class PantallaSeleccionImagen extends JDialog {
             });
             panelColores.add(cuadradoColor);
         }
+    }
+
+    @Override
+    public void actualizar() {
+        
+    }
+
+    @Override
+    public void mostrar() {
+        this.setVisible(modelo.isMostrandoPantallaRegistrarJugador());
     }
 }

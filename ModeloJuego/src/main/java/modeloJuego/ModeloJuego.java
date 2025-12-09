@@ -5,7 +5,6 @@ package modeloJuego;
 
 import estructurasDatos.ListaJugadores;
 import DTOs.DireccionDTO;
-import DTOs.PaqueteDTO;
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
 import estructurasDatos.ListaCuadros;
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
 import manejadores.ManejoEnvioPaquetes;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
-import serializador.Serializador;
 import interfaces.IModeloJuegoIniciado;
 import interfaces.IModeloJuegoInicio;
 import estructurasDatos.ListaLineas;
@@ -95,6 +93,7 @@ public class ModeloJuego
      */
     public void empezarJuego() {
         manejoTurnos.crearTurnos();
+        manejoPuntajes.crearPuntajes(listaJugadores.obtenerJugadores());
         manejoTurnos.iniciarTurno();
         observador.cambiarTurno(
                 manejoTurnos.esMiTurno(jugadorLocal));
@@ -243,9 +242,6 @@ public class ModeloJuego
         if (!manejoPaquetes.isDireccionRegistrada(direccion)) {
             manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
             listaJugadores.agregarJugador(jugador);
-            manejoPuntajes.agregarNuevoPuntaje(
-                    new Puntaje(jugador.getIdJugador())
-            );
             transmitirInfoANuevoJugador(direccion);
         }
     }
@@ -259,14 +255,11 @@ public class ModeloJuego
      */
     
     @Override
-    public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador,
+    public void guardarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador,
             ColorJugador colorJugador) throws DatosJugadorInvalidosException{
         ValidacionesJugador.validarCreacionJugador(nombreJugador, imagenJugador, colorJugador);
-        jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
+        jugadorLocal = new Jugador( nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
-        manejoPuntajes.agregarNuevoPuntaje(
-                new Puntaje(idJugador)
-        );
     }
     
     @Override

@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
 import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoInicio.modelo.ModeloJuegoInicio;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -70,25 +71,17 @@ public class Ensamblador {
         iniciarComponenteRed();
 
         modeloJuego.conectarseAServidor();
-        try {
-            modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.GOLDEN, ColorJugador.AZUL);
-//        modeloJuego.registrarNuevoJugador(
-//                new Jugador("2", "Pollo Jalado", "2", "rojo"),
-//                new DireccionDTO("192.168.1.70", 5000)
-//        );
-        } catch (DatosJugadorInvalidosException ex) {
-            Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public static void iniciarPresentacion() {
         iniciarModelo();
+        ModeloJuegoInicio modeloInicio = new ModeloJuegoInicio(modeloJuego);
         ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
         modeloJuego.suscribirObservador(modelo);
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
         MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
-
+        
         PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
 
         modelo.añadirObserver(tablero, ObserverType.TABLERO);

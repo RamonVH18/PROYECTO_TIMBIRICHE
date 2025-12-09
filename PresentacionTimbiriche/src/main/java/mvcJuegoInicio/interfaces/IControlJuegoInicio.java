@@ -4,10 +4,21 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
+import enums.ObserverType;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IControlJuegoInicio {
     
+    public void almacenarImagenYColor(ImagenJugador imagen, ColorJugador color);
+    
+    public void registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color);
+    
+    public void mostrarVista(ObserverType tipo);
+    
+    public void ocultarVista(ObserverType tipo);
 }

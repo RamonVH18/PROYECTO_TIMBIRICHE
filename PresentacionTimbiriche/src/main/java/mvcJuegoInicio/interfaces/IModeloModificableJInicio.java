@@ -4,10 +4,21 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
+import enums.ObserverType;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloModificableJInicio {
     
+    public void almacenarImagenYColorJugador(ImagenJugador imagen, ColorJugador color);
+    
+    public boolean registrarJugador(String nombre, ImagenJugador imagen, ColorJugador color);
+    
+    public void mostrarVista(ObserverType tipo);
+    
+    public void ocultarVista(ObserverType tipo);
 }

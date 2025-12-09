@@ -13,5 +13,7 @@ public enum ObserverType {
     PANTALLA_JUEGO,
     MENU_OPCIONES,
     TABLERO,
+    SELECCION_IMAGEN,
+    REGISTRAR_JUGADOR,
     PANTALLAS
 }

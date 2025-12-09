@@ -6,6 +6,7 @@ package mvcJuegoInicio.vistas;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
+import enums.ObserverType;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -20,6 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import utils.ColorConverter;
 import utils.GeneradorImagen;
 
@@ -27,8 +31,10 @@ import utils.GeneradorImagen;
  *
  * @author Ramon Valencia
  */
-public class PantallaRegistrarJugador extends javax.swing.JFrame {
+public class PantallaRegistrarJugador extends javax.swing.JFrame implements IVista {
     
+    private IModeloLeibleJInicio modelo;
+    private IControlJuegoInicio control;
     private JLabel lblAvatar;
     private JTextField txtNombre;
     private JButton btnAtras;
@@ -36,11 +42,13 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
     
     private ImagenJugador imagenActual = ImagenJugador.STUART; // ejemplo
     private ColorJugador colorActual = ColorJugador.GRIS;
-    
+
     /**
      * Creates new form RegistrarJugador
      */
-    public PantallaRegistrarJugador() {
+    public PantallaRegistrarJugador(IModeloLeibleJInicio modelo, IControlJuegoInicio control) {
+        this.modelo = modelo;
+        this.control = control;
         generarPantallaRegistrarJugador();
     }
 
@@ -69,7 +77,6 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void generarPantallaRegistrarJugador() {
         
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -84,40 +91,43 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
         lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 32));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
         add(lblTitulo, BorderLayout.NORTH);
-
-        // ----- PANEL CENTRAL -----
+        
         JPanel centro = new JPanel();
         centro.setBackground(new Color(240, 240, 240));
         centro.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
         centro.setLayout(new GridBagLayout());
-
+        
         GridBagConstraints c = new GridBagConstraints();
         c.gridy = 0;
-
+        
         generarLabelImagen();
         centro.add(lblAvatar, c);
-
-        // Campo de nombre
+        
         c.gridy++;
         txtNombre = new JTextField();
         txtNombre.setPreferredSize(new Dimension(220, 34));
         txtNombre.setFont(new Font("SansSerif", Font.PLAIN, 18));
         txtNombre.setHorizontalAlignment(JTextField.CENTER);
-
+        
         centro.add(txtNombre, c);
-
+        
         add(centro, BorderLayout.CENTER);
-
-        // ----- BOTONES -----
+        
         JPanel abajo = new JPanel(new BorderLayout());
         abajo.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
+        
         btnAtras = new JButton("Atrás");
         btnContinuar = new JButton("Continuar");
-
+        btnContinuar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                control.registrarJugador(txtNombre.getText(), imagenActual, colorActual);
+            }
+        });
+        
         abajo.add(btnAtras, BorderLayout.WEST);
         abajo.add(btnContinuar, BorderLayout.EAST);
-
+        
         add(abajo, BorderLayout.SOUTH);
     }
     
@@ -129,17 +139,31 @@ public class PantallaRegistrarJugador extends javax.swing.JFrame {
         lblAvatar.setPreferredSize(new Dimension(ancho, alto));
         lblAvatar.setHorizontalAlignment(SwingConstants.CENTER);
         lblAvatar.setIcon(GeneradorImagen.obtenerImagenJugador(imagenActual, ancho, alto));
-        lblAvatar.setBorder(BorderFactory.createLineBorder(ColorConverter.obtenerColorJugador(colorActual), 2, true));
-
+        lblAvatar.setBorder(BorderFactory.createLineBorder(ColorConverter.obtenerColorJugador(colorActual), 10, true));
+        
         lblAvatar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
+                control.mostrarVista(ObserverType.SELECCION_IMAGEN);
             }
         });
     }
+    
+    @Override
+    public void mostrar() {
+        this.setVisible(modelo.isMostrandoPantallaRegistrarJugador());
+        
+    }
+    
+    @Override
+    public void actualizar() {
+        colorActual = modelo.obtenerColorAlmacenado();
+        imagenActual = modelo.obtenerImagenAlmacenada();
+        generarLabelImagen();
+    }
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

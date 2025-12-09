@@ -4,10 +4,20 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
     
+    public ImagenJugador obtenerImagenAlmacenada();
+    
+    public ColorJugador obtenerColorAlmacenado();
+    
+    public boolean isMostrandoPantallaRegistrarJugador();
+    
+    public boolean isMostrandoPantallaSeleccionarImagen();
 }
