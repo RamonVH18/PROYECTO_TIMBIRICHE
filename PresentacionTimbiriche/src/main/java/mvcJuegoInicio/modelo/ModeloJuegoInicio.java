@@ -25,7 +25,8 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     private final ManejadorObservers manejoObservers;
     
     private boolean mostrandoCrearPartida;
-    private boolean mostrandoPantallaLobby;
+    private boolean mostrandoPantallaJuego;
+    private boolean mostrandoPantallaRegistroJugador;
 
     public ModeloJuegoInicio(IModeloJuegoInicio modelo) {
         this.modeloJuego = modelo;
@@ -40,7 +41,7 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         } catch (DatosIncompletosPartidaException ex) {
             Logger.getLogger(ModeloJuegoInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        manejoObservers.notificar(ObserverType.CREAR_PARTIDA);
+        manejoObservers.notificar(ObserverType.PANTALLA_JUEGO);
     }
 
     @Override
@@ -54,8 +55,11 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
             case CREAR_PARTIDA -> {
                 this.mostrandoCrearPartida = true;
             }
-            case PANTALLA_LOBBY -> {
-                this.mostrandoPantallaLobby = true;
+            case PANTALLA_JUEGO -> {
+                this.mostrandoPantallaJuego = true;
+            }
+            case REGISTRAR_JUGADOR -> {
+                this.mostrandoPantallaRegistroJugador = true;
             }
         }
     }
@@ -71,8 +75,11 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
             case CREAR_PARTIDA -> {
                 this.mostrandoCrearPartida = false;
             }
-            case PANTALLA_LOBBY -> {
-                this.mostrandoPantallaLobby = false;
+            case PANTALLA_JUEGO -> {
+                this.mostrandoPantallaJuego = false;
+            }
+            case REGISTRAR_JUGADOR -> {
+                this.mostrandoPantallaRegistroJugador = false;
             }
         }
     }

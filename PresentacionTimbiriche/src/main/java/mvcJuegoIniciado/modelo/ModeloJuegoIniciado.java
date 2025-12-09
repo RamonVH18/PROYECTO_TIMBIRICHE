@@ -37,10 +37,7 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
     private final IModeloJuegoIniciado modeloJuego;
     private PuntoTablero[][] matriz;
     private List<LineaTablero> lineas;
-
-    //
     private List<CuadroTablero> cuadros;
-    //
 
     private final TamañosTablero tamañoTablero;
     private boolean mostrandoPantallaDeJuego;

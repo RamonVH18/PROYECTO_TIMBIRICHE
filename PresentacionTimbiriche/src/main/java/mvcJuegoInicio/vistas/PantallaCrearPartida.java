@@ -167,7 +167,7 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
-        crearPartida();
+        continuar();
     }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
     private void cargarOpciones() {
@@ -198,6 +198,11 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
         inicio.setVisible(true);
         this.dispose();
     }
+    
+    private void continuar() {
+        crearPartida();
+        this.dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
@@ -215,7 +220,7 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
     @Override
     public void actualizar() {
         this.setVisible(false);
-        control.mostrarVista(ObserverType.PANTALLA_JUEGO);
+        // control.mostrarVista(ObserverType.PANTALLA_JUEGO);
     }
 
     @Override

@@ -81,6 +81,27 @@ public class Ensamblador {
             Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static void mostrarPantallaJuego(TamañoTablero tamañoSeleccionado) {
+        // Crear la pantalla de juego cuando se pida mostrarse
+        // TamañoTablero tamModelo = modeloJuego.obtenerTamañoTablero();
+        TamañosTablero tamVista = TamañosTablero.valueOf(tamañoSeleccionado.name());
+        ModeloJuegoIniciado modeloJuegoIniciado = new ModeloJuegoIniciado(tamVista, modeloJuego);
+        modeloJuego.suscribirObservador(modeloJuegoIniciado);
+            
+        ControlJuegoIniciado controlJuego = new ControlJuegoIniciado(modeloJuegoIniciado);
+            
+        TableroJuego tablero = new TableroJuego(modeloJuegoIniciado, controlJuego);
+        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modeloJuegoIniciado, controlJuego);
+        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modeloJuegoIniciado, controlJuego, tablero);
+            
+        modeloJuegoIniciado.añadirObserver(tablero, ObserverType.TABLERO);
+        modeloJuegoIniciado.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
+        modeloJuegoIniciado.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
+            
+        pantallaDeJuego.setVisible(true);
+        
+    }
 
     public static void iniciarPresentacion() {
         iniciarModelo();
@@ -88,32 +109,13 @@ public class Ensamblador {
         mvcJuegoInicio.modelo.ModeloJuegoInicio modeloInicio = new mvcJuegoInicio.modelo.ModeloJuegoInicio(modeloJuego);
         mvcJuegoInicio.controlador.ControlJuegoInicio controlInicio = new mvcJuegoInicio.controlador.ControlJuegoInicio(modeloInicio);
         
-        // Creamos la pantalla que queremos ver primero
+        // Creamos la pantalla que queremos ver primero: Crear partida
         mvcJuegoInicio.vistas.PantallaCrearPartida pantallaCrear = new mvcJuegoInicio.vistas.PantallaCrearPartida(controlInicio);
         
         modeloInicio.añadirObserver(pantallaCrear, ObserverType.CREAR_PARTIDA);
-
-        
-        ModeloJuegoIniciado modeloJuegoIniciado = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
-        modeloJuego.suscribirObservador(modeloJuegoIniciado);
-        
-        ControlJuegoIniciado controlJuego = new ControlJuegoIniciado(modeloJuegoIniciado);
-        TableroJuego tablero = new TableroJuego(modeloJuegoIniciado, controlJuego);
-        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modeloJuegoIniciado, controlJuego);
-        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modeloJuegoIniciado, controlJuego, tablero);
-        modeloJuegoIniciado.añadirObserver(tablero, ObserverType.TABLERO);
-        modeloJuegoIniciado.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
-        modeloJuegoIniciado.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
-        
-
-        modeloInicio.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
-
-
+       
         pantallaCrear.setVisible(true);
-        // Nota: modeloJuego.empezarJuego() ya NO se llama aquí.
-        // Se llamará internamente cuando la partida realmente se cree y validemos los jugadores.
-        
-        
+
 //        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
 //        modeloJuego.suscribirObservador(modelo);
 //        ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);

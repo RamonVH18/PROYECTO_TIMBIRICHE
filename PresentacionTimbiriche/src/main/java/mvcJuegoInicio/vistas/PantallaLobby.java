@@ -68,54 +68,54 @@ public class PantallaLobby extends JFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inicializar() {
-        setTitle("Timbiriche - Lobby");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLayout(new BorderLayout());
-        
-        // Panel superior
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setBackground(new Color(40, 40, 40));
-        panelSuperior.setPreferredSize(new Dimension(100, 70));
-        
-        lblTitulo = new JLabel("Esperando jugadores...");
-        lblTitulo.setForeground(Color.WHITE);
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 26));
-        panelSuperior.add(lblTitulo);
-        
-        add(panelSuperior, BorderLayout.NORTH);
-        
-        // Tablero
-        JPanel contenedorTablero = new JPanel(new BorderLayout());
-        contenedorTablero.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        
-        JScrollPane scroll = new JScrollPane(tablero);
-        scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        contenedorTablero.add(scroll, BorderLayout.CENTER);
-        
-        // Panel inferior (info de los jugadores)
-        JPanel panelInferior = new JPanel();
-        panelInferior.setBackground(Color.WHITE);
-        panelInferior.setLayout(new BoxLayout(panelInferior, BoxLayout.Y_AXIS));
-        panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        lblEstadoJugadores = new JLabel("Jugadores conectados:");
-        lblEstadoJugadores.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        panelInferior.add(lblEstadoJugadores);
-        
-        panelJugadores = new JPanel();
-        panelJugadores.setLayout(new BoxLayout(panelJugadores, BoxLayout.Y_AXIS));
-        panelJugadores.setBackground(Color.WHITE);
-        
-        // datos de ejemplo
-        panelJugadores.add(new JLabel("Jugador 1 (ximegaymer)"));
-        panelJugadores.add(new JLabel("Jugador 2 (esperando...)"));
-
-        panelInferior.add(panelJugadores);
-
-        add(panelInferior, BorderLayout.SOUTH);
-
-        pack();
+//        setTitle("Timbiriche - Lobby");
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setLayout(new BorderLayout());
+//        
+//        // Panel superior
+//        JPanel panelSuperior = new JPanel();
+//        panelSuperior.setBackground(new Color(40, 40, 40));
+//        panelSuperior.setPreferredSize(new Dimension(100, 70));
+//        
+//        lblTitulo = new JLabel("Esperando jugadores...");
+//        lblTitulo.setForeground(Color.WHITE);
+//        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 26));
+//        panelSuperior.add(lblTitulo);
+//        
+//        add(panelSuperior, BorderLayout.NORTH);
+//        
+//        // Tablero
+//        JPanel contenedorTablero = new JPanel(new BorderLayout());
+//        contenedorTablero.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+//        
+//        JScrollPane scroll = new JScrollPane(tablero);
+//        scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+//        contenedorTablero.add(scroll, BorderLayout.CENTER);
+//        
+//        // Panel inferior (info de los jugadores)
+//        JPanel panelInferior = new JPanel();
+//        panelInferior.setBackground(Color.WHITE);
+//        panelInferior.setLayout(new BoxLayout(panelInferior, BoxLayout.Y_AXIS));
+//        panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//        
+//        lblEstadoJugadores = new JLabel("Jugadores conectados:");
+//        lblEstadoJugadores.setFont(new Font("Segoe UI", Font.BOLD, 16));
+//        panelInferior.add(lblEstadoJugadores);
+//        
+//        panelJugadores = new JPanel();
+//        panelJugadores.setLayout(new BoxLayout(panelJugadores, BoxLayout.Y_AXIS));
+//        panelJugadores.setBackground(Color.WHITE);
+//        
+//        // datos de ejemplo
+//        panelJugadores.add(new JLabel("Jugador 1 (ximegaymer)"));
+//        panelJugadores.add(new JLabel("Jugador 2 (esperando...)"));
+//
+//        panelInferior.add(panelJugadores);
+//
+//        add(panelInferior, BorderLayout.SOUTH);
+//
+//        pack();
     }
     
     @Override
