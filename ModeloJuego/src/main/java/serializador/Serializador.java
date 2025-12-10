@@ -118,4 +118,12 @@ public class Serializador {
         return true;
     }
 
+    public PaqueteDTO serializarSolicitudInfoPartida(String tipoPaquete) throws PaqueteVacioAlSerializarException {
+        if (validarSerializacion(tipoPaquete, new Object())) {
+            JsonObject jsonEmpty = new JsonObject();
+            return new PaqueteDTO(tipoPaquete, jsonEmpty);
+        }
+        return null;
+    }
+
 }

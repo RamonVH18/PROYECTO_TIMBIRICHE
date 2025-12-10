@@ -79,30 +79,46 @@ public class ManejoEnvioPaquetes {
     public boolean isDireccionRegistrada(DireccionDTO direccion) {
         return direcciones.containsValue(direccion);
     }
-    
-    
-    public void conectarseAServidor(DireccionDTO direccionLocal, DireccionDTO direccionServidor) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+
+    public void conectarseAServidor(DireccionDTO direccionLocal, DireccionDTO direccionServidor)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarDireccionAPaquete("registroPeer", direccionLocal);
         enviarPaqueteDireccion(paquete, direccionServidor);
     }
-    
-    public void transmitirNuevaJugada(LineaPintadaEvent lpEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+
+    public void transmitirNuevaJugada(LineaPintadaEvent lpEvent)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarLineaPintadaEvent("nuevaLineaPintada", lpEvent);
         enviarPaqueteDTO(paquete);
     }
-    
-    public void solicitarInfoNuevoJugador(DireccionDTO direccionLocal, DireccionDTO direccionJugador) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+
+    public void solicitarInfoNuevoJugador(DireccionDTO direccionLocal, DireccionDTO direccionJugador)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarDireccionAPaquete("solicitudInfoJugador", direccionLocal);
         enviarPaqueteDireccion(paquete, direccionJugador);
     }
-    
-    public void transmitirInfoANuevoJugador(DireccionDTO direccionJugador, NuevoJugadorEvent njEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+
+    public void transmitirInfoANuevoJugador(DireccionDTO direccionJugador, NuevoJugadorEvent njEvent)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarNuevoJugadorEvent("nuevaInfoJugador", njEvent);
         enviarPaqueteDireccion(paquete, direccionJugador);
     }
-    
-    public void transmitirCambioDatosJugador(CambioJugadorEvent cjEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+
+    public void transmitirCambioDatosJugador(CambioJugadorEvent cjEvent)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
         enviarPaqueteDTO(paquete);
+    }
+
+    public void solicitarInfoPartida() throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        try {
+            PaqueteDTO paquete = serializador.serializarSolicitudInfoPartida("solicitudInfoPartida");
+            enviarPaqueteDTO(paquete);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            throw new PaqueteVacioAlSerializarException("Error al serializar la solicitud de info de partida");
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            throw new ErrorAlEnviarPaqueteException("Error al enviar la solicitud de info de partida");
+
+        }
     }
 }

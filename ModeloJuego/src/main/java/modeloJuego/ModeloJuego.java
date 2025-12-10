@@ -291,4 +291,15 @@ public class ModeloJuego
         }
     }
 
+    @Override
+    public void solicitarInfoPartida() {
+       try{
+        manejoPaquetes.solicitarInfoPartida();
+       }catch (PaqueteVacioAlSerializarException ex){
+           Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (ErrorAlEnviarPaqueteException ex){
+           Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+    }
 }

@@ -18,4 +18,6 @@ public interface IModeloJuegoInicio {
     
     public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) throws DatosJugadorInvalidosException;
 
+    public void solicitarInfoPartida();
+
 }
