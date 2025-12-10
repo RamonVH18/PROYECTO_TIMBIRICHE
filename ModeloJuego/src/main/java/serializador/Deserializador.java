@@ -65,14 +65,20 @@ public class Deserializador {
                 break;
             }
             case ("CambioDatosJugador") -> {
-//                CambioJugadorEvent cjEvent = 
+                // CambioJugadorEvent cjEvent =
+                break;
+            }
+            case ("solicitudInfoPartida") -> {
+                DireccionDTO direccion = deserializarDireccionPeer(paquete.getMensaje());
+                verificadorEventos.eventoSolicitudInfoPartida(direccion);
+                break;
             }
         }
     }
 
     private DireccionDTO deserializarDireccionPeer(JsonObject json) {
         DireccionDTO direccion = gson.fromJson(json, DireccionDTO.class);
-//        ValidacionesClases.validarDireccionPeerDTO(direccion);
+        // ValidacionesClases.validarDireccionPeerDTO(direccion);
         return direccion;
     }
 
@@ -94,7 +100,8 @@ public class Deserializador {
             throw new PaqueteVacioAlDeserializarException("El paquete no tiene ningun tipo");
         }
         if (jason.isEmpty()) {
-            throw new PaqueteVacioAlDeserializarException("No se puede deserializar el paquete porque no tiene contenido");
+            throw new PaqueteVacioAlDeserializarException(
+                    "No se puede deserializar el paquete porque no tiene contenido");
         }
         return true;
     }

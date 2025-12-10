@@ -26,4 +26,6 @@ public interface MediadorEventos {
 
     public void registrarJugadores(List<DireccionDTO> direcciones);
 
+    public void enviarInfoPartida(DireccionDTO direccion);
+
 }

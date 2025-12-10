@@ -302,4 +302,9 @@ public class ModeloJuego
        }
 
     }
+
+    @Override
+    public void enviarInfoPartida(DireccionDTO direccion) {
+        
+    }
 }

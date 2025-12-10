@@ -13,7 +13,7 @@ import java.util.Queue;
  *
  * @author Ramon Valencia
  */
-public class ColaRecepcion {
+public class    ColaRecepcion {
     private final Queue<PaqueteDTO> colaRecepcion;
     private static ColaRecepcion instancia;
     private static IReceptor receptor;

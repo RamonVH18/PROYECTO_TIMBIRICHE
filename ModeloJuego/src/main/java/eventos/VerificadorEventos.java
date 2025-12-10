@@ -41,4 +41,8 @@ public class VerificadorEventos {
     public void eventoListaDirecciones(List<DireccionDTO> direcciones) {
        modeloJuego.registrarJugadores(direcciones);
     }
+
+    public void eventoSolicitudInfoPartida(DireccionDTO direccion) {
+        modeloJuego.enviarInfoPartida(direccion);
+    }
 }
