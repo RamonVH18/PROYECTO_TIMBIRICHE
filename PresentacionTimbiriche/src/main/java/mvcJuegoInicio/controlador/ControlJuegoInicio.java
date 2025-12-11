@@ -41,8 +41,8 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
         // Crear partida en el modelo
         modelo.crearPartida(nombrePartida, numJugadores, tamaño);
 
-        // Notificar que se debe mostrar pantalla de juego
-        modelo.mostrarPantalla(ObserverType.PANTALLA_JUEGO);
+        // Notificar que se debe mostrar pantalla mock
+        modelo.mostrarPantalla(ObserverType.PANTALLA_MOCK);
                 
     }
 

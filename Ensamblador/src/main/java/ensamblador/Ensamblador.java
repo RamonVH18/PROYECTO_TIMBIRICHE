@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
 import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoInicio.vistas.PantallaMockJuego;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -111,26 +112,14 @@ public class Ensamblador {
         
         // Creamos la pantalla que queremos ver primero: Crear partida
         mvcJuegoInicio.vistas.PantallaCrearPartida pantallaCrear = new mvcJuegoInicio.vistas.PantallaCrearPartida(controlInicio);
+        // Crear pantalla a ver despues
+        // PantallaMockJuego mockJuego = new PantallaMockJuego(modeloInicio, controlInicio);
         
         modeloInicio.añadirObserver(pantallaCrear, ObserverType.CREAR_PARTIDA);
+        // modeloInicio.añadirObserver(mockJuego, ObserverType.PANTALLA_MOCK);
        
         pantallaCrear.setVisible(true);
 
-//        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
-//        modeloJuego.suscribirObservador(modelo);
-//        ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
-//        TableroJuego tablero = new TableroJuego(modelo, control);
-//        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modelo, control);
-//
-//        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modelo, control, tablero);
-//
-//        modelo.añadirObserver(tablero, ObserverType.TABLERO);
-//        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
-//        modelo.añadirObserver(pantallaDeJuego, ObserverType.PANTALLAS);
-//        modelo.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
-//
-//        control.mostrarVista(ObserverType.PANTALLA_JUEGO);
-//        modeloJuego.empezarJuego();
     }
     
 }

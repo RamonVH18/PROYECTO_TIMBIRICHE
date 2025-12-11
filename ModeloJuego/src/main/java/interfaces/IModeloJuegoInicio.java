@@ -9,6 +9,10 @@ import Enums.ImagenJugador;
 import Enums.TamañoTablero;
 import excepciones.DatosIncompletosPartidaException;
 import excepciones.DatosJugadorInvalidosException;
+import java.util.List;
+import objetosModeloJuego.Cuadro;
+import objetosModeloJuego.Linea;
+import objetosModeloJuego.Punto;
 
 /**
  *
@@ -21,5 +25,13 @@ public interface IModeloJuegoInicio {
     public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) throws DatosJugadorInvalidosException;
 
     public void crearPartida(String nombrePartida, int numJugadores, TamañoTablero tamaño) throws DatosIncompletosPartidaException;
+    
+    public void crearMatriz(TamañoTablero tamaño);
+    
+    public Punto[][] obtenerMatriz();
+    
+    public List<Linea> obtenerLineas();
+    
+    public List<Cuadro> obtenerCuadros();
     
 }

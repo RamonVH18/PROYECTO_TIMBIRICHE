@@ -4,12 +4,12 @@
  */
 package mvcJuegoInicio.vistas;
 
-import Enums.TamañoTablero;
 import enums.ObserverType;
 import enums.TamañosTablero;
 import mvcJuegoIniciado.interfaces.IVista;
 import mvcJuegoIniciado.vistas.PantallaInicio;
 import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
 
 /**
  *
@@ -17,6 +17,7 @@ import mvcJuegoInicio.interfaces.IControlJuegoInicio;
  */
 public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
     private final IControlJuegoInicio control;
+    private IModeloModificableJInicio modelo;
 
     /**
      * Creates new form PantallaCrearPartida
@@ -190,6 +191,7 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
         TamañosTablero tamaño = tablero.equals("Sin seleccionar") ? null : TamañosTablero.valueOf(tablero);
         
         control.crearPartida(nombrePartida, numJugadores, tamaño);
+        // control.mostrarVista(ObserverType.PANTALLA_MOCK);
     }
     
     private void atras() {
@@ -220,7 +222,7 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
     @Override
     public void actualizar() {
         this.setVisible(false);
-        // control.mostrarVista(ObserverType.PANTALLA_JUEGO);
+        control.mostrarVista(ObserverType.PANTALLA_MOCK);
     }
 
     @Override

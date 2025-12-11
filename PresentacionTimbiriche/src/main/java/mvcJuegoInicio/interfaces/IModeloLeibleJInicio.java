@@ -4,10 +4,30 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import enums.TamañosTablero;
+import java.util.List;
+import objetosPresentacion.PuntoTablero;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
+    
+    public boolean isMostrandoCrearPartida();
+    
+    public boolean isMostrandoPantallaMock();
+    
+    public TamañosTablero getTamañoTablero();
+    
+    public String getNombrePartida();
+    
+    public int getNumJugadores();
+    
+    public PuntoTablero[][] getMatriz();
+    
+    public List getLineas();
+    
+    public List getCuadros();
     
 }

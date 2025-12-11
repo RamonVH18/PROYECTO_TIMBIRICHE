@@ -15,6 +15,6 @@ public enum ObserverType {
     TABLERO,
     PANTALLAS,
     CREAR_PARTIDA,
-    PANTALLA_LOBBY,
-    REGISTRAR_JUGADOR
+    PANTALLA_MOCK
+    
 }
