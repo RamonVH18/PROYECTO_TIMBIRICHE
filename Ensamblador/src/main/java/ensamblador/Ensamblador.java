@@ -5,24 +5,15 @@ package ensamblador;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
-import Enums.TamañoTablero;
 import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaz.IEmisor;
-import manejadores.ManejoEnvioPaquetes;
 import modeloJuego.ModeloJuego;
-import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
-import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
-import mvcJuegoIniciado.vistas.PantallaDeJuego;
-import mvcJuegoIniciado.vistas.TableroJuego;
-import enums.TamañosTablero;
 import eventos.VerificadorEventos;
 import excepciones.DatosJugadorInvalidosException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
-import mvcJuegoIniciado.vistas.MenuDeOpciones;
-import mvcJuegoInicio.vistas.PantallaMockJuego;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -74,34 +65,9 @@ public class Ensamblador {
         modeloJuego.conectarseAServidor();
         try {
             modeloJuego.guardarInformacionJugador("1", "ximegaymer", ImagenJugador.GOLDEN, ColorJugador.ROSA);
-//        modeloJuego.registrarNuevoJugador(
-//                new Jugador("2", "Pollo Jalado", "2", "rojo"),
-//                new DireccionDTO("192.168.1.70", 5000)
-//        );
         } catch (DatosJugadorInvalidosException ex) {
             Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static void mostrarPantallaJuego(TamañoTablero tamañoSeleccionado) {
-        // Crear la pantalla de juego cuando se pida mostrarse
-        // TamañoTablero tamModelo = modeloJuego.obtenerTamañoTablero();
-        TamañosTablero tamVista = TamañosTablero.valueOf(tamañoSeleccionado.name());
-        ModeloJuegoIniciado modeloJuegoIniciado = new ModeloJuegoIniciado(tamVista, modeloJuego);
-        modeloJuego.suscribirObservador(modeloJuegoIniciado);
-            
-        ControlJuegoIniciado controlJuego = new ControlJuegoIniciado(modeloJuegoIniciado);
-            
-        TableroJuego tablero = new TableroJuego(modeloJuegoIniciado, controlJuego);
-        MenuDeOpciones menuDeOpciones = new MenuDeOpciones(modeloJuegoIniciado, controlJuego);
-        PantallaDeJuego pantallaDeJuego = new PantallaDeJuego(modeloJuegoIniciado, controlJuego, tablero);
-            
-        modeloJuegoIniciado.añadirObserver(tablero, ObserverType.TABLERO);
-        modeloJuegoIniciado.añadirObserver(menuDeOpciones, ObserverType.MENU_OPCIONES);
-        modeloJuegoIniciado.añadirObserver(pantallaDeJuego, ObserverType.PANTALLA_JUEGO);
-            
-        pantallaDeJuego.setVisible(true);
-        
     }
 
     public static void iniciarPresentacion() {
@@ -112,12 +78,10 @@ public class Ensamblador {
         
         // Creamos la pantalla que queremos ver primero: Crear partida
         mvcJuegoInicio.vistas.PantallaCrearPartida pantallaCrear = new mvcJuegoInicio.vistas.PantallaCrearPartida(controlInicio);
-        // Crear pantalla a ver despues
-        // PantallaMockJuego mockJuego = new PantallaMockJuego(modeloInicio, controlInicio);
         
+        // Suscribir observer
         modeloInicio.añadirObserver(pantallaCrear, ObserverType.CREAR_PARTIDA);
-        // modeloInicio.añadirObserver(mockJuego, ObserverType.PANTALLA_MOCK);
-       
+        
         pantallaCrear.setVisible(true);
 
     }

@@ -9,6 +9,7 @@ import enums.TamañosTablero;
 import mvcJuegoIniciado.vistas.MensajeError;
 import mvcJuegoInicio.interfaces.IControlJuegoInicio;
 import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
+import mvcJuegoInicio.vistas.MensajeExitoso;
 
 /**
  *
@@ -40,9 +41,10 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
         
         // Crear partida en el modelo
         modelo.crearPartida(nombrePartida, numJugadores, tamaño);
-
-        // Notificar que se debe mostrar pantalla mock
-        modelo.mostrarPantalla(ObserverType.PANTALLA_MOCK);
+        MensajeExitoso.mostrarMensaje("La partida se ha creado exitosamente\n\n"
+                + "Nombre: " + nombrePartida + "\n"
+                + "Número de jugadores: " + numJugadores + "\n"
+                + "Tamaño de tablero: " + tamaño + "\n");
                 
     }
 

@@ -15,6 +15,7 @@ public enum ObserverType {
     TABLERO,
     PANTALLAS,
     CREAR_PARTIDA,
-    PANTALLA_MOCK
+    PANTALLA_MOCK,
+    TABLERO_MOCK
     
 }

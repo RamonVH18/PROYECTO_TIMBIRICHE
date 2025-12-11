@@ -50,9 +50,9 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     @Override
     public void crearPartida(String nombrePartida, int numJugadores, TamañosTablero tamaño) {
-        this.tamañoTablero = tamaño;
         this.nombrePartida = nombrePartida;
         this.numJugadores = numJugadores;
+        this.tamañoTablero = tamaño;
         
         TamañoTablero tamañoModelo = TamañoTablero.valueOf(tamaño.name());
         try {
@@ -60,11 +60,6 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         } catch (DatosIncompletosPartidaException ex) {
             Logger.getLogger(ModeloJuegoInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        // Cargar tablero actualizado desde el modelo real
-        this.matriz  = TableroFactory.crearMatriz(modeloJuego.obtenerMatriz());
-        this.lineas  = TableroFactory.crearLineas(modeloJuego.obtenerLineas(), tamaño);
-        this.cuadros = TableroFactory.crearCuadros(modeloJuego.obtenerCuadros(), tamaño);
         
         manejoObservers.notificar(ObserverType.PANTALLA_MOCK);
     }

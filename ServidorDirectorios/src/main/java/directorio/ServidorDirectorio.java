@@ -6,6 +6,8 @@ package directorio;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
+import com.google.gson.JsonObject;
 import excepciones.ErrorRecibirMensajesExcepction;
 import java.io.BufferedReader;
 import java.io.IOException;

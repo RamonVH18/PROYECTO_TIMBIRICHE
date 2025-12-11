@@ -6,9 +6,11 @@ package mvcJuegoInicio.vistas;
 
 import enums.ObserverType;
 import enums.TamañosTablero;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import mvcJuegoIniciado.interfaces.IVista;
-import mvcJuegoIniciado.vistas.PantallaInicio;
 import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
 
 /**
@@ -18,6 +20,7 @@ import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
 public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
     private final IControlJuegoInicio control;
     private IModeloModificableJInicio modelo;
+    private IModeloLeibleJInicio modeloLeible;
 
     /**
      * Creates new form PantallaCrearPartida
@@ -27,6 +30,8 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
         this.control = control;
         initComponents();
         cargarOpciones();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -191,19 +196,22 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
         TamañosTablero tamaño = tablero.equals("Sin seleccionar") ? null : TamañosTablero.valueOf(tablero);
         
         control.crearPartida(nombrePartida, numJugadores, tamaño);
-        // control.mostrarVista(ObserverType.PANTALLA_MOCK);
     }
     
     private void atras() {
-        PantallaInicio inicio = new PantallaInicio();
-        inicio.setLocationRelativeTo(null);
-        inicio.setVisible(true);
-        this.dispose();
+        control.ocultarVista(ObserverType.CREAR_PARTIDA);
+    }
+    
+    private void limpiarCampos() {
+        this.txtNombrePartida.setText("");
+        this.cbNumJugadores.setSelectedIndex(0);
+        this.cbTamañosTablero.setSelectedIndex(0);
     }
     
     private void continuar() {
         crearPartida();
-        this.dispose();
+        limpiarCampos();
+        // this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,8 +229,8 @@ public class PantallaCrearPartida extends javax.swing.JFrame implements IVista {
 
     @Override
     public void actualizar() {
-        this.setVisible(false);
-        control.mostrarVista(ObserverType.PANTALLA_MOCK);
+        repaint();
+        revalidate();
     }
 
     @Override

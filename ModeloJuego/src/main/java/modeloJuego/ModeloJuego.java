@@ -6,6 +6,7 @@ package modeloJuego;
 import estructurasDatos.ListaJugadores;
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
 import estructurasDatos.ListaCuadros;
@@ -306,10 +307,6 @@ public class ModeloJuego
         estadoJuego.setNumJugadores(numJugadores);
         estadoJuego.setTamañoTablero(tamaño);
         
-        // Generar tablero
-        crearMatriz(tamaño);
-        matrizVacia = false;
-        
         // Mandarlo al servidor
         try {
             DireccionDTO direccionServer = new DireccionDTO(Configuracion.get("server.host"), Configuracion.getInt("server.port"));
@@ -318,12 +315,6 @@ public class ModeloJuego
         } catch (Exception e) {
             System.out.println("Error");
         }
-        
-        // Imprimir para pruebas
-        System.out.println("=== Partida Creada ===");
-        System.out.println("Nombre: " + nombrePartida);
-        System.out.println("Jugadores: " + numJugadores);
-        System.out.println("Tamaño: " + tamaño);
     }
     
     public TamañoTablero obtenerTamañoTablero() {

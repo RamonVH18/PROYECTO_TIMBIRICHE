@@ -6,6 +6,7 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
 
 import java.util.List;
 
