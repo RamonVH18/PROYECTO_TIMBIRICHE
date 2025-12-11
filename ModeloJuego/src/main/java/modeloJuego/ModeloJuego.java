@@ -328,4 +328,18 @@ public class ModeloJuego
         estadoJuego.setNumJugadores(partida.getNumJugadores());
         crearMatriz(estadoJuego.getTamañoTablero());
     }
+
+    @Override
+    public String getNombrePartida() {
+        return estadoJuego.getNombrePartida();
+    }
+
+    @Override
+    public int getCantidadJugadores() {
+        return estadoJuego.getNumJugadores();
+    }
+    @Override
+    public String getBoardSize() {
+        return estadoJuego.getTamañoTablero().toString();
+    }
 }

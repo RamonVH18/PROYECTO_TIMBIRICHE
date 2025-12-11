@@ -20,6 +20,8 @@ public interface IModeloJuegoInicio {
 
     public void solicitarInfoPartida();
 
-    
+    public String getNombrePartida();
+    public int getCantidadJugadores();
+    public String getBoardSize();
 
 }
