@@ -6,6 +6,8 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
+
 import com.google.gson.JsonObject;
 import eventos.CambioJugadorEvent;
 import eventos.LineaPintadaEvent;
@@ -126,4 +128,14 @@ public class Serializador {
         return null;
     }
 
+    public PaqueteDTO serializarPartida(String tipoPaquete, PartidaDTO partida) throws PaqueteVacioAlSerializarException {
+        if (validarSerializacion(tipoPaquete, partida)) {
+            JsonObject jsonPartida = new JsonObject();
+            jsonPartida.addProperty("nombrePartida", partida.getNombrePartida());
+            jsonPartida.addProperty("size", partida.getSize());
+            jsonPartida.addProperty("numJugadores", partida.getNumJugadores());
+            return new PaqueteDTO(tipoPaquete, jsonPartida);
+        }
+        return null;
+    }
 }

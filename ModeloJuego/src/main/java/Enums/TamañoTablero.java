@@ -9,16 +9,18 @@ package Enums;
  * @author Ramon Valencia
  */
 public enum TamañoTablero {
-    PEQUEÑO(10,10),
-    MEDIANO(20, 20),
-    GRANDE(30, 30);
+    PEQUEÑO(10,10, 0),
+    MEDIANO(20, 20, 1),
+    GRANDE(30, 30, 2);
     
     private final Integer filas;
     private final Integer columnas;
+    private final Integer size;
 
-    TamañoTablero(int filas, int columnas) {
+    TamañoTablero(int filas, int columnas, int size) {
         this.filas = filas;
         this.columnas = columnas;
+        this.size = size;
     }
 
     public int getFilas() {
@@ -27,5 +29,9 @@ public enum TamañoTablero {
 
     public int getColumnas() {
         return columnas;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

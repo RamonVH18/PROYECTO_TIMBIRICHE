@@ -6,6 +6,7 @@ package modeloJuego;
 import estructurasDatos.ListaJugadores;
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
 import estructurasDatos.ListaCuadros;
@@ -305,6 +306,18 @@ public class ModeloJuego
 
     @Override
     public void enviarInfoPartida(DireccionDTO direccion) {
-        
+        PartidaDTO partidaDTO = new PartidaDTO(
+                estadoJuego.getNombrePartida(),
+                estadoJuego.getTamañoTablero().getSize(),
+                estadoJuego.getNumJugadores()
+        );
+
+        try {
+            manejoPaquetes.enviarInfoPartida(partidaDTO, direccion);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

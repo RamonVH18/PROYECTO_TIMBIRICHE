@@ -7,6 +7,7 @@ package manejadores;
 import DTOs.DireccionDTO;
 import DTOs.EnvioDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
 import envio.DispatcherFactory;
 import eventos.CambioJugadorEvent;
 import eventos.LineaPintadaEvent;
@@ -119,6 +120,19 @@ public class ManejoEnvioPaquetes {
         } catch (ErrorAlEnviarPaqueteException ex) {
             throw new ErrorAlEnviarPaqueteException("Error al enviar la solicitud de info de partida");
 
+        }
+    }
+
+    public void enviarInfoPartida(PartidaDTO partida, DireccionDTO direccion)
+            throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+       PaqueteDTO paquete;
+        try {
+            paquete = serializador.serializarPartida("infoPartida", partida);
+            enviarPaqueteDireccion(paquete, direccion);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            throw new PaqueteVacioAlSerializarException("Error al serializar la info de partida");
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            throw new ErrorAlEnviarPaqueteException("Error al enviar la info de partida");
         }
     }
 }
