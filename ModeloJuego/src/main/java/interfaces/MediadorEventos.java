@@ -7,6 +7,7 @@ package interfaces;
 import java.util.List;
 
 import DTOs.DireccionDTO;
+import DTOs.PartidaDTO;
 import objetosModeloJuego.Jugador;
 import objetosModeloJuego.Linea;
 
@@ -27,5 +28,7 @@ public interface MediadorEventos {
     public void registrarJugadores(List<DireccionDTO> direcciones);
 
     public void enviarInfoPartida(DireccionDTO direccion);
+
+    public void recibirInfoPartida(PartidaDTO partida);
 
 }

@@ -7,6 +7,7 @@ package eventos;
 import java.util.List;
 
 import DTOs.DireccionDTO;
+import DTOs.PartidaDTO;
 import interfaces.MediadorEventos;
 
 /**
@@ -44,5 +45,9 @@ public class VerificadorEventos {
 
     public void eventoSolicitudInfoPartida(DireccionDTO direccion) {
         modeloJuego.enviarInfoPartida(direccion);
+    }
+
+    public void eventoPartidaEncontrada(PartidaDTO partida) {
+        modeloJuego.recibirInfoPartida(partida);
     }
 }

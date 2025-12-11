@@ -6,6 +6,7 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import DTOs.PartidaDTO;
 
 import java.util.List;
 
@@ -73,6 +74,11 @@ public class Deserializador {
                 verificadorEventos.eventoSolicitudInfoPartida(direccion);
                 break;
             }
+            case("infoPartida") -> {
+                PartidaDTO partida = deserializarPartidaDTO(paquete.getMensaje());
+                verificadorEventos.eventoPartidaEncontrada(partida);
+                break;
+            }
         }
     }
 
@@ -112,4 +118,9 @@ public class Deserializador {
         List<DireccionDTO> direcciones = gson.fromJson(json.get("direcciones"), listType);
         return direcciones;
     }
+
+    private PartidaDTO deserializarPartidaDTO(JsonObject json) {
+        PartidaDTO partida = gson.fromJson(json, PartidaDTO.class);
+        return partida;
+    }   
 }

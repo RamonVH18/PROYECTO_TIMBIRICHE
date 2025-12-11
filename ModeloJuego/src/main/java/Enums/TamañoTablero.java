@@ -34,4 +34,13 @@ public enum TamañoTablero {
     public int getSize() {
         return size;
     }
+
+    public static TamañoTablero getSizeByInt(int size) {
+        for (TamañoTablero tamanio : TamañoTablero.values()) {
+            if (tamanio.getSize() == size) {
+                return tamanio;
+            }
+        }
+        return null;
+    }
 }

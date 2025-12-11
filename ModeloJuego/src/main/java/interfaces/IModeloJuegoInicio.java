@@ -20,4 +20,6 @@ public interface IModeloJuegoInicio {
 
     public void solicitarInfoPartida();
 
+    
+
 }

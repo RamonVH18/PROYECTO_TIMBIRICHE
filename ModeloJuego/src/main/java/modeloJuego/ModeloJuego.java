@@ -320,4 +320,12 @@ public class ModeloJuego
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override 
+    public void recibirInfoPartida(PartidaDTO partida) {
+        estadoJuego.setNombrePartida(partida.getNombrePartida());
+        estadoJuego.setTamañoTablero(TamañoTablero.getSizeByInt(partida.getSize()));
+        estadoJuego.setNumJugadores(partida.getNumJugadores());
+        crearMatriz(estadoJuego.getTamañoTablero());
+    }
 }
