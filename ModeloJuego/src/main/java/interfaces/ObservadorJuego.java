@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import objetosModeloJuego.Jugador;
+
 /**
  *
  * @author Ramon Valencia
@@ -11,5 +13,7 @@ package interfaces;
 public interface ObservadorJuego {
     
     public void cambiarTurno(boolean turno);
+    
+    public void jugadorAbandonoPartida(Jugador jugador);
     
 }

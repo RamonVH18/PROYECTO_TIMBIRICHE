@@ -24,6 +24,7 @@ import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IModeloModificableJI;
 import objetosModeloJuego.Linea;
 import Enums.TamañoTablero;
+import objetosModeloJuego.Jugador;
 import objetosPresentacion.CuadroTablero;
 import objetosPresentacion.PuntajeVisual;
 import objetosPresentacion.PuntoTablero;
@@ -191,4 +192,16 @@ public class ModeloJuegoIniciado implements IModeloLeibleJI, IModeloModificableJ
                 modeloJuego.obtenerPuntajes()
         );
     }
+
+    /*METODOS CASO DE USO ABANDONAR PARTIDA*/
+    @Override
+    public void abandonarPartida() {
+        modeloJuego.abandonarPartida();
+    }
+
+    @Override
+    public void jugadorAbandonoPartida(Jugador jugador) {
+        manejoObservers.notificar(ObserverType.PANTALLA_JUEGO);
+    }
+    
 }

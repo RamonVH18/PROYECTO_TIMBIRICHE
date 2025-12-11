@@ -71,7 +71,8 @@ public class Ensamblador {
 
         modeloJuego.conectarseAServidor();
         try {
-            modeloJuego.guardarInformacionJugador("1", "Jano", ImagenJugador.PANDA, ColorJugador.VERDE);
+            //modeloJuego.guardarInformacionJugador("0", "JANO", ImagenJugador.GATO, ColorJugador.NARANJA);
+            modeloJuego.guardarInformacionJugador("1", "ESKELER", ImagenJugador.MAOMAO, ColorJugador.VERDE);
 //        modeloJuego.registrarNuevoJugador(
 //                new Jugador("2", "Pollo Jalado", "2", "rojo"),
 //                new DireccionDTO("192.168.1.70", 5000)

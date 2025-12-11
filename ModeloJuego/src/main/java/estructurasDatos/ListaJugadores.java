@@ -33,4 +33,13 @@ public class ListaJugadores {
         return jugadores;
     }
 
+    public Jugador obtenerJugador(String idJugador) {
+        for (Jugador jugador : jugadores) {
+            if(jugador.getIdJugador().equals(idJugador)){
+                return jugador;
+            }
+        }
+        return null;
+    }
+    
 }

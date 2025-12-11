@@ -8,6 +8,7 @@ import java.util.List;
 
 import DTOs.DireccionDTO;
 import interfaces.MediadorEventos;
+import objetosModeloJuego.Jugador;
 
 /**
  *
@@ -40,5 +41,9 @@ public class VerificadorEventos {
 
     public void eventoListaDirecciones(List<DireccionDTO> direcciones) {
        modeloJuego.registrarJugadores(direcciones);
+    }
+    
+    public void eventoJugadorAbandonoPartida(Jugador jugador, DireccionDTO direccionDTO){
+        modeloJuego.quitarJugadorDeLaPartida(jugador, direccionDTO);
     }
 }

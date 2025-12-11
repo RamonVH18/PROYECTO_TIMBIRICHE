@@ -12,6 +12,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import eventos.JugadorAbandonaPartidaEvent;
 import java.lang.reflect.Type;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
@@ -64,8 +65,9 @@ public class Deserializador {
                 verificadorEventos.eventoListaDirecciones(direcciones);
                 break;
             }
-            case ("CambioDatosJugador") -> {
-//                CambioJugadorEvent cjEvent = 
+            case ("JugadorAbandonoPartida") -> {
+                JugadorAbandonaPartidaEvent japEvent = deserializarJugadorAbandonaPartidaEvent(paquete.getMensaje());
+                verificadorEventos.eventoJugadorAbandonoPartida(japEvent.getJugador(), japEvent.getDireccionDTO());
             }
         }
     }
@@ -104,5 +106,13 @@ public class Deserializador {
         }.getType();
         List<DireccionDTO> direcciones = gson.fromJson(json.get("direcciones"), listType);
         return direcciones;
+    }
+    
+    private JugadorAbandonaPartidaEvent deserializarJugadorAbandonaPartidaEvent(JsonObject json) {
+        Jugador l = gson.fromJson(json.get("jugador"), Jugador.class);
+        DireccionDTO d = gson.fromJson(json.get("direccion"), DireccionDTO.class);
+        
+        JugadorAbandonaPartidaEvent japEvent = new JugadorAbandonaPartidaEvent(l, d);
+        return japEvent;
     }
 }

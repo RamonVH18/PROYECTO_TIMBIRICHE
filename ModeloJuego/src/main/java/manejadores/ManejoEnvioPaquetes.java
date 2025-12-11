@@ -9,6 +9,7 @@ import DTOs.EnvioDTO;
 import DTOs.PaqueteDTO;
 import envio.DispatcherFactory;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorAbandonaPartidaEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import excepciones.ErrorAlEnviarPaqueteException;
@@ -103,6 +104,11 @@ public class ManejoEnvioPaquetes {
     
     public void transmitirCambioDatosJugador(CambioJugadorEvent cjEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
+        enviarPaqueteDTO(paquete);
+    }
+    
+    public void transmitirDesconexionJugador(JugadorAbandonaPartidaEvent japEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException{
+        PaqueteDTO paquete = serializador.serializarJugadorAbandonaPartida("JugadorAbandonoPartida", japEvent);
         enviarPaqueteDTO(paquete);
     }
 }

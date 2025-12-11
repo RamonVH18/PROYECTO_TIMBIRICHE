@@ -33,4 +33,6 @@ public interface IModeloJuegoIniciado {
     public Jugador obtenerJugadorEnTurno();
     
     public void realizarJugada(Linea linea);
+    
+    public void abandonarPartida();
 }

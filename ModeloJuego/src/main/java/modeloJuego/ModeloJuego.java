@@ -28,6 +28,7 @@ import java.util.List;
 import manejadores.ManejadorTurnos;
 import Enums.TamañoTablero;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorAbandonaPartidaEvent;
 import excepciones.DatosJugadorInvalidosException;
 import interfaces.ObservadorJuego;
 import manejadores.ManejadorPuntajes;
@@ -291,4 +292,46 @@ public class ModeloJuego
         }
     }
 
+    //METODOS DEL CASO DE USO ABANDONAR PARTIDA
+    @Override
+    public void abandonarPartida() {
+        transmitirDesconexion(jugadorLocal, direccionLocal);
+        
+    }
+    
+    public void notificarJugadorAbandonoPartida(Jugador jugador) {
+        observador.jugadorAbandonoPartida(jugador);
+    }
+
+    public void transmitirDesconexion(Jugador jugador, DireccionDTO direccionDTO){
+        JugadorAbandonaPartidaEvent japEvent = new JugadorAbandonaPartidaEvent(jugador, direccionDTO);
+        try {
+            manejoPaquetes.transmitirDesconexionJugador(japEvent);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void quitarJugadorDeLaPartida(Jugador jugador, DireccionDTO direccionDTO){
+        System.out.println(jugador.getNombre() + "abandono La Partida con la direccion ip:" + direccionDTO.getHost() );
+        marcarJugadorComoDesconectado(jugador.getIdJugador());
+        notificarJugadorAbandonoPartida(jugador);
+        
+    }
+
+    public Jugador getJugadorLocal() {
+        return jugadorLocal;
+    }
+
+    public DireccionDTO getDireccionLocal() {
+        return direccionLocal;
+    }
+    
+    private void marcarJugadorComoDesconectado(String idJugador){
+        Jugador j = listaJugadores.obtenerJugador(idJugador);
+        j.cambiarNombre(j.getNombre() + " Desconectado");
+    }
 }

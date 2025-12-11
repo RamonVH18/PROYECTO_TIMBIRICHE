@@ -2,12 +2,16 @@ package mvcJuegoIniciado.vistas;
 
 import enums.ObserverType;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ResourceBundle.Control;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IVista;
+import objetosPresentacion.LineaTablero;
 import utils.PanelBordesRedondeados;
 
 /**
@@ -24,6 +28,11 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         this.control = control;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        //Configura los eventos que tendran los botones al clikear, en este caso son jLabels
+        configurarBotonClick(jLabelCambiarPaletaDeColores);
+        configurarBotonClick(jLabelAbandonarPartida);
+        configurarBotonClick(jLabelTerminarPartida);
     }
 
     /**
@@ -53,11 +62,9 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelPrincipal.setForeground(new java.awt.Color(0, 0, 0));
         jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabelTitulo.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Menu de Opciones");
         jPanelPrincipal.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 400, -1));
@@ -73,7 +80,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         jLabelAbandonarPartida.setForeground(new java.awt.Color(255, 255, 255));
         jLabelAbandonarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelAbandonarPartida.setText("Abandonar Partida");
-        jLabelAbandonarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAbandonarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelAbandonarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelAbandonarPartidaMouseEntered(evt);
@@ -97,7 +104,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         jLabelTerminarPartida.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTerminarPartida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTerminarPartida.setText("Terminar Partida");
-        jLabelTerminarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelTerminarPartida.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelTerminarPartida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelTerminarPartidaMouseEntered(evt);
@@ -121,7 +128,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
         jLabelCambiarPaletaDeColores.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCambiarPaletaDeColores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCambiarPaletaDeColores.setText("Cambiar Paleta de Colores");
-        jLabelCambiarPaletaDeColores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCambiarPaletaDeColores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelCambiarPaletaDeColores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelCambiarPaletaDeColoresMouseEntered(evt);
@@ -190,6 +197,28 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
           this.setVisible(false);
       }
   }
+  
+      private void configurarBotonClick(JLabel jLabel) {
+            jLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    switch (jLabel.getText()) {
+                        case "Cambiar Paleta de Colores" -> {
+                            System.out.println("Cambiar Paelta de Colores");
+                            break;
+                        }
+                        case "Abandonar Partida" ->{
+                            control.abandonarPartida();
+                            break;
+                        }   
+                        case "Terminar Partida" ->{
+                            System.out.println("Terminar Partida");
+                            break;
+                        }   
+                    }
+                }
+            });
+        }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelAbandonarPartida;

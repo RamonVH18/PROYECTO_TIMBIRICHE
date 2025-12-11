@@ -20,4 +20,6 @@ public interface IModeloModificableJI {
     public void mostrarPantalla(ObserverType tipo);
     
     public void ocultarPantalla(ObserverType tipo);
+    
+    public void abandonarPartida();
 }

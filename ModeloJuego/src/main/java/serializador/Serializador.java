@@ -8,6 +8,7 @@ import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.JsonObject;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorAbandonaPartidaEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import excepciones.PaqueteVacioAlSerializarException;
@@ -70,6 +71,19 @@ public class Serializador {
             jsonEvent.addProperty("imagenNueva", cjEvent.getImagenNueva().name());
             jsonEvent.addProperty("colorAnterior", cjEvent.getColorAnterior().name());
             jsonEvent.addProperty("colorNuevo", cjEvent.getColorNuevo().name());
+            return new PaqueteDTO(tipoPaquete, jsonEvent);
+        }
+        return null;
+    }
+    
+    public PaqueteDTO serializarJugadorAbandonaPartida(String tipoPaquete, JugadorAbandonaPartidaEvent japEvent) throws PaqueteVacioAlSerializarException{
+        if(validarSerializacion(tipoPaquete, japEvent)){
+            JsonObject jsonJugador = serializarJugador(japEvent.getJugador());
+            JsonObject jsonDireccion = serializarDireccion(japEvent.getDireccionDTO());
+            
+            JsonObject jsonEvent = new JsonObject();
+            jsonEvent.add("jugador", jsonJugador);
+            jsonEvent.add("direccion", jsonDireccion);
             return new PaqueteDTO(tipoPaquete, jsonEvent);
         }
         return null;

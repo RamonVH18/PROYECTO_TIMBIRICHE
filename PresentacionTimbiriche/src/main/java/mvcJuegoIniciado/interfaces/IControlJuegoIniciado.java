@@ -18,4 +18,6 @@ public interface IControlJuegoIniciado {
     public void mostrarVista(ObserverType tipo);
     
     public void ocultarVista(ObserverType tipo);
+    
+    public void abandonarPartida();
 }

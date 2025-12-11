@@ -44,4 +44,9 @@ public class ControlJuegoIniciado implements IControlJuegoIniciado {
         modelo.ocultarPantalla(tipo);
     }
 
+    @Override
+    public void abandonarPartida() {
+        modelo.abandonarPartida();
+    }
+
 }
