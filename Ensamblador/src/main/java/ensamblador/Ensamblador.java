@@ -50,7 +50,7 @@ public class Ensamblador {
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
         receptor.inyectarManejador(manejoRecepcionPaquetes);
-        servidor = new ServerTCP(8080);
+        servidor = new ServerTCP(8090);
 
         Thread hiloServidor = new Thread(() -> {
             try {
@@ -71,7 +71,7 @@ public class Ensamblador {
 
         modeloJuego.conectarseAServidor();
         try {
-            modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.GOLDEN, ColorJugador.AZUL);
+            modeloJuego.guardarInformacionJugador("1", "Jano", ImagenJugador.PANDA, ColorJugador.VERDE);
 //        modeloJuego.registrarNuevoJugador(
 //                new Jugador("2", "Pollo Jalado", "2", "rojo"),
 //                new DireccionDTO("192.168.1.70", 5000)
