@@ -9,5 +9,15 @@ package mvcJuegoInicio.interfaces;
  * @author Ramon Valencia
  */
 public interface IModeloModificableJInicio {
-    
+
+    public void añadirObserver(IVista v);
+
+    public void marcarListo();
+
+    public void marcarNoListo();
+
+    public void mostrarLobby();
+
+    public void ocultarLobby();
+
 }

@@ -2,18 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package mvcJuegoInicio.interfaces;
+package interfaces;
 
 /**
  *
- * @author Ramon Valencia
+ * @author Equipo
  */
-public interface IControlJuegoInicio {
+public interface ObservadorLobby {
 
-    public void marcarListo();
+    public void actualizarLobby();
 
-    public void marcarNoListo();
-
-    public void mostrarLobby();
+    public void iniciarPartida();
 
 }

@@ -28,8 +28,10 @@ import java.util.List;
 import manejadores.ManejadorTurnos;
 import Enums.TamañoTablero;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorListoEvent;
 import excepciones.DatosJugadorInvalidosException;
 import interfaces.ObservadorJuego;
+import interfaces.ObservadorLobby;
 import manejadores.ManejadorPuntajes;
 import objetosModeloJuego.Cuadro;
 import objetosModeloJuego.Puntaje;
@@ -52,6 +54,7 @@ public class ModeloJuego
     private Jugador jugadorLocal;
     private DireccionDTO direccionLocal;
     private ObservadorJuego observador;
+    private ObservadorLobby observadorLobby;
     private boolean matrizVacia;
 
     public ModeloJuego() {
@@ -70,6 +73,10 @@ public class ModeloJuego
 
     public void suscribirObservador(ObservadorJuego observador) {
         this.observador = observador;
+    }
+
+    public void suscribirObservadorLobby(ObservadorLobby observadorLobby) {
+        this.observadorLobby = observadorLobby;
     }
 
     /**
@@ -291,4 +298,73 @@ public class ModeloJuego
         }
     }
 
+    @Override
+    public void marcarListo() {
+        jugadorLocal.setListo(true);
+        transmitirJugadorListo();
+        verificarTodosListos();
+    }
+
+    @Override
+    public void marcarNoListo() {
+        jugadorLocal.setListo(false);
+        transmitirJugadorListo();
+    }
+
+    private void transmitirJugadorListo() {
+        JugadorListoEvent jlEvent = new JugadorListoEvent(
+                jugadorLocal.getIdJugador(),
+                jugadorLocal.isListo()
+        );
+        try {
+            manejoPaquetes.transmitirJugadorListo(jlEvent);
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void recibirJugadorListo(String idJugador, boolean listo) {
+        Jugador jugador = listaJugadores.buscarJugadorPorId(idJugador);
+        if (jugador != null) {
+            jugador.setListo(listo);
+            notificarCambioLobby();
+            verificarTodosListos();
+        }
+    }
+
+    private void notificarCambioLobby() {
+        if (observadorLobby != null) {
+            observadorLobby.actualizarLobby();
+        }
+    }
+
+    @Override
+    public boolean todosListos() {
+        List<Jugador> jugadores = listaJugadores.obtenerJugadores();
+        if (jugadores.isEmpty()) {
+            return false;
+        }
+        for (Jugador j : jugadores) {
+            if (!j.isListo()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void verificarTodosListos() {
+        if (todosListos() && listaJugadores.obtenerJugadores().size() >= 2) {
+            if (observadorLobby != null) {
+                observadorLobby.iniciarPartida();
+            }
+        }
+    }
+
+    @Override
+    public Jugador getJugadorLocal() {
+        return jugadorLocal;
+    }
 }

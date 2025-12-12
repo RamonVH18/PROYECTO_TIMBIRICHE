@@ -6,6 +6,8 @@ package serializador;
 
 import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
+import Enums.ColorJugador;
+import Enums.ImagenJugador;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import eventos.JugadorListoEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import eventos.VerificadorEventos;
@@ -65,7 +68,12 @@ public class Deserializador {
                 break;
             }
             case ("CambioDatosJugador") -> {
-//                CambioJugadorEvent cjEvent = 
+//                CambioJugadorEvent cjEvent =
+            }
+            case ("jugadorListo") -> {
+                JugadorListoEvent jlEvent = deserializarJugadorListoEvent(paquete.getMensaje());
+                verificadorEventos.eventoJugadorListo(jlEvent);
+                break;
             }
         }
     }
@@ -78,9 +86,22 @@ public class Deserializador {
 
     private NuevoJugadorEvent deserializarNuevoJugadorEvent(JsonObject json) {
         DireccionDTO d = gson.fromJson(json.get("direccion"), DireccionDTO.class);
-        Jugador j = gson.fromJson(json.get("jugador"), Jugador.class);
+        JsonObject jsonJugador = json.get("jugador").getAsJsonObject();
+        Jugador j = deserializarJugador(jsonJugador);
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(j, d);
         return njEvent;
+    }
+
+    private Jugador deserializarJugador(JsonObject json) {
+        String idJugador = json.get("idJugador").getAsString();
+        String nombre = json.get("nombre").getAsString();
+        ImagenJugador imagen = ImagenJugador.valueOf(json.get("imagen").getAsString());
+        ColorJugador color = ColorJugador.valueOf(json.get("color").getAsString());
+        boolean listo = json.has("listo") && json.get("listo").getAsBoolean();
+
+        Jugador jugador = new Jugador(idJugador, nombre, imagen, color);
+        jugador.setListo(listo);
+        return jugador;
     }
 
     private LineaPintadaEvent deserializarLineaPintadaEvent(JsonObject json) {
@@ -104,5 +125,11 @@ public class Deserializador {
         }.getType();
         List<DireccionDTO> direcciones = gson.fromJson(json.get("direcciones"), listType);
         return direcciones;
+    }
+
+    private JugadorListoEvent deserializarJugadorListoEvent(JsonObject json) {
+        String idJugador = json.get("idJugador").getAsString();
+        boolean listo = json.get("listo").getAsBoolean();
+        return new JugadorListoEvent(idJugador, listo);
     }
 }

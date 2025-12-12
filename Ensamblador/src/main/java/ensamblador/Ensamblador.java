@@ -21,6 +21,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
 import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoInicio.controlador.ControlJuegoInicio;
+import mvcJuegoInicio.modelo.ModeloJuegoInicio;
+import mvcJuegoInicio.vistas.PantallaLobby;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
 import recepcion.ServerTCP;
@@ -50,7 +53,7 @@ public class Ensamblador {
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
         receptor.inyectarManejador(manejoRecepcionPaquetes);
-        servidor = new ServerTCP(8080);
+        servidor = new ServerTCP(8090);
 
         Thread hiloServidor = new Thread(() -> {
             try {
@@ -71,7 +74,7 @@ public class Ensamblador {
 
         modeloJuego.conectarseAServidor();
         try {
-            modeloJuego.guardarInformacionJugador("1", "Yizbin", ImagenJugador.GOLDEN, ColorJugador.AZUL);
+            modeloJuego.guardarInformacionJugador("2", "john", ImagenJugador.STUART, ColorJugador.TURQUESA);
 //        modeloJuego.registrarNuevoJugador(
 //                new Jugador("2", "Pollo Jalado", "2", "rojo"),
 //                new DireccionDTO("192.168.1.70", 5000)
@@ -83,6 +86,23 @@ public class Ensamblador {
 
     public static void iniciarPresentacion() {
         iniciarModelo();
+
+        ModeloJuegoInicio modeloLobby = new ModeloJuegoInicio(modeloJuego);
+        modeloJuego.suscribirObservadorLobby(modeloLobby);
+        ControlJuegoInicio controlLobby = new ControlJuegoInicio(modeloLobby);
+        PantallaLobby pantallaLobby = new PantallaLobby(modeloLobby, controlLobby);
+        modeloLobby.añadirObserver(pantallaLobby);
+
+        modeloLobby.setAccionIniciarPartida(() -> {
+            pantallaLobby.setVisible(false);
+            pantallaLobby.dispose();
+            iniciarPantallaJuego();
+        });
+
+        controlLobby.mostrarLobby();
+    }
+
+    public static void iniciarPantallaJuego() {
         ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
         modeloJuego.suscribirObservador(modelo);
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);

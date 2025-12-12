@@ -9,13 +9,16 @@ import DTOs.EnvioDTO;
 import DTOs.PaqueteDTO;
 import envio.DispatcherFactory;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorListoEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import excepciones.ErrorAlEnviarPaqueteException;
 import excepciones.PaqueteVacioAlSerializarException;
 import interfaz.IEmisor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import serializador.Serializador;
 
@@ -54,14 +57,20 @@ public class ManejoEnvioPaquetes {
     }
 
     private boolean enviarPaqueteDTO(PaqueteDTO paquete) throws ErrorAlEnviarPaqueteException {
+        List<String> jugadoresFallidos = new ArrayList<>();
+
         for (Map.Entry<String, DireccionDTO> entrada : direcciones.entrySet()) {
             String nombreJugador = entrada.getKey();
             DireccionDTO direccion = entrada.getValue();
             try {
                 emisor.enviarPaquete(new EnvioDTO(direccion.getHost(), direccion.getPort(), paquete));
             } catch (Exception ex) {
-                throw new ErrorAlEnviarPaqueteException("Hay un error de conexion con el jugador " + nombreJugador);
+                jugadoresFallidos.add(nombreJugador);
             }
+        }
+
+        if (!jugadoresFallidos.isEmpty()) {
+            throw new ErrorAlEnviarPaqueteException("Error de conexion con: " + String.join(", ", jugadoresFallidos));
         }
         return true;
     }
@@ -103,6 +112,11 @@ public class ManejoEnvioPaquetes {
     
     public void transmitirCambioDatosJugador(CambioJugadorEvent cjEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
         PaqueteDTO paquete = serializador.serializarCambioJugadorEvent("CambioDatosJugador", cjEvent);
+        enviarPaqueteDTO(paquete);
+    }
+
+    public void transmitirJugadorListo(JugadorListoEvent jlEvent) throws PaqueteVacioAlSerializarException, ErrorAlEnviarPaqueteException {
+        PaqueteDTO paquete = serializador.serializarJugadorListoEvent("jugadorListo", jlEvent);
         enviarPaqueteDTO(paquete);
     }
 }

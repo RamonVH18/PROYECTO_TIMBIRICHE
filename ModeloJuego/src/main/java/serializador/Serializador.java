@@ -8,6 +8,7 @@ import DTOs.DireccionDTO;
 import DTOs.PaqueteDTO;
 import com.google.gson.JsonObject;
 import eventos.CambioJugadorEvent;
+import eventos.JugadorListoEvent;
 import eventos.LineaPintadaEvent;
 import eventos.NuevoJugadorEvent;
 import excepciones.PaqueteVacioAlSerializarException;
@@ -75,6 +76,16 @@ public class Serializador {
         return null;
     }
 
+    public PaqueteDTO serializarJugadorListoEvent(String tipoPaquete, JugadorListoEvent jlEvent) throws PaqueteVacioAlSerializarException {
+        if (validarSerializacion(tipoPaquete, jlEvent)) {
+            JsonObject jsonEvent = new JsonObject();
+            jsonEvent.addProperty("idJugador", jlEvent.getIdJugador());
+            jsonEvent.addProperty("listo", jlEvent.isListo());
+            return new PaqueteDTO(tipoPaquete, jsonEvent);
+        }
+        return null;
+    }
+
     private JsonObject serializarLinea(Linea l) {
         JsonObject jsonLinea = new JsonObject();
         JsonObject jsonPuntoA = serializarPunto(l.getPuntoA());
@@ -98,6 +109,7 @@ public class Serializador {
         jsonJugador.addProperty("nombre", j.getNombre());
         jsonJugador.addProperty("imagen", j.getImagen().name());
         jsonJugador.addProperty("color", j.getColor().name());
+        jsonJugador.addProperty("listo", j.isListo());
         return jsonJugador;
     }
 

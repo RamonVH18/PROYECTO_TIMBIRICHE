@@ -18,15 +18,17 @@ public class Jugador {
     private String nombre;
     private ImagenJugador imagen;
     private ColorJugador color;
+    private boolean listo;
 
     public Jugador() {
-
+        this.listo = false;
     }
 
     public Jugador(String nombre, ImagenJugador imagen, ColorJugador color) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.color = color;
+        this.listo = false;
     }
 
     public Jugador(String idJugador, String nombre, ImagenJugador imagen, ColorJugador color) {
@@ -34,6 +36,7 @@ public class Jugador {
         this.nombre = nombre;
         this.imagen = imagen;
         this.color = color;
+        this.listo = false;
     }
 
     public void asignarIdJugador(String idJugador) {
@@ -66,6 +69,14 @@ public class Jugador {
 
     public ColorJugador getColor() {
         return color;
+    }
+
+    public boolean isListo() {
+        return listo;
+    }
+
+    public void setListo(boolean listo) {
+        this.listo = listo;
     }
 
     @Override

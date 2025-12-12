@@ -4,10 +4,19 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import java.util.List;
+import objetosPresentacion.JugadorLobbyVisual;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
-    
+
+    public List<JugadorLobbyVisual> obtenerJugadoresLobby();
+
+    public boolean isMostrandoLobby();
+
+    public boolean isJugadorLocalListo();
+
 }
