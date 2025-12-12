@@ -96,6 +96,18 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         }
     }
 
+    public void añadirObserver(IVista v, ObserverType tipo) {
+        manejoObservers.agregarObserver(tipo, v);
+    }
+
+    public void eliminarObserver(IVista v, ObserverType tipo) {
+        manejoObservers.agregarObserver(tipo, v);
+    }
+
+    public void notificar(ObserverType tipo) {
+        manejoObservers.notificar(tipo);
+    }
+
     @Override
     public void ocultarPantallas(ObserverType tipo) {
         desactivarPantallas(tipo);

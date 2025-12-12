@@ -13,10 +13,17 @@ import modeloJuego.ModeloJuego;
 import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
 import mvcJuegoIniciado.modelo.ModeloJuegoIniciado;
 import mvcJuegoIniciado.vistas.PantallaDeJuego;
+import mvcJuegoIniciado.vistas.PantallaUnirsePartida;
 import mvcJuegoIniciado.vistas.TableroJuego;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
+import mvcJuegoInicio.modelo.ModeloJuegoInicio;
 import enums.TamañosTablero;
 import eventos.VerificadorEventos;
 import excepciones.DatosJugadorInvalidosException;
+
+import static enums.ObserverType.PANTALLA_UNIRSE_PARTIDA;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
@@ -40,6 +47,8 @@ public class Ensamblador {
     public static VerificadorEventos verificador;
     public static Deserializador deserializador;
     public static ManejoRecepcionPaquetes manejoRecepcionPaquetes;
+    public static IModeloLeibleJInicio modeloJuegoInicio;
+    public static IControlJuegoInicio controlJuegoInicio;
 
     public static void main(String[] args) throws FalloCreacionServerException {
         iniciarPresentacion();
@@ -81,9 +90,16 @@ public class Ensamblador {
         }
     }
 
+    public static void iniciarModeloinicio(){
+        modeloJuegoInicio = new ModeloJuegoInicio();
+        controlJuegoInicio = new controlJuegoInicio();
+        PantallaUnirsePartida = new PantallaUnirsePartida(controlJuegoInicio, modeloJuegoInicio);
+        modeloJuegoInicio.añadirObserver(PantallaUnirsePartida, PANTALLA_UNIRSE_PARTIDA);
+    }
+
     public static void iniciarPresentacion() {
         iniciarModelo();
-        ModeloJuegoIniciado modelo = new ModeloJuegoIniciado(TamañosTablero.PEQUEÑO, modeloJuego);
+        iniciarModeloinicio();
         modeloJuego.suscribirObservador(modelo);
         ControlJuegoIniciado control = new ControlJuegoIniciado(modelo);
         TableroJuego tablero = new TableroJuego(modelo, control);
