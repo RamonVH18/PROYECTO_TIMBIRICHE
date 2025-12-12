@@ -11,10 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 
 public class PantallaUnirsePartida extends JFrame implements IVista {
 
-    public PantallaUnirsePartida() {
+    private IControlJuegoInicio control;
+    private IModeloLeibleJInicio modelo;
+
+    public PantallaUnirsePartida(IControlJuegoInicio control, IModeloLeibleJInicio modelo) {
+        this.control = control;
+        this.modelo = modelo;
+
         setTitle("Pantala Unirse a Partida");
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -23,8 +31,6 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
 
         add(panelEncabezado(), BorderLayout.NORTH);
         add(panelBotones(), BorderLayout.SOUTH);
-
-        setVisible(true);
     }
 
     private JPanel panelEncabezado() {
@@ -79,6 +85,9 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
         });
 
         JButton btnUnirse = new JButton("Unirse");
+        btnUnirse.addActionListener(e->{
+            control.seleccionarPartida();
+        });
 
         panel.add(nombrePartida);
         panel.add(btnInformacion);
@@ -89,14 +98,15 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
 
     @Override
     public void actualizar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
+        repaint();
     }
 
     @Override
     public void mostrar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mostrar'");
+        setVisible(modelo.isMostrandoUnirsePartida());
+        if(modelo.isPartidaCargada()){
+           agregarPanel(modelo.obtenerNombrePartida(), modelo.obtenerBoardSize(), modelo.obtenerMaxJugadores());
+        }
     }
 
 }

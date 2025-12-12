@@ -4,12 +4,20 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import enums.ObserverType;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
+    public boolean isMostrandoUnirsePartida();
+    public boolean isMostrandoMainMenu();
+    public boolean isMostrandoPantallaMock();
+    public boolean isPartidaCargada();
     public String obtenerNombrePartida();
     public int obtenerMaxJugadores();
     public String obtenerBoardSize();
+    public void activarPantallas(ObserverType tipo);
+    public void ocultarPantallas(ObserverType tipo);
 }

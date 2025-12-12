@@ -22,7 +22,6 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     private final ManejadorObservers manejoObservers;
 
     private boolean mostrandoPantallaUnirsePartida;
-    private boolean partidaEncontrada;
     private boolean mostrandoMockPartida;
     private boolean mostrandoMainMenu;
     private boolean partidaCargada;
@@ -76,18 +75,49 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         }
     }
 
+    public void mostrarPantallas(ObserverType tipo) {
+        activarPantallas(tipo);
+        manejoObservers.mostrarObservers(tipo);
+    }
+
+    public void desactivarPantallas(ObserverType tipo) {
+        switch (tipo) {
+            case PANTALLA_MAIN_MENU -> {
+                this.mostrandoMainMenu = false;
+                break;
+            }
+            case PANTALLA_UNIRSE_PARTIDA -> {
+                this.mostrandoPantallaUnirsePartida = false;
+                break;
+            }
+            case PANTALLA_CARGA_MOCK -> {
+                this.mostrandoMockPartida = false;
+            }
+        }
+    }
+
+    @Override
+    public void ocultarPantallas(ObserverType tipo) {
+        desactivarPantallas(tipo);
+        manejoObservers.mostrarObservers(tipo);
+    }
+
+    @Override
     public boolean isMostrandoMainMenu() {
         return mostrandoMainMenu;
     }
 
+    @Override
     public boolean isMostrandoUnirsePartida() {
         return mostrandoPantallaUnirsePartida;
     }
 
+    @Override
     public boolean isMostrandoPantallaMock() {
         return mostrandoMockPartida;
     }
 
+    @Override
     public boolean isPartidaCargada() {
         return partidaCargada;
     }
