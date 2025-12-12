@@ -23,12 +23,12 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     private boolean partidaEncontrada;
     private boolean mostrandoMockPartida;
     private IModeloJuegoInicio modelo;
-    
-    public ModeloJuegoInicio(IModeloJuegoInicio modelo){
+
+    public ModeloJuegoInicio(IModeloJuegoInicio modelo) {
         this.manejoObservers = new ManejadorObservers();
         this.mostrandoPantallaUnirsePartida = false;
         this.partidaEncontrada = false;
-        
+
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     @Override
     public int obtenerMaxJugadores() {
-    return modelo.getCantidadJugadores();
+        return modelo.getCantidadJugadores();
     }
 
     @Override
@@ -52,8 +52,7 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         return modelo.getBoardSize();
     }
 
-// metodos de oberservadores
-
+    // metodos de oberservadores
 
     public void añadirObserver(IVista v, ObserverType tipo) {
         manejoObservers.agregarObserver(tipo, v);
@@ -67,7 +66,7 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         manejoObservers.notificar(tipo);
     }
 
-    //Metodos Modificables
+    // Metodos Modificables
 
     public void mostrarPantalla(ObserverType tipo) {
         activarPantallas(tipo);
@@ -76,9 +75,10 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     private void activarPantallas(ObserverType tipo) {
         switch (tipo) {
-        
+
         }
     }
+
     public void ocultarPantalla(ObserverType tipo) {
         desactivarPantallas(tipo);
         manejoObservers.mostrarObservers(tipo);
@@ -86,11 +86,8 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     public void desactivarPantallas(ObserverType tipo) {
         switch (tipo) {
-         
+
+        }
+
     }
-
-
-
-
-}
 }
