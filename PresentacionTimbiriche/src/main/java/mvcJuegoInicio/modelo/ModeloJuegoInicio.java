@@ -17,18 +17,23 @@ import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
  */
 public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificableJInicio {
 
+    private IModeloJuegoInicio modelo;
+
     private final ManejadorObservers manejoObservers;
 
     private boolean mostrandoPantallaUnirsePartida;
     private boolean partidaEncontrada;
     private boolean mostrandoMockPartida;
-    private IModeloJuegoInicio modelo;
+    private boolean mostrandoMainMenu;
+    private boolean partidaCargada;
 
     public ModeloJuegoInicio(IModeloJuegoInicio modelo) {
+        this.modelo = modelo;
         this.manejoObservers = new ManejadorObservers();
         this.mostrandoPantallaUnirsePartida = false;
-        this.partidaEncontrada = false;
-
+        this.mostrandoMockPartida = false;
+        this.mostrandoMainMenu = false;
+        this.partidaCargada = false;
     }
 
     @Override
@@ -52,42 +57,38 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
         return modelo.getBoardSize();
     }
 
-    // metodos de oberservadores
-
-    public void añadirObserver(IVista v, ObserverType tipo) {
-        manejoObservers.agregarObserver(tipo, v);
-    }
-
-    public void eliminarObserver(IVista v, ObserverType tipo) {
-        manejoObservers.agregarObserver(tipo, v);
-    }
-
-    public void notificar(ObserverType tipo) {
-        manejoObservers.notificar(tipo);
-    }
-
-    // Metodos Modificables
-
-    public void mostrarPantalla(ObserverType tipo) {
-        activarPantallas(tipo);
-        manejoObservers.mostrarObservers(tipo);
-    }
-
-    private void activarPantallas(ObserverType tipo) {
+    public void activarPantallas(ObserverType tipo) {
         switch (tipo) {
-
+            case PANTALLA_MAIN_MENU -> {
+                this.mostrandoMainMenu = true;
+                break;
+            }
+            case PANTALLA_UNIRSE_PARTIDA -> {
+                this.mostrandoPantallaUnirsePartida = true;
+                break;
+            }
+            case PANTALLA_CARGA_MOCK -> {
+                this.mostrandoMockPartida = true;
+            }
+            case PARTIDA_CARGADA -> {
+                this.partidaCargada = true;
+            }
         }
     }
 
-    public void ocultarPantalla(ObserverType tipo) {
-        desactivarPantallas(tipo);
-        manejoObservers.mostrarObservers(tipo);
+    public boolean isMostrandoMainMenu() {
+        return mostrandoMainMenu;
     }
 
-    public void desactivarPantallas(ObserverType tipo) {
-        switch (tipo) {
+    public boolean isMostrandoUnirsePartida() {
+        return mostrandoPantallaUnirsePartida;
+    }
 
-        }
+    public boolean isMostrandoPantallaMock() {
+        return mostrandoMockPartida;
+    }
 
+    public boolean isPartidaCargada() {
+        return partidaCargada;
     }
 }

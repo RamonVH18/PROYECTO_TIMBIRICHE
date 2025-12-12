@@ -14,8 +14,8 @@ import mvcJuegoIniciado.interfaces.IVista;
 
 public class PantallaUnirsePartida extends JFrame implements IVista {
 
-    public PantallaUnirsePartida(){
-        setTitle("Nombre");
+    public PantallaUnirsePartida() {
+        setTitle("Pantala Unirse a Partida");
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setSize(400, 450);
@@ -23,11 +23,10 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
 
         add(panelEncabezado(), BorderLayout.NORTH);
         add(panelBotones(), BorderLayout.SOUTH);
-        
+
         setVisible(true);
     }
 
-    
     private JPanel panelEncabezado() {
         JPanel panelSuperior = new JPanel();
 
@@ -58,35 +57,35 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
         return panelInferior;
     }
 
-    public void agregarPanel(String name, String bs, int maxP){
+    public void agregarPanel(String name, String bs, int maxP) {
         JPanel panel = crearPanel(name, bs, maxP);
         this.add(panel, BorderLayout.CENTER);
         repaint();
     }
-    
-    private JPanel crearPanel(String name, String bs, int maxP){
+
+    private JPanel crearPanel(String name, String bs, int maxP) {
         JPanel panel = new JPanel();
-        panel.setSize(370,420);
+        panel.setSize(370, 420);
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 10));
-        
+
         JLabel nombrePartida = new JLabel(name);
-        
+
         JButton btnInformacion = new JButton("Info");
-        btnInformacion.addActionListener(e->{
-            JOptionPane.showMessageDialog(null, "Nombre de la partida: "+name +"\n\nJugadores: "+maxP+"\n\nTamaño del tablero: "
-                    +bs,"Información", JOptionPane.INFORMATION_MESSAGE);
-        }); 
-        
+        btnInformacion.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,
+                    "Nombre de la partida: " + name + "\n\nJugadores: " + maxP + "\n\nTamaño del tablero: "
+                            + bs,
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+        });
+
         JButton btnUnirse = new JButton("Unirse");
-        
-        
+
         panel.add(nombrePartida);
         panel.add(btnInformacion);
         panel.add(btnUnirse);
-        
+
         return panel;
     }
-
 
     @Override
     public void actualizar() {
@@ -99,7 +98,5 @@ public class PantallaUnirsePartida extends JFrame implements IVista {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'mostrar'");
     }
-
-
 
 }
