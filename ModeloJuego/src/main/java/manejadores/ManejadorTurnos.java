@@ -17,6 +17,7 @@ public class ManejadorTurnos {
     private Jugador jugadorEnTurno;
     private int indiceTurno;
     private ListaJugadores listaJugadores;
+    private String palabraClaveJugadorAbandonoPartida ="Desconectado";
 
     public ManejadorTurnos(ListaJugadores listaJugadores) {
         this.listaJugadores = listaJugadores;
@@ -32,12 +33,26 @@ public class ManejadorTurnos {
     }
 
     public void siguienteTurno() {
-        indiceTurno++;
+        int total = listaJugadores.obtenerJugadores().size();
 
-        if (indiceTurno >= listaJugadores.obtenerJugadores().size()) {
-            indiceTurno = 0;
-        }
+        if (total == 0) return;
+
+        do {
+            indiceTurno++;
+
+            if (indiceTurno >= total) {
+                indiceTurno = 0;
+            }
+
+        } while (isJugadorDesconectado(
+                    listaJugadores.obtenerJugadores()
+                        .get(indiceTurno)
+                        .getIdJugador()
+                ));
+
+        jugadorEnTurno = listaJugadores.obtenerJugadores().get(indiceTurno);
     }
+
     
     public boolean esMiTurno(Jugador jugadorLocal) {
         return jugadorEnTurno.equals(jugadorLocal);
@@ -45,6 +60,13 @@ public class ManejadorTurnos {
     
     public void crearTurnos() {
         listaJugadores.obtenerJugadores().sort(Comparator.comparing(j -> j.getIdJugador()));
+    }
     
+    public void quitarJugadorDeTurnero(String idJugador){
+        listaJugadores.marcarComoDesconectadoJugador(idJugador);
+    }
+    
+    public boolean isJugadorDesconectado(String idJugador){
+        return listaJugadores.obtenerJugador(idJugador).getNombre().contains(palabraClaveJugadorAbandonoPartida);
     }
 }

@@ -50,7 +50,7 @@ public class Ensamblador {
         colaRecepcion = ColaRecepcion.getInstancia();
         colaRecepcion.suscribirReceptor(receptor);
         receptor.inyectarManejador(manejoRecepcionPaquetes);
-        servidor = new ServerTCP(8090);
+        servidor = new ServerTCP(9000);
 
         Thread hiloServidor = new Thread(() -> {
             try {
@@ -72,11 +72,9 @@ public class Ensamblador {
         modeloJuego.conectarseAServidor();
         try {
             //modeloJuego.guardarInformacionJugador("0", "JANO", ImagenJugador.GATO, ColorJugador.NARANJA);
-            modeloJuego.guardarInformacionJugador("1", "ESKELER", ImagenJugador.MAOMAO, ColorJugador.VERDE);
-//        modeloJuego.registrarNuevoJugador(
-//                new Jugador("2", "Pollo Jalado", "2", "rojo"),
-//                new DireccionDTO("192.168.1.70", 5000)
-//        );
+            //modeloJuego.guardarInformacionJugador("1", "ESKELER", ImagenJugador.MAOMAO, ColorJugador.VERDE);
+            modeloJuego.guardarInformacionJugador("2", "RODRIGO", ImagenJugador.PANDA, ColorJugador.TURQUESA);
+            //modeloJuego.guardarInformacionJugador("3", "SONIA", ImagenJugador.STUART, ColorJugador.AZUL);
         } catch (DatosJugadorInvalidosException ex) {
             Logger.getLogger(Ensamblador.class.getName()).log(Level.SEVERE, null, ex);
         }

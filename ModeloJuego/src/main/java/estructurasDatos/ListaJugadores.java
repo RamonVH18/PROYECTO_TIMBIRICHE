@@ -5,6 +5,7 @@
 package estructurasDatos;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import objetosModeloJuego.Jugador;
 
@@ -25,9 +26,27 @@ public class ListaJugadores {
        }
     }
     
-    public void eliminarJugador(Jugador jugador) {
-        jugadores.remove(jugador);
+    public void eliminarJugador(String idJugador) {
+        Iterator<Jugador> it = jugadores.iterator();
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            if (jugador.getIdJugador().equals(idJugador)) {
+                it.remove(); 
+                break;       
+            }
+        }
     }
+    
+    public void marcarComoDesconectadoJugador(String idJugador) {
+        for (Jugador jugador : jugadores) {
+            if (jugador.getIdJugador().equals(idJugador)) {
+                jugador.cambiarNombre(jugador.getNombre() + " Desconectado");
+                return; // más claro que break
+            }
+        }
+    }
+
+
     
     public List<Jugador> obtenerJugadores() {
         return jugadores;

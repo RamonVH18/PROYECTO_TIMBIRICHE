@@ -296,6 +296,7 @@ public class ModeloJuego
     @Override
     public void abandonarPartida() {
         transmitirDesconexion(jugadorLocal, direccionLocal);
+        //METODO PARA SALIRME DEL SERVER
         
     }
     
@@ -316,22 +317,21 @@ public class ModeloJuego
     
     @Override
     public void quitarJugadorDeLaPartida(Jugador jugador, DireccionDTO direccionDTO){
-        System.out.println(jugador.getNombre() + "abandono La Partida con la direccion ip:" + direccionDTO.getHost() );
-        marcarJugadorComoDesconectado(jugador.getIdJugador());
         notificarJugadorAbandonoPartida(jugador);
-        
-    }
-
-    public Jugador getJugadorLocal() {
-        return jugadorLocal;
-    }
-
-    public DireccionDTO getDireccionLocal() {
-        return direccionLocal;
+        recorrerTurnos(jugador);
     }
     
-    private void marcarJugadorComoDesconectado(String idJugador){
-        Jugador j = listaJugadores.obtenerJugador(idJugador);
-        j.cambiarNombre(j.getNombre() + " Desconectado");
+    private void recorrerTurnos(Jugador jugadorQueAbandono){
+        if(manejoTurnos.mostrarJugadorActual().getIdJugador().equals(jugadorQueAbandono.getIdJugador())){
+            manejoTurnos.siguienteTurno();
+            manejoTurnos.iniciarTurno();
+            manejoTurnos.quitarJugadorDeTurnero(jugadorQueAbandono.getIdJugador());
+            
+        }
+        else{
+            manejoTurnos.quitarJugadorDeTurnero(jugadorQueAbandono.getIdJugador());
+            manejoTurnos.iniciarTurno();
+        }
+        notificarCambioTurno();
     }
 }

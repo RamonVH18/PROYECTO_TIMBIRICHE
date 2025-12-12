@@ -1,4 +1,5 @@
 
+import mvcJuegoInicio.vistas.PantallaInicio;
 import mvcJuegoInicio.vistas.PantallaRegistrarJugador;
 import mvcJuegoInicio.vistas.PantallaSeleccionImagen;
 
@@ -18,9 +19,9 @@ public class Pruebas {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        PantallaRegistrarJugador pantalla = new PantallaRegistrarJugador();
+        PantallaInicio pI = new PantallaInicio();
         
-        pantalla.setVisible(true);
+        pI.setVisible(true);
     }
     
 }
