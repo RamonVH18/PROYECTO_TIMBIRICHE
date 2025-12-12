@@ -111,4 +111,8 @@ public class ManejoEnvioPaquetes {
         PaqueteDTO paquete = serializador.serializarJugadorAbandonaPartida("JugadorAbandonoPartida", japEvent);
         enviarPaqueteDTO(paquete);
     }
+    
+    public void quitarDireccion(String nombreJugador){
+        direcciones.remove(nombreJugador);
+    }
 }

@@ -50,6 +50,15 @@ public class PantallaDeJuego extends JFrame implements IVista {
         this.tablero = tablero;
         this.tablaPuntajes = new TablaPuntajes(modelo);
         pantallaJuego();
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                // Aquí pones lo que debe pasar cuando el jugador cierre la ventana
+                control.abandonarPartida();
+            }
+        });
+
     }
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked

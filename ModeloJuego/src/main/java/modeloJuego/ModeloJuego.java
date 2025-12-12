@@ -319,6 +319,8 @@ public class ModeloJuego
     public void quitarJugadorDeLaPartida(Jugador jugador, DireccionDTO direccionDTO){
         notificarJugadorAbandonoPartida(jugador);
         recorrerTurnos(jugador);
+        System.out.println(jugador.getNombre());
+        quitarDireccionDeJugadorQueAbandono(jugador.getNombre());
     }
     
     private void recorrerTurnos(Jugador jugadorQueAbandono){
@@ -333,5 +335,9 @@ public class ModeloJuego
             manejoTurnos.iniciarTurno();
         }
         notificarCambioTurno();
+    }
+    
+    private void quitarDireccionDeJugadorQueAbandono(String nombreJugador){
+        manejoPaquetes.quitarDireccion(nombreJugador);
     }
 }
