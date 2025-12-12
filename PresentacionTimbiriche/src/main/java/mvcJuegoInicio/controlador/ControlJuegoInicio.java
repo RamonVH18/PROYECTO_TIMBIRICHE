@@ -4,10 +4,24 @@
  */
 package mvcJuegoInicio.controlador;
 
+import java.util.ResourceBundle.Control;
+
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
+
 /**
  *
  * @author Ramon Valencia
  */
-public class ControlJuegoInicio {
+public class ControlJuegoInicio implements IControlJuegoInicio {
+    private IModeloModificableJInicio modelo;
+
+    public ControlJuegoInicio(IModeloModificableJInicio modelo){
+        this.modelo = modelo;
+    }
+    @Override
+    public void seleccionarPartida() {
+        modelo.seleccionarPartida();
+    }
     
 }

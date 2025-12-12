@@ -9,5 +9,7 @@ package mvcJuegoInicio.interfaces;
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
-    
+    public String obtenerNombrePartida();
+    public int obtenerMaxJugadores();
+    public String obtenerBoardSize();
 }
