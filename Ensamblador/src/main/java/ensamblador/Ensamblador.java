@@ -5,28 +5,23 @@ package ensamblador;
 
 import Enums.ColorJugador;
 import Enums.ImagenJugador;
-import enums.ObserverType;
 import excepciones.FalloCreacionServerException;
 import interfaces.IModeloJuegoInicio;
 import interfaz.IEmisor;
 import modeloJuego.ModeloJuego;
-import mvcJuegoIniciado.controlador.ControlJuegoIniciado;
-import mvcJuegoIniciado.vistas.PantallaDeJuego;
-import mvcJuegoIniciado.vistas.PantallaUnirsePartida;
-import mvcJuegoIniciado.vistas.TableroJuego;
 import mvcJuegoInicio.controlador.ControlJuegoInicio;
 import mvcJuegoInicio.interfaces.IControlJuegoInicio;
-import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import mvcJuegoInicio.modelo.ModeloJuegoInicio;
 import eventos.VerificadorEventos;
 import excepciones.DatosJugadorInvalidosException;
 
+import static enums.ObserverType.PANTALLA_CARGA_MOCK;
 import static enums.ObserverType.PANTALLA_UNIRSE_PARTIDA;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoRecepcionPaquetes;
-import mvcJuegoIniciado.vistas.MenuDeOpciones;
+import mvcJuegoIniciado.vistas.FrameMock;
 import mvcJuegoIniciado.vistas.PantallaUnirsePartida;
 import recepcion.ColaRecepcion;
 import recepcion.Receptor;
@@ -94,6 +89,8 @@ public class Ensamblador {
         modeloJuegoInicio = new ModeloJuegoInicio(modelo);
         controlJuegoInicio = new ControlJuegoInicio(modeloJuegoInicio);
         PantallaUnirsePartida pantallaUnirsePartida = new PantallaUnirsePartida(controlJuegoInicio, modeloJuegoInicio);
+        FrameMock FrameMock = new FrameMock(controlJuegoInicio, modeloJuegoInicio);
+        modeloJuegoInicio.añadirObserver(FrameMock, PANTALLA_CARGA_MOCK);
         modeloJuegoInicio.añadirObserver(pantallaUnirsePartida, PANTALLA_UNIRSE_PARTIDA);
     }
 

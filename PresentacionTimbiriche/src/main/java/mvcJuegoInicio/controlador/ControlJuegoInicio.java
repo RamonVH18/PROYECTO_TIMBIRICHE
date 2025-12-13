@@ -31,5 +31,9 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
     public void mostrarPantallaUnirsePartida(){
         modelo.mostrarPantallaUnirsePartida();
     }
+    
+    public void mostrarPantallaMock(){
+        modelo.mostrarPantallaMock();
+    }
 
 }

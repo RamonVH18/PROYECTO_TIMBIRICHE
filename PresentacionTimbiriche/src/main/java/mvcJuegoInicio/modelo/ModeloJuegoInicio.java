@@ -4,6 +4,7 @@
  */
 package mvcJuegoInicio.modelo;
 
+import static enums.ObserverType.PANTALLA_CARGA_MOCK;
 import static enums.ObserverType.PANTALLA_UNIRSE_PARTIDA;
 import static enums.ObserverType.PARTIDA_CARGADA;
 
@@ -41,8 +42,7 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     @Override
     public void seleccionarPartida() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'seleccionarPartida'");
+        mostrarPantallaMock();
     }
 
     @Override
@@ -152,6 +152,13 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
 
     @Override
     public void mostrarPantallaUnirsePartida() {
+        mostrarPantallas(PARTIDA_CARGADA);
         mostrarPantallas(PANTALLA_UNIRSE_PARTIDA);
+    }
+
+    @Override
+    public void mostrarPantallaMock() {
+        ocultarPantallas(PANTALLA_UNIRSE_PARTIDA);
+        mostrarPantallas(PANTALLA_CARGA_MOCK);
     }
 }

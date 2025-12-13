@@ -15,9 +15,9 @@ import Enums.TamañoTablero;
  */
 public class EstadoJuego {
     
-    private String nombrePartida;
-    private int numJugadores;
-    private TamañoTablero tamañoTablero;
+    private String nombrePartida = "patito feo";
+    private int numJugadores = 3;
+    private TamañoTablero tamañoTablero = TamañoTablero.MEDIANO;
     private MatrizPuntos matriz;
     private ListaLineas lineas;
     private ListaCuadros cuadros;
