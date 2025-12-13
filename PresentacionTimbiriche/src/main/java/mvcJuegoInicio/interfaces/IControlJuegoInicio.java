@@ -4,10 +4,12 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import enums.ObserverType;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IControlJuegoInicio {
-    
+    public void mostrarVista(ObserverType tipo);
 }

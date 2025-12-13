@@ -4,10 +4,14 @@
  */
 package mvcJuegoInicio.interfaces;
 
+import enums.ObserverType;
+
 /**
  *
  * @author Ramon Valencia
  */
 public interface IModeloModificableJInicio {
-    
+    public void añadirObserver(mvcJuegoIniciado.interfaces.IVista v, ObserverType tipo);
+    public void mostrarPantalla(ObserverType tipo);
+    public void ocultarPantalla(ObserverType tipo);
 }

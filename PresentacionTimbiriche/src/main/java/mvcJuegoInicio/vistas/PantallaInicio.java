@@ -4,17 +4,27 @@
  */
 package mvcJuegoInicio.vistas;
 
+import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
+import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
+import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
+import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
+
 /**
  *
  * @author multaslokas33
  */
-public class PantallaInicio extends javax.swing.JFrame {
-
+public class PantallaInicio extends javax.swing.JFrame implements IVista{
+    private final IModeloLeibleJInicio modelo;
+    private final IControlJuegoInicio control;
     /**
      * Creates new form PantallaInicio
      */
-    public PantallaInicio() {
+    public PantallaInicio(IModeloLeibleJInicio modelo, IControlJuegoInicio control) {
+        this.modelo = modelo;
+        this.control = control;
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -139,4 +149,14 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actualizar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrar() {
+        setVisible(modelo.isMostrandoPantallaDeInicio());
+    }
 }

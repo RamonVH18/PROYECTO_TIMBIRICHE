@@ -9,5 +9,5 @@ package mvcJuegoInicio.interfaces;
  * @author Ramon Valencia
  */
 public interface IModeloLeibleJInicio {
-    
+    public boolean isMostrandoPantallaDeInicio();
 }

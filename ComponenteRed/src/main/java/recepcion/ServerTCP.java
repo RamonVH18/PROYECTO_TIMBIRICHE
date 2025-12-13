@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package recepcion;
 
 import DTOs.PaqueteDTO;
@@ -13,42 +9,65 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- *
- * @author Ramon Valencia
- */
 public class ServerTCP {
+
     private final int puerto;
     private static ColaRecepcion colaRecepcion;
-    
+
+    private volatile boolean activo;
+    private ServerSocket serverSocket;
+
     public ServerTCP(int puerto) {
         this.puerto = puerto;
         this.colaRecepcion = ColaRecepcion.getInstancia();
+        this.activo = true;
     }
-    
+
     private void recibirPaquete(PaqueteDTO paquete) {
         colaRecepcion.encolar(paquete);
     }
-    
+
     public void iniciarServidor() throws FalloCreacionServerException {
         Gson gson = new Gson();
-        try (ServerSocket server = new ServerSocket(puerto)) {
-            while (true) {
-                Socket cliente = server.accept(); // espera conexión
+        try {
+            serverSocket = new ServerSocket(puerto);
+
+            while (activo) {
+                Socket cliente = serverSocket.accept(); // BLOQUEANTE
+
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(cliente.getInputStream())
                 );
 
-                String jsonRecibido = in.readLine(); // recibe el JSON como String
-
-                // Deserializar el JSON a JsonObject
+                String jsonRecibido = in.readLine();
                 PaqueteDTO paquete = gson.fromJson(jsonRecibido, PaqueteDTO.class);
-                
                 recibirPaquete(paquete);
-
             }
+
         } catch (IOException e) {
-            throw new FalloCreacionServerException("ERROR EN LA CREACION DEL SERVER SOCKET: " + e.getMessage());
+            if (activo) {
+                throw new FalloCreacionServerException(
+                        "ERROR EN LA CREACION DEL SERVER SOCKET: " + e.getMessage()
+                );
+            }
+            // si no está activo, es cierre normal
+        } finally {
+            cerrarServidor();
+        }
+    }
+
+    public void detenerServidor() {
+        activo = false;
+        cerrarServidor();
+    }
+
+    private void cerrarServidor() {
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close(); 
+            }
+        } catch (IOException ignored) {
         }
     }
 }
+

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import mvcJuegoIniciado.interfaces.IControlJuegoIniciado;
 import mvcJuegoIniciado.interfaces.IModeloLeibleJI;
 import mvcJuegoIniciado.interfaces.IVista;
+import mvcJuegoInicio.interfaces.IControlJuegoInicio;
 import objetosPresentacion.LineaTablero;
 import utils.PanelBordesRedondeados;
 
@@ -21,11 +22,13 @@ import utils.PanelBordesRedondeados;
 public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
 
     IModeloLeibleJI modelo;
-    IControlJuegoIniciado control;
+    IControlJuegoIniciado controlJuegoIniciado;
+    IControlJuegoInicio controlJuegoInicio;
             
-    public MenuDeOpciones(IModeloLeibleJI modelo, IControlJuegoIniciado control) {
+    public MenuDeOpciones(IModeloLeibleJI modelo, IControlJuegoIniciado controlJuegoIniciado, IControlJuegoInicio controlJuegoInicio) {
         this.modelo = modelo;
-        this.control = control;
+        this.controlJuegoIniciado = controlJuegoIniciado;
+        this.controlJuegoInicio = controlJuegoInicio;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -147,7 +150,7 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        control.ocultarVista(ObserverType.MENU_OPCIONES);
+        controlJuegoIniciado.ocultarVista(ObserverType.MENU_OPCIONES);
     }//GEN-LAST:event_formWindowClosed
 
     private void jLabelCambiarPaletaDeColoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCambiarPaletaDeColoresMouseEntered
@@ -208,7 +211,10 @@ public class MenuDeOpciones extends javax.swing.JFrame implements IVista{
                             break;
                         }
                         case "Abandonar Partida" ->{
-                            control.abandonarPartida();
+                            controlJuegoIniciado.abandonarPartida();
+                            controlJuegoIniciado.ocultarVista(ObserverType.MENU_OPCIONES);
+                            controlJuegoIniciado.ocultarVista(ObserverType.PANTALLA_JUEGO);
+                            controlJuegoInicio.mostrarVista(ObserverType.PANTALLA_INICIO);
                             break;
                         }   
                         case "Terminar Partida" ->{
