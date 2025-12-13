@@ -14,6 +14,8 @@ import eventos.NuevoJugadorEvent;
 import excepciones.ErrorAlEnviarPaqueteException;
 import excepciones.PaqueteVacioAlSerializarException;
 import interfaces.MediadorEventos;
+import interfaces.ObservadorInicio;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import manejadores.ManejoEnvioPaquetes;
@@ -54,6 +56,7 @@ public class ModeloJuego
     private DireccionDTO direccionLocal;
     private ObservadorJuego observador;
     private boolean matrizVacia;
+    private ObservadorInicio observadorInicio;
 
     public ModeloJuego() {
 
@@ -71,6 +74,10 @@ public class ModeloJuego
 
     public void suscribirObservador(ObservadorJuego observador) {
         this.observador = observador;
+    }
+
+    public void suscribirObservadorInicio(ObservadorInicio observador) {
+        this.observadorInicio = observador;
     }
 
     /**
@@ -99,6 +106,10 @@ public class ModeloJuego
         manejoTurnos.iniciarTurno();
         observador.cambiarTurno(
                 manejoTurnos.esMiTurno(jugadorLocal));
+    }
+
+    public void obtenerPartidaInicio() {
+        observadorInicio.obtenerPartida();
     }
 
     @Override
@@ -161,9 +172,9 @@ public class ModeloJuego
         if (!verificarCuadrosCompletados(jugador)) {
             manejoTurnos.siguienteTurno();
             /*
-            Este if es muy importante ya que gracias a este 
-            esta toda la logica de lo de que un jugador tenga
-            permitido seguir jugando luego de hacer un cuadro.
+             * Este if es muy importante ya que gracias a este
+             * esta toda la logica de lo de que un jugador tenga
+             * permitido seguir jugando luego de hacer un cuadro.
              */
         }
         manejoTurnos.iniciarTurno();
@@ -208,7 +219,7 @@ public class ModeloJuego
      */
     @Override
     public void solicitarInfoNuevoJugador(DireccionDTO direccion) {
-        
+
         try {
             manejoPaquetes.solicitarInfoNuevoJugador(direccionLocal, direccion);
         } catch (PaqueteVacioAlSerializarException ex) {
@@ -222,7 +233,7 @@ public class ModeloJuego
     public void transmitirInfoANuevoJugador(DireccionDTO direccion) {
         Jugador j = jugadorLocal;
         NuevoJugadorEvent njEvent = new NuevoJugadorEvent(jugadorLocal, direccionLocal);
-        
+
         try {
             manejoPaquetes.transmitirInfoANuevoJugador(direccion, njEvent);
         } catch (PaqueteVacioAlSerializarException ex) {
@@ -231,7 +242,7 @@ public class ModeloJuego
             Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void registrarJugadores(List<DireccionDTO> direcciones) {
         for (DireccionDTO direccion : direcciones) {
@@ -245,8 +256,7 @@ public class ModeloJuego
             manejoPaquetes.agregarNuevaDireccion(jugador.getNombre(), direccion);
             listaJugadores.agregarJugador(jugador);
             manejoPuntajes.agregarNuevoPuntaje(
-                    new Puntaje(jugador.getIdJugador())
-            );
+                    new Puntaje(jugador.getIdJugador()));
             transmitirInfoANuevoJugador(direccion);
         }
     }
@@ -254,33 +264,32 @@ public class ModeloJuego
     /*
      * FIN DEL FLUJO PARA AGREGAR NUEVO JUGADOR
      */
-    
+
     /*
-     *INICIO DE LOS METODOS DEL CASO DE USO REGISTRAR JUGADOR 
+     * INICIO DE LOS METODOS DEL CASO DE USO REGISTRAR JUGADOR
      */
-    
+
     @Override
     public void guardarInformacionJugador(String idJugador, String nombreJugador, ImagenJugador imagenJugador,
-            ColorJugador colorJugador) throws DatosJugadorInvalidosException{
+            ColorJugador colorJugador) throws DatosJugadorInvalidosException {
         ValidacionesJugador.validarCreacionJugador(nombreJugador, imagenJugador, colorJugador);
         jugadorLocal = new Jugador(idJugador, nombreJugador, imagenJugador, colorJugador);
         listaJugadores.agregarJugador(jugadorLocal);
         manejoPuntajes.agregarNuevoPuntaje(
-                new Puntaje(idJugador)
-        );
+                new Puntaje(idJugador));
     }
-    
+
     @Override
-    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador) 
+    public void editarInformacionJugador(String nombreJugador, ImagenJugador imagenJugador, ColorJugador colorJugador)
             throws DatosJugadorInvalidosException {
         ValidacionesJugador.validarCambiosJugador(jugadorLocal, nombreJugador, imagenJugador, colorJugador);
         transmitirCambioDatosJugador(nombreJugador, imagenJugador, colorJugador);
         jugadorLocal.cambiarNombre(nombreJugador);
         jugadorLocal.cambiarImagen(imagenJugador);
         jugadorLocal.cambiarColor(colorJugador);
-        
+
     }
-    
+
     private void transmitirCambioDatosJugador(String nombreNuevo, ImagenJugador imagenNueva, ColorJugador colorNuevo) {
         CambioJugadorEvent cjEvent = new CambioJugadorEvent(jugadorLocal, nombreNuevo, imagenNueva, colorNuevo);
         try {
@@ -294,13 +303,13 @@ public class ModeloJuego
 
     @Override
     public void solicitarInfoPartida() {
-       try{
-        manejoPaquetes.solicitarInfoPartida();
-       }catch (PaqueteVacioAlSerializarException ex){
-           Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (ErrorAlEnviarPaqueteException ex){
-           Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        try {
+            manejoPaquetes.solicitarInfoPartida();
+        } catch (PaqueteVacioAlSerializarException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ErrorAlEnviarPaqueteException ex) {
+            Logger.getLogger(ModeloJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -309,8 +318,7 @@ public class ModeloJuego
         PartidaDTO partidaDTO = new PartidaDTO(
                 estadoJuego.getNombrePartida(),
                 estadoJuego.getTamañoTablero().getSize(),
-                estadoJuego.getNumJugadores()
-        );
+                estadoJuego.getNumJugadores());
 
         try {
             manejoPaquetes.enviarInfoPartida(partidaDTO, direccion);
@@ -321,7 +329,7 @@ public class ModeloJuego
         }
     }
 
-    @Override 
+    @Override
     public void recibirInfoPartida(PartidaDTO partida) {
         estadoJuego.setNombrePartida(partida.getNombrePartida());
         estadoJuego.setTamañoTablero(TamañoTablero.getSizeByInt(partida.getSize()));
@@ -338,6 +346,7 @@ public class ModeloJuego
     public int getCantidadJugadores() {
         return estadoJuego.getNumJugadores();
     }
+
     @Override
     public String getBoardSize() {
         return estadoJuego.getTamañoTablero().toString();

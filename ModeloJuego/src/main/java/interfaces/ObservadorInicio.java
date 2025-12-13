@@ -9,5 +9,5 @@ package interfaces;
  * @author Ramon Valencia
  */
 public interface ObservadorInicio {
-    
+    public void obtenerPartida();
 }

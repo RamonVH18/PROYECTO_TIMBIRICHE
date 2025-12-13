@@ -10,4 +10,5 @@ package mvcJuegoInicio.interfaces;
  */
 public interface IModeloModificableJInicio {
     public void seleccionarPartida();
+    public void mostrarPantallaUnirsePartida();
 }

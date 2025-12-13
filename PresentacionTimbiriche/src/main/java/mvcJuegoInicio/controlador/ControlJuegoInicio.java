@@ -28,4 +28,8 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
         modelo.seleccionarPartida();
     }
 
+    public void mostrarPantallaUnirsePartida(){
+        modelo.mostrarPantallaUnirsePartida();
+    }
+
 }

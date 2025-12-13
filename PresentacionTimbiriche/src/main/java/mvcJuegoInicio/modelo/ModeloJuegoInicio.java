@@ -4,9 +4,13 @@
  */
 package mvcJuegoInicio.modelo;
 
+import static enums.ObserverType.PANTALLA_UNIRSE_PARTIDA;
+import static enums.ObserverType.PARTIDA_CARGADA;
+
 import enums.ObserverType;
 import gestion.ManejadorObservers;
 import interfaces.IModeloJuegoInicio;
+import interfaces.ObservadorInicio;
 import mvcJuegoIniciado.interfaces.IVista;
 import mvcJuegoInicio.interfaces.IModeloLeibleJInicio;
 import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
@@ -15,7 +19,7 @@ import mvcJuegoInicio.interfaces.IModeloModificableJInicio;
  *
  * @author Ramon Valencia
  */
-public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificableJInicio {
+public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificableJInicio, ObservadorInicio {
 
     private IModeloJuegoInicio modelo;
 
@@ -132,5 +136,22 @@ public class ModeloJuegoInicio implements IModeloLeibleJInicio, IModeloModificab
     @Override
     public boolean isPartidaCargada() {
         return partidaCargada;
+    }
+
+    @Override
+    public void obtenerPartida() {
+        String bs = modelo.getBoardSize();
+        if (bs != null && !bs.isBlank()) {
+            String nombre = modelo.getNombrePartida();
+            int maxJugadores = modelo.getCantidadJugadores();
+            this.partidaCargada = true;
+            notificar(PARTIDA_CARGADA);
+        }
+
+    }
+
+    @Override
+    public void mostrarPantallaUnirsePartida() {
+        mostrarPantallas(PANTALLA_UNIRSE_PARTIDA);
     }
 }
