@@ -307,6 +307,10 @@ public class ModeloJuego
         estadoJuego.setNumJugadores(numJugadores);
         estadoJuego.setTamañoTablero(tamaño);
         
+        // Crear matriz
+        crearMatriz(tamaño);
+        matrizVacia = false;
+        
         // Mandarlo al servidor
         try {
             DireccionDTO direccionServer = new DireccionDTO(Configuracion.get("server.host"), Configuracion.getInt("server.port"));
@@ -317,8 +321,19 @@ public class ModeloJuego
         }
     }
     
+    @Override
     public TamañoTablero obtenerTamañoTablero() {
         return estadoJuego.getTamañoTablero();
+    }
+
+    @Override
+    public String obtenerNombrePartida() {
+        return estadoJuego.getNombrePartida();
+    }
+
+    @Override
+    public int obtenerNumJugadores() {
+        return estadoJuego.getNumJugadores();
     }
 
 }

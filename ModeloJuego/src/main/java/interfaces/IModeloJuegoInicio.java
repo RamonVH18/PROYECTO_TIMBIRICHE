@@ -34,4 +34,10 @@ public interface IModeloJuegoInicio {
     
     public List<Cuadro> obtenerCuadros();
     
+    public String obtenerNombrePartida();
+    
+    public int obtenerNumJugadores();
+    
+    public TamañoTablero obtenerTamañoTablero();
+    
 }

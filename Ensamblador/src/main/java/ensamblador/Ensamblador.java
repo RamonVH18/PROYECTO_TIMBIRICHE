@@ -82,6 +82,7 @@ public class Ensamblador {
         // Suscribir observer
         modeloInicio.añadirObserver(pantallaCrear, ObserverType.CREAR_PARTIDA);
         
+        // Mostrar pantalla
         pantallaCrear.setVisible(true);
 
     }

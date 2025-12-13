@@ -45,6 +45,8 @@ public class ControlJuegoInicio implements IControlJuegoInicio {
                 + "Nombre: " + nombrePartida + "\n"
                 + "Número de jugadores: " + numJugadores + "\n"
                 + "Tamaño de tablero: " + tamaño + "\n");
+        
+        modelo.mostrarPantalla(ObserverType.PANTALLA_MOCK);
                 
     }
 
